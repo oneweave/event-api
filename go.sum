@@ -1,0 +1,10 @@
+github.com/sixafter/aes-ctr-drbg v1.19.1 h1:R0PVPYeCVe+d3I6ZcSs7m922MkIhu5xC5DCoAUdy2pk=
+github.com/sixafter/aes-ctr-drbg v1.19.1/go.mod h1:iOBiPPkiy5Z5cEWm2yCoqEtnkfafxNTokJLL0zOPZeQ=
+github.com/sixafter/nanoid v1.64.3 h1:qmQRsAs2jACOfYRpx762pM1SpSE5ba5khH0+XCpC32s=
+github.com/sixafter/nanoid v1.64.3/go.mod h1:4JzA6q5JVJqoCVksa05apkgKNKFhchF3V7vnKibu4qA=
+github.com/sixafter/prng-chacha v1.16.3 h1:e94YajRMB79Z2B7byXw1UuB7esbNS0HhzI0hxtduCJs=
+github.com/sixafter/prng-chacha v1.16.3/go.mod h1:sAb1LcKzz70VnK3BOEPDbk+kh61kfPJ4gt/JNIJjzoU=
+golang.org/x/crypto v0.52.0 h1:RMs7fP2rXdep0CftQlK8Uf+kibLm7qkCcradZWYz988=
+golang.org/x/crypto v0.52.0/go.mod h1:1QgfPxDqh0T2M/elOJtp9RvuR95kVjir0e6/BvEmGbc=
+golang.org/x/sys v0.45.0 h1:dO4czNzziLiiXplLQgBCEpCvXQ3dnkn0SdaZSYdQ+FY=
+golang.org/x/sys v0.45.0/go.mod h1:4GL1E5IUh+htKOUEOaiffhrAeqysfVGipDYzABqnCmw=

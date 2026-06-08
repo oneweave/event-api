@@ -1,0 +1,570 @@
+asyncapi: 3.1.0
+info:
+  title: OneWeave Generic Event API Components
+  version: 0.0.1
+  description:
+    Event contract for OneWeave artifact-builder release requests and build result
+    publication.
+
+components:
+  messages:
+    ArtifactReleaseRequestedV1:
+      name: ArtifactReleaseRequestedV1
+      title: artifact.release.requested.v1
+      summary: Release creation request is ready for artifact builder processing.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ArtifactReleaseRequestedCloudEvent"
+    ArtifactReleaseValidatedV1:
+      name: ArtifactReleaseValidatedV1
+      title: artifact.release.validated.v1
+      summary: Release has passed validation and remains build eligible.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ArtifactReleaseValidatedCloudEvent"
+    ArtifactBuildStartedV1:
+      name: ArtifactBuildStartedV1
+      title: artifact.build.started.v1
+      summary: Build submission began after source verification.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ArtifactBuildStartedCloudEvent"
+      examples:
+        - name: started
+          summary: Build chain acknowledged the verified build request.
+          payload:
+            id: a7e4cb77-8c41-4714-a1c7-2c8fef9a1cc9
+            source: urn:oneweave:core:artifact-builder
+            specversion: "1.0"
+            type: artifact.build.started.v1
+            subject: build/6d8f8f62-1ed4-4e2e-bc0b-8b9dcd64f7c1
+            time: 2026-05-01T12:01:00Z
+            datacontenttype: application/json
+            dataschema: urn:oneweave:core:artifact-builder:events:artifact.build.started.v1
+            correlationid: 4d7f5f65-5b67-47fd-a2d8-4eddf0b9f2ae
+            causationid: 6d8f8f62-1ed4-4e2e-bc0b-8b9dcd64f7c1
+            data:
+              buildId: 6d8f8f62-1ed4-4e2e-bc0b-8b9dcd64f7c1
+              serviceId: 0f6d9844-7cf4-4c6f-9b0d-6b08f9c50ef4
+              sourceRevisionRef: main
+              sourceRevision: 6d7d4f8c7c2f0db6d9fef7d33dd9c72a0d8a8f91
+              serviceVersion: 1.2.3
+    ArtifactBuildSucceededV1:
+      name: ArtifactBuildSucceededV1
+      title: artifact.build.succeeded.v1
+      summary: Build chain produced a usable artifact.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ArtifactBuildSucceededCloudEvent"
+      examples:
+        - name: succeeded
+          summary: Build completed successfully and produced a deployable artifact.
+          payload:
+            id: 5cb4fd7d-6130-4e5f-8c38-64f4ce7a8f18
+            source: urn:oneweave:core:artifact-builder
+            specversion: "1.0"
+            type: artifact.build.succeeded.v1
+            subject: build/6d8f8f62-1ed4-4e2e-bc0b-8b9dcd64f7c1
+            time: 2026-05-01T12:05:00Z
+            datacontenttype: application/json
+            dataschema: urn:oneweave:core:artifact-builder:events:artifact.build.succeeded.v1
+            correlationid: 4d7f5f65-5b67-47fd-a2d8-4eddf0b9f2ae
+            causationid: a7e4cb77-8c41-4714-a1c7-2c8fef9a1cc9
+            data:
+              buildId: 6d8f8f62-1ed4-4e2e-bc0b-8b9dcd64f7c1
+              serviceId: 0f6d9844-7cf4-4c6f-9b0d-6b08f9c50ef4
+              sourceRevisionRef: main
+              sourceRevision: 6d7d4f8c7c2f0db6d9fef7d33dd9c72a0d8a8f91
+              serviceVersion: 1.2.3
+              imagePullTargets:
+                - kind: oci-registry
+                  name: artifact-builder
+                  protocol: oci
+                  baseUrl: registry.example.internal
+                  namespace: core/artifact-builder
+                  tag: "1.2.3"
+                  credentialRef: null
+    ArtifactBuildFailedV1:
+      name: ArtifactBuildFailedV1
+      title: artifact.build.failed.v1
+      summary: Build request failed during verification or build execution.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ArtifactBuildFailedCloudEvent"
+      examples:
+        - name: failed
+          summary: Build failed and no deployable artifact was produced.
+          payload:
+            id: 8a5e0a3f-9f2a-4d3f-9a8c-bf2e4d7c5f03
+            source: urn:oneweave:core:artifact-builder
+            specversion: "1.0"
+            type: artifact.build.failed.v1
+            subject: build/6d8f8f62-1ed4-4e2e-bc0b-8b9dcd64f7c1
+            time: 2026-05-01T12:03:00Z
+            datacontenttype: application/json
+            dataschema: urn:oneweave:core:artifact-builder:events:artifact.build.failed.v1
+            correlationid: 4d7f5f65-5b67-47fd-a2d8-4eddf0b9f2ae
+            causationid: a7e4cb77-8c41-4714-a1c7-2c8fef9a1cc9
+            data:
+              buildId: 6d8f8f62-1ed4-4e2e-bc0b-8b9dcd64f7c1
+              serviceId: 0f6d9844-7cf4-4c6f-9b0d-6b08f9c50ef4
+              sourceRevisionRef: main
+              sourceRevision: 6d7d4f8c7c2f0db6d9fef7d33dd9c72a0d8a8f91
+              serviceVersion: 1.2.3
+              failureCode: BUILD_EXECUTION_FAILED
+              failureMessage: Build execution failed before producing an artifact.
+  schemas:
+    BuilderSource:
+      type: object
+      description: Reusable build input sufficient to fetch source, locate build
+        context, and construct a deployable artifact build request.
+      fields:
+        requestedArtifactVersion:
+          type: string
+        repository:
+          type: object
+          fields:
+            kind:
+              type: string
+              default: git
+              enum:
+                - git
+            protocol:
+              type: string
+              default: https
+              enum:
+                - https
+                - ssh
+                - git
+            url:
+              type: string
+            credentialRef:
+              type: string
+              nullable: true
+        sourceRevisionRef:
+          type: string
+          pattern: "^[a-zA-Z0-9]+$"
+        sourceRevision:
+          type: string
+        manifestFilePath:
+          type: string
+          nullable: true
+        subPath:
+          type: string
+          default: "."
+        dockerContextPath:
+          type: string
+          default: "."
+        dockerfilePath:
+          type: string
+          default: "Dockerfile"
+        platform:
+          type: string
+          default: linux/amd64
+          enum:
+            - linux/amd64
+        buildArgs:
+          type: array
+          default: []
+          items:
+            type: object
+            fields:
+              name:
+                type: string
+                pattern: "^[a-zA-Z0-9]+$"
+              value:
+                type: string
+                nullable: true
+        imagePushTarget:
+          $ref: "#/components/schemas/ImagePushTarget"
+    ImagePushTarget:
+      type: object
+      fields:
+        kind:
+          type: string
+          default: oci-registry
+          enum:
+            - oci-registry
+        name:
+          type: string
+        protocol:
+          type: string
+          default: oci
+          enum:
+            - oci
+            - https
+        baseUrl:
+          type: string
+        namespace:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+            pattern: "^[a-zA-Z0-9]+$"
+        credentialRef:
+          type: string
+          nullable: true
+    ImagePullTarget:
+      type: object
+      fields:
+        kind:
+          type: string
+          default: oci-registry
+          enum:
+            - oci-registry
+        name:
+          type: string
+        protocol:
+          type: string
+          default: oci
+          enum:
+            - oci
+            - https
+        baseUrl:
+          type: string
+        namespace:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+            pattern: "^[a-zA-Z0-9]+$"
+        credentialRef:
+          type: string
+          nullable: true
+    ArtifactBuildRequestData:
+      type: object
+      required:
+        - releaseId
+        - artifactId
+        - buildInput
+      properties:
+        releaseId:
+          type: string
+          format: uuid
+        artifactId:
+          type: string
+          format: uuid
+        buildInput:
+          $ref: "#/components/schemas/BuilderSource"
+    ArtifactReleaseArtifactIdData:
+      type: object
+      required:
+        - artifactId
+      properties:
+        artifactId:
+          type: string
+          format: uuid
+    ArtifactBuildStartedData:
+      type: object
+      required:
+        - buildId
+        - serviceId
+        - sourceRevisionRef
+        - sourceRevision
+        - serviceVersion
+      properties:
+        buildId:
+          type: string
+          format: uuid
+        serviceId:
+          type: string
+          format: uuid
+        sourceRevisionRef:
+          type: string
+          pattern: "^[a-zA-Z0-9]+$"
+        sourceRevision:
+          type: string
+        serviceVersion:
+          type: string
+    ArtifactBuildSucceededData:
+      type: object
+      required:
+        - buildId
+        - serviceId
+        - sourceRevisionRef
+        - sourceRevision
+        - serviceVersion
+        - imagePullTargets
+      properties:
+        buildId:
+          type: string
+          format: uuid
+        serviceId:
+          type: string
+          format: uuid
+        sourceRevisionRef:
+          type: string
+          pattern: "^[a-zA-Z0-9]+$"
+        sourceRevision:
+          type: string
+        serviceVersion:
+          type: string
+        imagePullTargets:
+          type: array
+          items:
+            $ref: "#/components/schemas/ImagePullTarget"
+    ArtifactBuildFailedData:
+      type: object
+      required:
+        - buildId
+        - serviceId
+        - sourceRevisionRef
+        - sourceRevision
+        - serviceVersion
+      properties:
+        buildId:
+          type: string
+          format: uuid
+        serviceId:
+          type: string
+          format: uuid
+        sourceRevisionRef:
+          type: string
+          pattern: "^[a-zA-Z0-9]+$"
+        sourceRevision:
+          type: string
+        serviceVersion:
+          type: string
+        failureCode:
+          type: string
+          nullable: true
+        failureMessage:
+          type: string
+          nullable: true
+    ArtifactReleaseRequestedCloudEvent:
+      type: object
+      required:
+        - id
+        - source
+        - specversion
+        - type
+        - subject
+        - time
+        - datacontenttype
+        - dataschema
+        - correlationid
+        - causationid
+        - data
+      properties:
+        id:
+          type: string
+          format: uuid
+        source:
+          type: string
+        specversion:
+          type: string
+          enum:
+            - "1.0"
+        type:
+          type: string
+          enum:
+            - artifact.release.requested.v1
+        subject:
+          type: string
+        time:
+          type: string
+          format: date-time
+        datacontenttype:
+          type: string
+          enum:
+            - application/json
+        dataschema:
+          type: string
+        correlationid:
+          type: string
+          format: uuid
+        causationid:
+          type: string
+          format: uuid
+        data:
+          $ref: "#/components/schemas/ArtifactBuildRequestData"
+    ArtifactReleaseValidatedCloudEvent:
+      type: object
+      required:
+        - id
+        - source
+        - specversion
+        - type
+        - subject
+        - time
+        - datacontenttype
+        - dataschema
+        - correlationid
+        - causationid
+        - data
+      properties:
+        id:
+          type: string
+          format: uuid
+        source:
+          type: string
+        specversion:
+          type: string
+          enum:
+            - "1.0"
+        type:
+          type: string
+          enum:
+            - artifact.release.validated.v1
+        subject:
+          type: string
+        time:
+          type: string
+          format: date-time
+        datacontenttype:
+          type: string
+          enum:
+            - application/json
+        dataschema:
+          type: string
+        correlationid:
+          type: string
+          format: uuid
+        causationid:
+          type: string
+          format: uuid
+        data:
+          $ref: "#/components/schemas/ArtifactReleaseArtifactIdData"
+    ArtifactBuildStartedCloudEvent:
+      type: object
+      required:
+        - id
+        - source
+        - specversion
+        - type
+        - subject
+        - time
+        - datacontenttype
+        - dataschema
+        - correlationid
+        - causationid
+        - data
+      properties:
+        id:
+          type: string
+          format: uuid
+        source:
+          type: string
+        specversion:
+          type: string
+          enum:
+            - "1.0"
+        type:
+          type: string
+          enum:
+            - artifact.build.started.v1
+        subject:
+          type: string
+        time:
+          type: string
+          format: date-time
+        datacontenttype:
+          type: string
+          enum:
+            - application/json
+        dataschema:
+          type: string
+        correlationid:
+          type: string
+          format: uuid
+        causationid:
+          type: string
+          format: uuid
+        data:
+          $ref: "#/components/schemas/ArtifactBuildStartedData"
+    ArtifactBuildSucceededCloudEvent:
+      type: object
+      required:
+        - id
+        - source
+        - specversion
+        - type
+        - subject
+        - time
+        - datacontenttype
+        - dataschema
+        - correlationid
+        - causationid
+        - data
+      properties:
+        id:
+          type: string
+          format: uuid
+        source:
+          type: string
+        specversion:
+          type: string
+          enum:
+            - "1.0"
+        type:
+          type: string
+          enum:
+            - artifact.build.succeeded.v1
+        subject:
+          type: string
+        time:
+          type: string
+          format: date-time
+        datacontenttype:
+          type: string
+          enum:
+            - application/json
+        dataschema:
+          type: string
+        correlationid:
+          type: string
+          format: uuid
+        causationid:
+          type: string
+          format: uuid
+        data:
+          $ref: "#/components/schemas/ArtifactBuildSucceededData"
+    ArtifactBuildFailedCloudEvent:
+      type: object
+      required:
+        - id
+        - source
+        - specversion
+        - type
+        - subject
+        - time
+        - datacontenttype
+        - dataschema
+        - correlationid
+        - causationid
+        - data
+      properties:
+        id:
+          type: string
+          format: uuid
+        source:
+          type: string
+        specversion:
+          type: string
+          enum:
+            - "1.0"
+        type:
+          type: string
+          enum:
+            - artifact.build.failed.v1
+        subject:
+          type: string
+        time:
+          type: string
+          format: date-time
+        datacontenttype:
+          type: string
+          enum:
+            - application/json
+        dataschema:
+          type: string
+        correlationid:
+          type: string
+          format: uuid
+        causationid:
+          type: string
+          format: uuid
+        data:
+          $ref: "#/components/schemas/ArtifactBuildFailedData"

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/oneweave/event-api/compare/v1.3.0...v1.4.0) (2026-06-08)
+
+
+### Features
+
+* add helper for pull target from push target creation ([495de05](https://github.com/oneweave/event-api/commit/495de05d291570c4dbe3a08236399a0498934aae))
+
 ## [1.3.0](https://github.com/oneweave/event-api/compare/v1.2.0...v1.3.0) (2026-06-08)
 
 

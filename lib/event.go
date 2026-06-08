@@ -7,6 +7,11 @@ import (
 	"github.com/sixafter/nanoid"
 )
 
+const (
+	CorrelationIdExtensionKey = "correlationid"
+	CausationIdExtensionKey   = "causationid"
+)
+
 type Envelope struct {
 	SpecVersion     string `json:"specversion" bson:"spec_version" validate:"required,eq=1.0"`
 	ID              string `json:"id" bson:"id" validate:"required,uuid"`

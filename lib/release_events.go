@@ -13,7 +13,7 @@ type ArtifactReleaseRequestedCloudEvent struct {
 
 func NewArtifactReleaseRequestedCloudEvent() ArtifactReleaseRequestedCloudEvent {
 	return ArtifactReleaseRequestedCloudEvent{
-		Envelope: NewBaseEvent(),
+		Envelope: NewEnvelope(),
 		Type:     ReleaseRequestedV1Type,
 		Data:     NewArtifactBuildRequestData(),
 	}
@@ -27,7 +27,7 @@ type ArtifactReleaseValidatedCloudEvent struct {
 
 func NewArtifactReleaseValidatedCloudEvent() ArtifactReleaseValidatedCloudEvent {
 	return ArtifactReleaseValidatedCloudEvent{
-		Envelope: NewBaseEvent(),
+		Envelope: NewEnvelope(),
 		Type:     ReleaseValidatedV1Type,
 		Data:     NewArtifactReleaseArtifactIDData(),
 	}

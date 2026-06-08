@@ -16,7 +16,7 @@ type ArtifactBuildStartedCloudEvent struct {
 
 func NewArtifactBuildStartedCloudEvent() ArtifactBuildStartedCloudEvent {
 	return ArtifactBuildStartedCloudEvent{
-		Envelope: NewBaseEvent(),
+		Envelope: NewEnvelope(),
 		Type:     ArtifactBuildStartedV1Type,
 		Data:     NewArtifactBuildStartedData(),
 	}
@@ -31,7 +31,7 @@ type ArtifactBuildSucceededCloudEvent struct {
 
 func NewArtifactBuildSucceededCloudEvent() ArtifactBuildSucceededCloudEvent {
 	return ArtifactBuildSucceededCloudEvent{
-		Envelope: NewBaseEvent(),
+		Envelope: NewEnvelope(),
 		Type:     ArtifactBuildSucceededV1Type,
 		Data:     NewArtifactBuildSucceededData(),
 	}
@@ -46,7 +46,7 @@ type ArtifactBuildFailedCloudEvent struct {
 
 func NewArtifactBuildFailedCloudEvent() ArtifactBuildFailedCloudEvent {
 	return ArtifactBuildFailedCloudEvent{
-		Envelope: NewBaseEvent(),
+		Envelope: NewEnvelope(),
 		Type:     ArtifactBuildFailedV1Type,
 		Data:     NewArtifactBuildFailedData(),
 	}

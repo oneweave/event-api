@@ -18,7 +18,7 @@ type Envelope struct {
 	CausationID     string `json:"causationid" bson:"causation_id" validate:"required,uuid"`
 }
 
-func NewBaseEvent() Envelope {
+func NewEnvelope() Envelope {
 	now := time.Now().UTC().Format(time.RFC3339)
 	nanoid, _ := nanoid.New()
 	return Envelope{

@@ -3,6 +3,7 @@ package lib
 import (
 	"time"
 
+	"github.com/cloudevents/sdk-go/pkg/cloudevents"
 	"github.com/sixafter/nanoid"
 )
 
@@ -14,8 +15,10 @@ type Envelope struct {
 	Time            string `json:"time" bson:"time" validate:"required,datetime=2006-01-02T15:04:05Z07:00"`
 	DataContentType string `json:"datacontenttype" bson:"data_content_type" validate:"required,eq=application/json"`
 	Dataschema      string `json:"dataschema" bson:"data_schema" validate:"required"`
-	CorrelationID   string `json:"correlationid" bson:"correlation_id" validate:"required,uuid"`
-	CausationID     string `json:"causationid" bson:"causation_id" validate:"required,uuid"`
+	// correlation for cross-service tracing, reuse correlationid from cloudevents extensions
+	CorrelationID string `json:"correlationid" bson:"correlation_id" validate:"required,uuid"`
+	// causation for event sourcing and debugging, use event ID as causation ID for traceability
+	CausationID string `json:"causationid" bson:"causation_id" validate:"required,uuid"`
 }
 
 func NewEnvelope() Envelope {
@@ -27,4 +30,16 @@ func NewEnvelope() Envelope {
 		DataContentType: "application/json",
 		Time:            now,
 	}
+}
+
+func NewEnvelopFromCloudEvent(event cloudevents.Event) Envelope {
+	extensions := event.Extensions()
+	correlationID := extensions["correlationid"]
+	causationID := event.ID()
+
+	envelope := NewEnvelope()
+	envelope.CorrelationID = correlationID.(string)
+	envelope.CausationID = causationID
+	// we expect type to be set by the sender
+	return envelope
 }

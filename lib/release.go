@@ -25,8 +25,7 @@ func NewBuilderSourceBuildArg() BuilderSourceBuildArg {
 	return BuilderSourceBuildArg{}
 }
 
-// BuilderSourceImagePushTarget matches the push target section in BuilderSource.
-type BuilderSourceImagePushTarget struct {
+type ImageTarget struct {
 	Name          string   `json:"name" bson:"name" validate:"required"`
 	Kind          *string  `json:"kind,omitempty" bson:"kind,omitempty" validate:"required,oneof=oci-registry"`
 	Protocol      *string  `json:"protocol,omitempty" bson:"protocol,omitempty" validate:"required,oneof=oci https"`
@@ -34,29 +33,50 @@ type BuilderSourceImagePushTarget struct {
 	Namespace     string   `json:"namespace" bson:"namespace" validate:"required"`
 	Tags          []string `json:"tags,omitempty" bson:"tags,omitempty" validate:"omitempty,dive,required,alphanum"`
 	CredentialRef *string  `json:"credentialRef,omitempty" bson:"credential_ref,omitempty"`
+}
+
+// BuilderSourceImagePushTarget matches the push target section in BuilderSource.
+type BuilderSourceImagePushTarget struct {
+	ImageTarget
 }
 
 // BuilderSourceImagePullTarget matches the pull target section in BuilderSource.
 type BuilderSourceImagePullTarget struct {
-	Name          string   `json:"name" bson:"name" validate:"required"`
-	Kind          *string  `json:"kind,omitempty" bson:"kind,omitempty" validate:"required,oneof=oci-registry"`
-	Protocol      *string  `json:"protocol,omitempty" bson:"protocol,omitempty" validate:"required,oneof=oci https"`
-	BaseURL       string   `json:"baseUrl" bson:"base_url" validate:"required"`
-	Namespace     string   `json:"namespace" bson:"namespace" validate:"required"`
-	Tags          []string `json:"tags,omitempty" bson:"tags,omitempty" validate:"omitempty,dive,required,alphanum"`
-	CredentialRef *string  `json:"credentialRef,omitempty" bson:"credential_ref,omitempty"`
+	ImageTarget
+}
+
+func NewImageTarget() ImageTarget {
+	kind := "oci-registry"
+	protocol := "oci"
+	imageTarget := ImageTarget{
+		Kind:     &kind,
+		Protocol: &protocol,
+	}
+	return imageTarget
 }
 
 func NewBuilderSourceImagePushTarget() BuilderSourceImagePushTarget {
-	kind := "oci-registry"
-	protocol := "oci"
-	return BuilderSourceImagePushTarget{Kind: &kind, Protocol: &protocol}
+	imageTarget := NewImageTarget()
+	return BuilderSourceImagePushTarget{ImageTarget: imageTarget}
 }
 
 func NewBuilderSourceImagePullTarget() BuilderSourceImagePullTarget {
-	kind := "oci-registry"
-	protocol := "oci"
-	return BuilderSourceImagePullTarget{Kind: &kind, Protocol: &protocol}
+	imageTarget := NewImageTarget()
+	return BuilderSourceImagePullTarget{ImageTarget: imageTarget}
+}
+
+func NewBuilderSourceImagePullTargetFromPushTarget(pushTarget BuilderSourceImagePushTarget) BuilderSourceImagePullTarget {
+	return BuilderSourceImagePullTarget{
+		ImageTarget: ImageTarget{
+			Name:          pushTarget.Name,
+			Kind:          pushTarget.Kind,
+			Protocol:      pushTarget.Protocol,
+			BaseURL:       pushTarget.BaseURL,
+			Namespace:     pushTarget.Namespace,
+			Tags:          pushTarget.Tags,
+			CredentialRef: pushTarget.CredentialRef,
+		},
+	}
 }
 
 // BuilderSource matches the buildInput payload shape from artifact.release.requested.v1.

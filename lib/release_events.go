@@ -6,29 +6,29 @@ const (
 )
 
 type ArtifactReleaseRequestedCloudEvent struct {
-	BaseEvent
+	Envelope
 	Type string                   `json:"type" bson:"type" validate:"required,eq=artifact.release.requested.v1"`
 	Data ArtifactBuildRequestData `json:"data" bson:"data" validate:"required,dive"`
 }
 
 func NewArtifactReleaseRequestedCloudEvent() ArtifactReleaseRequestedCloudEvent {
 	return ArtifactReleaseRequestedCloudEvent{
-		BaseEvent: NewBaseEvent(),
-		Type:      ReleaseRequestedV1Type,
-		Data:      NewArtifactBuildRequestData(),
+		Envelope: NewBaseEvent(),
+		Type:     ReleaseRequestedV1Type,
+		Data:     NewArtifactBuildRequestData(),
 	}
 }
 
 type ArtifactReleaseValidatedCloudEvent struct {
-	BaseEvent
+	Envelope
 	Type string                        `json:"type" bson:"type" validate:"required,eq=artifact.release.validated.v1"`
 	Data ArtifactReleaseArtifactIDData `json:"data" bson:"data" validate:"required,dive"`
 }
 
 func NewArtifactReleaseValidatedCloudEvent() ArtifactReleaseValidatedCloudEvent {
 	return ArtifactReleaseValidatedCloudEvent{
-		BaseEvent: NewBaseEvent(),
-		Type:      ReleaseValidatedV1Type,
-		Data:      NewArtifactReleaseArtifactIDData(),
+		Envelope: NewBaseEvent(),
+		Type:     ReleaseValidatedV1Type,
+		Data:     NewArtifactReleaseArtifactIDData(),
 	}
 }

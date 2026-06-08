@@ -1,6 +1,12 @@
 package lib
 
-type BaseEvent struct {
+import (
+	"time"
+
+	"github.com/sixafter/nanoid"
+)
+
+type Envelope struct {
 	SpecVersion     string `json:"specversion" bson:"spec_version" validate:"required,eq=1.0"`
 	ID              string `json:"id" bson:"id" validate:"required,uuid"`
 	Source          string `json:"source" bson:"source" validate:"required"`
@@ -12,9 +18,13 @@ type BaseEvent struct {
 	CausationID     string `json:"causationid" bson:"causation_id" validate:"required,uuid"`
 }
 
-func NewBaseEvent() BaseEvent {
-	return BaseEvent{
+func NewBaseEvent() Envelope {
+	now := time.Now().UTC().Format(time.RFC3339)
+	nanoid, _ := nanoid.New()
+	return Envelope{
+		ID:              nanoid.String(),
 		SpecVersion:     "1.0",
 		DataContentType: "application/json",
+		Time:            now,
 	}
 }

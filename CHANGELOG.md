@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/oneweave/event-api/compare/v1.1.0...v1.2.0) (2026-06-08)
+
+
+### Features
+
+* add function to create envelope from cloud event ([58007ca](https://github.com/oneweave/event-api/commit/58007ca9bf200eb9697f07618d23284c823914e1))
+
 ## [1.1.0](https://github.com/oneweave/event-api/compare/v1.0.0...v1.1.0) (2026-06-08)
 
 

@@ -6,7 +6,7 @@ updates:
     assignees:
       - stfsy
     directories:
-      - "services/*"
+      - "lib/*"
     schedule:
       interval: monthly
 

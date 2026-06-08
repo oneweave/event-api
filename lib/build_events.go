@@ -10,8 +10,8 @@ const (
 // ArtifactBuildStartedCloudEvent matches the ArtifactBuildStartedCloudEvent schema.
 type ArtifactBuildStartedCloudEvent struct {
 	BaseEvent
-	Type string                   `json:"type" validate:"required,eq=artifact.build.started.v1"`
-	Data ArtifactBuildStartedData `json:"data" validate:"required,dive"`
+	Type string                   `json:"type" bson:"type" validate:"required,eq=artifact.build.started.v1"`
+	Data ArtifactBuildStartedData `json:"data" bson:"data" validate:"required,dive"`
 }
 
 func NewArtifactBuildStartedCloudEvent() ArtifactBuildStartedCloudEvent {
@@ -25,8 +25,8 @@ func NewArtifactBuildStartedCloudEvent() ArtifactBuildStartedCloudEvent {
 // ArtifactBuildSucceededCloudEvent matches the ArtifactBuildSucceededCloudEvent schema.
 type ArtifactBuildSucceededCloudEvent struct {
 	BaseEvent
-	Type string                     `json:"type" validate:"required,eq=artifact.build.succeeded.v1"`
-	Data ArtifactBuildSucceededData `json:"data" validate:"required,dive"`
+	Type string                     `json:"type" bson:"type" validate:"required,eq=artifact.build.succeeded.v1"`
+	Data ArtifactBuildSucceededData `json:"data" bson:"data" validate:"required,dive"`
 }
 
 func NewArtifactBuildSucceededCloudEvent() ArtifactBuildSucceededCloudEvent {
@@ -40,8 +40,8 @@ func NewArtifactBuildSucceededCloudEvent() ArtifactBuildSucceededCloudEvent {
 // ArtifactBuildFailedCloudEvent matches the ArtifactBuildFailedCloudEvent schema.
 type ArtifactBuildFailedCloudEvent struct {
 	BaseEvent
-	Type string                  `json:"type" validate:"required,eq=artifact.build.failed.v1"`
-	Data ArtifactBuildFailedData `json:"data" validate:"required,dive"`
+	Type string                  `json:"type" bson:"type" validate:"required,eq=artifact.build.failed.v1"`
+	Data ArtifactBuildFailedData `json:"data" bson:"data" validate:"required,dive"`
 }
 
 func NewArtifactBuildFailedCloudEvent() ArtifactBuildFailedCloudEvent {

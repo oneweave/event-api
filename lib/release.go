@@ -2,10 +2,10 @@ package lib
 
 // BuilderSourceRepository matches the repository shape in BuilderSource.
 type BuilderSourceRepository struct {
-	Kind          string  `json:"kind" validate:"required,oneof=git"`
-	Protocol      string  `json:"protocol" validate:"required,oneof=https ssh git"`
-	URL           string  `json:"url" validate:"required"`
-	CredentialRef *string `json:"credentialRef,omitempty"`
+	Kind          string  `json:"kind" bson:"kind" validate:"required,oneof=git"`
+	Protocol      string  `json:"protocol" bson:"protocol" validate:"required,oneof=https ssh git"`
+	URL           string  `json:"url" bson:"url" validate:"required"`
+	CredentialRef *string `json:"credentialRef,omitempty" bson:"credential_ref,omitempty"`
 }
 
 func NewBuilderSourceRepository() BuilderSourceRepository {
@@ -17,8 +17,8 @@ func NewBuilderSourceRepository() BuilderSourceRepository {
 
 // BuilderSourceBuildArg matches one build argument item in BuilderSource.
 type BuilderSourceBuildArg struct {
-	Name  string  `json:"name" validate:"required,alphanum"`
-	Value *string `json:"value,omitempty"`
+	Name  string  `json:"name" bson:"name" validate:"required,alphanum"`
+	Value *string `json:"value,omitempty" bson:"value,omitempty"`
 }
 
 func NewBuilderSourceBuildArg() BuilderSourceBuildArg {
@@ -27,24 +27,24 @@ func NewBuilderSourceBuildArg() BuilderSourceBuildArg {
 
 // BuilderSourceImagePushTarget matches the push target section in BuilderSource.
 type BuilderSourceImagePushTarget struct {
-	Name          string   `json:"name" validate:"required"`
-	Kind          *string  `json:"kind,omitempty" validate:"required,oneof=oci-registry"`
-	Protocol      *string  `json:"protocol,omitempty" validate:"required,oneof=oci https"`
-	BaseURL       string   `json:"baseUrl" validate:"required"`
-	Namespace     string   `json:"namespace" validate:"required"`
-	Tags          []string `json:"tags,omitempty" validate:"omitempty,dive,required,alphanum"`
-	CredentialRef *string  `json:"credentialRef,omitempty"`
+	Name          string   `json:"name" bson:"name" validate:"required"`
+	Kind          *string  `json:"kind,omitempty" bson:"kind,omitempty" validate:"required,oneof=oci-registry"`
+	Protocol      *string  `json:"protocol,omitempty" bson:"protocol,omitempty" validate:"required,oneof=oci https"`
+	BaseURL       string   `json:"baseUrl" bson:"base_url" validate:"required"`
+	Namespace     string   `json:"namespace" bson:"namespace" validate:"required"`
+	Tags          []string `json:"tags,omitempty" bson:"tags,omitempty" validate:"omitempty,dive,required,alphanum"`
+	CredentialRef *string  `json:"credentialRef,omitempty" bson:"credential_ref,omitempty"`
 }
 
 // BuilderSourceImagePullTarget matches the pull target section in BuilderSource.
 type BuilderSourceImagePullTarget struct {
-	Name          string   `json:"name" validate:"required"`
-	Kind          *string  `json:"kind,omitempty" validate:"required,oneof=oci-registry"`
-	Protocol      *string  `json:"protocol,omitempty" validate:"required,oneof=oci https"`
-	BaseURL       string   `json:"baseUrl" validate:"required"`
-	Namespace     string   `json:"namespace" validate:"required"`
-	Tags          []string `json:"tags,omitempty" validate:"omitempty,dive,required,alphanum"`
-	CredentialRef *string  `json:"credentialRef,omitempty"`
+	Name          string   `json:"name" bson:"name" validate:"required"`
+	Kind          *string  `json:"kind,omitempty" bson:"kind,omitempty" validate:"required,oneof=oci-registry"`
+	Protocol      *string  `json:"protocol,omitempty" bson:"protocol,omitempty" validate:"required,oneof=oci https"`
+	BaseURL       string   `json:"baseUrl" bson:"base_url" validate:"required"`
+	Namespace     string   `json:"namespace" bson:"namespace" validate:"required"`
+	Tags          []string `json:"tags,omitempty" bson:"tags,omitempty" validate:"omitempty,dive,required,alphanum"`
+	CredentialRef *string  `json:"credentialRef,omitempty" bson:"credential_ref,omitempty"`
 }
 
 func NewBuilderSourceImagePushTarget() BuilderSourceImagePushTarget {
@@ -61,17 +61,17 @@ func NewBuilderSourceImagePullTarget() BuilderSourceImagePullTarget {
 
 // BuilderSource matches the buildInput payload shape from artifact.release.requested.v1.
 type BuilderSource struct {
-	RequestedArtifactVersion string                       `json:"requestedArtifactVersion" validate:"required"`
-	Repository               BuilderSourceRepository      `json:"repository" validate:"required"`
-	SourceRevisionRef        string                       `json:"sourceRevisionRef" validate:"required"`
-	SourceRevision           string                       `json:"sourceRevision" validate:"required"`
-	ManifestFilePath         *string                      `json:"manifestFilePath,omitempty"`
-	SubPath                  *string                      `json:"subPath,omitempty" validate:"omitempty"`
-	DockerContextPath        *string                      `json:"dockerContextPath,omitempty" validate:"omitempty"`
-	DockerfilePath           *string                      `json:"dockerfilePath,omitempty" validate:"omitempty"`
-	Platform                 *string                      `json:"platform,omitempty" validate:"omitempty,oneof=linux/amd64"`
-	BuildArgs                []BuilderSourceBuildArg      `json:"buildArgs,omitempty" validate:"omitempty,dive"`
-	ImagePushTarget          BuilderSourceImagePushTarget `json:"imagePushTarget" validate:"required"`
+	RequestedArtifactVersion string                       `json:"requestedArtifactVersion" bson:"requested_artifact_version" validate:"required"`
+	Repository               BuilderSourceRepository      `json:"repository" bson:"repository" validate:"required"`
+	SourceRevisionRef        string                       `json:"sourceRevisionRef" bson:"source_revision_ref" validate:"required"`
+	SourceRevision           string                       `json:"sourceRevision" bson:"source_revision" validate:"required"`
+	ManifestFilePath         *string                      `json:"manifestFilePath,omitempty" bson:"manifest_file_path,omitempty"`
+	SubPath                  *string                      `json:"subPath,omitempty" bson:"sub_path,omitempty" validate:"omitempty"`
+	DockerContextPath        *string                      `json:"dockerContextPath,omitempty" bson:"docker_context_path,omitempty" validate:"omitempty"`
+	DockerfilePath           *string                      `json:"dockerfilePath,omitempty" bson:"dockerfile_path,omitempty" validate:"omitempty"`
+	Platform                 *string                      `json:"platform,omitempty" bson:"platform,omitempty" validate:"omitempty,oneof=linux/amd64"`
+	BuildArgs                []BuilderSourceBuildArg      `json:"buildArgs,omitempty" bson:"build_args,omitempty" validate:"omitempty,dive"`
+	ImagePushTarget          BuilderSourceImagePushTarget `json:"imagePushTarget" bson:"image_push_target" validate:"required"`
 }
 
 func NewBuilderSource() BuilderSource {
@@ -94,9 +94,9 @@ func NewBuilderSource() BuilderSource {
 
 // ArtifactBuildRequestData matches the ArtifactBuildRequestData schema.
 type ArtifactBuildRequestData struct {
-	ReleaseID  string        `json:"releaseId" validate:"required,uuid"`
-	ArtifactID string        `json:"artifactId" validate:"required,uuid"`
-	BuildInput BuilderSource `json:"buildInput" validate:"required"`
+	ReleaseID  string        `json:"releaseId" bson:"release_id" validate:"required,uuid"`
+	ArtifactID string        `json:"artifactId" bson:"artifact_id" validate:"required,uuid"`
+	BuildInput BuilderSource `json:"buildInput" bson:"build_input" validate:"required"`
 }
 
 func NewArtifactBuildRequestData() ArtifactBuildRequestData {
@@ -107,7 +107,7 @@ func NewArtifactBuildRequestData() ArtifactBuildRequestData {
 
 // ArtifactReleaseArtifactIDData matches the ArtifactReleaseArtifactIdData schema.
 type ArtifactReleaseArtifactIDData struct {
-	ArtifactID string `json:"artifactId" validate:"required,uuid"`
+	ArtifactID string `json:"artifactId" bson:"artifact_id" validate:"required,uuid"`
 }
 
 func NewArtifactReleaseArtifactIDData() ArtifactReleaseArtifactIDData {
@@ -116,11 +116,11 @@ func NewArtifactReleaseArtifactIDData() ArtifactReleaseArtifactIDData {
 
 // ArtifactBuildStartedData matches the ArtifactBuildStartedData schema.
 type ArtifactBuildStartedData struct {
-	BuildID           string `json:"buildId" validate:"required,uuid"`
-	ServiceID         string `json:"serviceId" validate:"required,uuid"`
-	SourceRevisionRef string `json:"sourceRevisionRef" validate:"required,alphanum"`
-	SourceRevision    string `json:"sourceRevision" validate:"required"`
-	ServiceVersion    string `json:"serviceVersion" validate:"required"`
+	BuildID           string `json:"buildId" bson:"build_id" validate:"required,uuid"`
+	ServiceID         string `json:"serviceId" bson:"service_id" validate:"required,uuid"`
+	SourceRevisionRef string `json:"sourceRevisionRef" bson:"source_revision_ref" validate:"required,alphanum"`
+	SourceRevision    string `json:"sourceRevision" bson:"source_revision" validate:"required"`
+	ServiceVersion    string `json:"serviceVersion" bson:"service_version" validate:"required"`
 }
 
 func NewArtifactBuildStartedData() ArtifactBuildStartedData {
@@ -129,12 +129,12 @@ func NewArtifactBuildStartedData() ArtifactBuildStartedData {
 
 // ArtifactBuildSucceededData matches the ArtifactBuildSucceededData schema.
 type ArtifactBuildSucceededData struct {
-	BuildID           string                         `json:"buildId" validate:"required,uuid"`
-	ServiceID         string                         `json:"serviceId" validate:"required,uuid"`
-	SourceRevisionRef string                         `json:"sourceRevisionRef" validate:"required,alphanum"`
-	SourceRevision    string                         `json:"sourceRevision" validate:"required"`
-	ServiceVersion    string                         `json:"serviceVersion" validate:"required"`
-	ImagePullTargets  []BuilderSourceImagePullTarget `json:"imagePullTargets" validate:"required,min=1,dive"`
+	BuildID           string                         `json:"buildId" bson:"build_id" validate:"required,uuid"`
+	ServiceID         string                         `json:"serviceId" bson:"service_id" validate:"required,uuid"`
+	SourceRevisionRef string                         `json:"sourceRevisionRef" bson:"source_revision_ref" validate:"required,alphanum"`
+	SourceRevision    string                         `json:"sourceRevision" bson:"source_revision" validate:"required"`
+	ServiceVersion    string                         `json:"serviceVersion" bson:"service_version" validate:"required"`
+	ImagePullTargets  []BuilderSourceImagePullTarget `json:"imagePullTargets" bson:"image_pull_targets" validate:"required,min=1,dive"`
 }
 
 func NewArtifactBuildSucceededData() ArtifactBuildSucceededData {
@@ -143,13 +143,13 @@ func NewArtifactBuildSucceededData() ArtifactBuildSucceededData {
 
 // ArtifactBuildFailedData matches the ArtifactBuildFailedData schema.
 type ArtifactBuildFailedData struct {
-	BuildID           string  `json:"buildId" validate:"required,uuid"`
-	ServiceID         string  `json:"serviceId" validate:"required,uuid"`
-	SourceRevisionRef string  `json:"sourceRevisionRef" validate:"required,alphanum"`
-	SourceRevision    string  `json:"sourceRevision" validate:"required"`
-	ServiceVersion    string  `json:"serviceVersion" validate:"required"`
-	FailureCode       *string `json:"failureCode,omitempty" validate:"omitempty"`
-	FailureMessage    *string `json:"failureMessage,omitempty" validate:"omitempty"`
+	BuildID           string  `json:"buildId" bson:"build_id" validate:"required,uuid"`
+	ServiceID         string  `json:"serviceId" bson:"service_id" validate:"required,uuid"`
+	SourceRevisionRef string  `json:"sourceRevisionRef" bson:"source_revision_ref" validate:"required,alphanum"`
+	SourceRevision    string  `json:"sourceRevision" bson:"source_revision" validate:"required"`
+	ServiceVersion    string  `json:"serviceVersion" bson:"service_version" validate:"required"`
+	FailureCode       *string `json:"failureCode,omitempty" bson:"failure_code,omitempty" validate:"omitempty"`
+	FailureMessage    *string `json:"failureMessage,omitempty" bson:"failure_message,omitempty" validate:"omitempty"`
 }
 
 func NewArtifactBuildFailedData() ArtifactBuildFailedData {

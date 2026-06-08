@@ -1,7 +1,7 @@
 name: Run Spectral on Pull Requests
 
 on:
-    push:
+    - pull_request
 
 permissions:
     checks: write

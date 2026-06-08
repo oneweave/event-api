@@ -3,7 +3,7 @@ package lib
 import (
 	"time"
 
-	"github.com/cloudevents/sdk-go/pkg/cloudevents"
+	cloudevents "github.com/cloudevents/sdk-go/v2"
 	"github.com/sixafter/nanoid"
 )
 
@@ -32,7 +32,7 @@ func NewEnvelope() Envelope {
 	}
 }
 
-func NewEnvelopFromCloudEvent(event cloudevents.Event) Envelope {
+func NewEnvelopeFromCloudEvent(event cloudevents.Event) Envelope {
 	extensions := event.Extensions()
 	correlationID := extensions["correlationid"]
 	causationID := event.ID()

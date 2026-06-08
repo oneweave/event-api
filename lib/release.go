@@ -65,18 +65,21 @@ func NewBuilderSourceImagePullTarget() BuilderSourceImagePullTarget {
 	return BuilderSourceImagePullTarget{ImageTarget: imageTarget}
 }
 
-func NewBuilderSourceImagePullTargetFromPushTarget(pushTarget BuilderSourceImagePushTarget) BuilderSourceImagePullTarget {
-	return BuilderSourceImagePullTarget{
-		ImageTarget: ImageTarget{
-			Name:          pushTarget.Name,
-			Kind:          pushTarget.Kind,
-			Protocol:      pushTarget.Protocol,
-			BaseURL:       pushTarget.BaseURL,
-			Namespace:     pushTarget.Namespace,
-			Tags:          pushTarget.Tags,
-			CredentialRef: pushTarget.CredentialRef,
-		},
+func NewBuilderSourceImagePullTargetFromPushTarget(pushTarget BuilderSourceImagePushTarget) []BuilderSourceImagePullTarget {
+	pullTargets := make([]BuilderSourceImagePullTarget, len(pushTarget.Tags))
+	for i := range pushTarget.Tags {
+		pullTargets[i] = BuilderSourceImagePullTarget{
+			ImageTarget: ImageTarget{
+				Name:      pushTarget.Name,
+				Kind:      pushTarget.Kind,
+				Protocol:  pushTarget.Protocol,
+				BaseURL:   pushTarget.BaseURL,
+				Namespace: pushTarget.Namespace,
+				Tags:      []string{pushTarget.Tags[i]},
+			},
+		}
 	}
+	return pullTargets
 }
 
 // BuilderSource matches the buildInput payload shape from artifact.release.requested.v1.

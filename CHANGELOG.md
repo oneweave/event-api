@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/oneweave/event-api/compare/v1.2.0...v1.3.0) (2026-06-08)
+
+
+### Features
+
+* ensure we use cloudevent v2 sdk apis ([f0842a8](https://github.com/oneweave/event-api/commit/f0842a8a2d316c5a49ad6e35eccd2ee16c1caf49))
+
 ## [1.2.0](https://github.com/oneweave/event-api/compare/v1.1.0...v1.2.0) (2026-06-08)
 
 

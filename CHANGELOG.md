@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/oneweave/event-api/compare/v1.4.0...v1.4.1) (2026-06-08)
+
+
+### Bug Fixes
+
+* ensure we return a pull target array ([50a3a58](https://github.com/oneweave/event-api/commit/50a3a58d061e963933af6244a4a5f7f5347c5555))
+
 ## [1.4.0](https://github.com/oneweave/event-api/compare/v1.3.0...v1.4.0) (2026-06-08)
 
 

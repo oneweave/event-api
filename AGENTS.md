@@ -24,6 +24,7 @@
 - Maintain `bson` tags in snake_case for all struct fields.
 - Maintain `validate` tags using `github.com/go-playground/validator/v10`.
 - Go validation tags must reflect the API document, including `required`, `pattern`, and `format` checks where specified.
+- All optional fields mapped from AsyncAPI to Go structs must use pointer fields.
 - Constructor functions must set default struct values according to `asyncapi.yaml` defaults.
 - Event structs should embed `BaseEvent` and still define their own `Type` field for exact equality validation.
 - Keep AsyncAPI schema and Go model validation aligned; `asyncapi.yaml` is always the leading source of truth.

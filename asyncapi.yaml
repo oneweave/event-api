@@ -114,13 +114,11 @@ components:
               failureCode: BUILD_EXECUTION_FAILED
               failureMessage: Build execution failed before producing an artifact.
   schemas:
-    BuilderSource:
+    ReleaseSource:
       type: object
       description: Reusable build input sufficient to fetch source, locate build
         context, and construct a deployable artifact build request.
       fields:
-        requestedArtifactVersion:
-          type: string
         repository:
           type: object
           fields:
@@ -158,11 +156,6 @@ components:
         dockerfilePath:
           type: string
           default: "Dockerfile"
-        platform:
-          type: string
-          default: linux/amd64
-          enum:
-            - linux/amd64
         buildArgs:
           type: array
           default: []
@@ -175,6 +168,21 @@ components:
               value:
                 type: string
                 nullable: true
+    ReleaseTarget:
+      type: object
+      description: Target details for release artifact publication.
+      required:
+        - requestedVersion
+        - platform
+        - imagePushTarget
+      fields:
+        requestedVersion:
+          type: string
+        platform:
+          type: string
+          default: linux/amd64
+          enum:
+            - linux/amd64
         imagePushTarget:
           $ref: "#/components/schemas/ImagePushTarget"
     ImagePushTarget:
@@ -238,7 +246,8 @@ components:
       required:
         - releaseId
         - artifactId
-        - buildInput
+        - releaseSource
+        - releaseTarget
       properties:
         releaseId:
           type: string
@@ -246,8 +255,10 @@ components:
         artifactId:
           type: string
           format: uuid
-        buildInput:
-          $ref: "#/components/schemas/BuilderSource"
+        releaseSource:
+          $ref: "#/components/schemas/ReleaseSource"
+        releaseTarget:
+          $ref: "#/components/schemas/ReleaseTarget"
     ArtifactReleaseArtifactIdData:
       type: object
       required:

@@ -15,7 +15,7 @@ func NewArtifactReleaseRequestedCloudEvent() ArtifactReleaseRequestedCloudEvent 
 	return ArtifactReleaseRequestedCloudEvent{
 		Envelope: NewEnvelope(),
 		Type:     ReleaseRequestedV1Type,
-		Data:     NewArtifactBuildRequestData(),
+		Data:     NewArtifactReleaseRequestData(),
 	}
 }
 

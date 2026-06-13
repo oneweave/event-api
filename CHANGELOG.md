@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.5.0](https://github.com/oneweave/event-api/compare/v1.4.1...v1.5.0) (2026-06-13)
+
+
+### Features
+
+* add build info to build events ([0cd1cbe](https://github.com/oneweave/event-api/commit/0cd1cbe7d1eb1644576040c2ef31d7d14b27258a))
+* add release events and data ([66a1fa4](https://github.com/oneweave/event-api/commit/66a1fa46d3f4eae8b221619f580ec7f99b59e01c))
+* remove source revision fields, add release id ([fe73b5a](https://github.com/oneweave/event-api/commit/fe73b5aee1b17df45d62a6b0a43d201036a54bd3))
+
 ## [1.4.1](https://github.com/oneweave/event-api/compare/v1.4.0...v1.4.1) (2026-06-08)
 
 

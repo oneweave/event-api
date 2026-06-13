@@ -6,17 +6,15 @@ import (
 
 // ArtifactBuildFailedData matches the ArtifactBuildFailedData schema.
 type ArtifactBuildFailedData struct {
-	BuildID           string  `json:"buildId" bson:"build_id" validate:"required,uuid"`
-	ServiceID         string  `json:"serviceId" bson:"service_id" validate:"required,uuid"`
-	SourceRevisionRef string  `json:"sourceRevisionRef" bson:"source_revision_ref" validate:"required,alphanum"`
-	SourceRevision    string  `json:"sourceRevision" bson:"source_revision" validate:"required"`
-	ServiceVersion    string  `json:"serviceVersion" bson:"service_version" validate:"required"`
-	FailureCode       *string `json:"failureCode,omitempty" bson:"failure_code,omitempty" validate:"omitempty"`
-	FailureMessage    *string `json:"failureMessage,omitempty" bson:"failure_message,omitempty" validate:"omitempty"`
+	ArtifactBuildBaseData
+	FailureCode    string `json:"failureCode" bson:"failure_code" validate:"required"`
+	FailureMessage string `json:"failureMessage" bson:"failure_message" validate:"required"`
 }
 
 func NewArtifactBuildFailedData() ArtifactBuildFailedData {
-	return ArtifactBuildFailedData{}
+	return ArtifactBuildFailedData{
+		ArtifactBuildBaseData: NewArtifactBuildBaseData(),
+	}
 }
 
 type ArtifactBuildFailedCloudEvent struct {

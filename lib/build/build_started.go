@@ -6,15 +6,13 @@ import (
 
 // ArtifactBuildStartedData matches the ArtifactBuildStartedData schema.
 type ArtifactBuildStartedData struct {
-	BuildID           string `json:"buildId" bson:"build_id" validate:"required,uuid"`
-	ServiceID         string `json:"serviceId" bson:"service_id" validate:"required,uuid"`
-	SourceRevisionRef string `json:"sourceRevisionRef" bson:"source_revision_ref" validate:"required,alphanum"`
-	SourceRevision    string `json:"sourceRevision" bson:"source_revision" validate:"required"`
-	ServiceVersion    string `json:"serviceVersion" bson:"service_version" validate:"required"`
+	ArtifactBuildBaseData
 }
 
 func NewArtifactBuildStartedData() ArtifactBuildStartedData {
-	return ArtifactBuildStartedData{}
+	return ArtifactBuildStartedData{
+		ArtifactBuildBaseData: NewArtifactBuildBaseData(),
+	}
 }
 
 type ArtifactBuildStartedCloudEvent struct {

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/oneweave/event-api/compare/v1.5.0...v1.6.0) (2026-06-14)
+
+
+### Features
+
+* add broker and controller events ([9566cda](https://github.com/oneweave/event-api/commit/9566cdaa205d1fb34889db425e371bee1c1350ef))
+
 ## [1.5.0](https://github.com/oneweave/event-api/compare/v1.4.1...v1.5.0) (2026-06-13)
 
 

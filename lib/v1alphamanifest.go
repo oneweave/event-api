@@ -177,9 +177,21 @@ func NewPluginManifestPermissions() PluginManifestPermissions {
 	return PluginManifestPermissions{DataAccess: NewPluginManifestPermissionDataAccess()}
 }
 
+type ReplicaConfiguration struct {
+	MinReplicas int `json:"minReplicas" bson:"min_replicas" validate:"required,gt=0"`
+	MaxReplicas int `json:"maxReplicas" bson:"max_replicas" validate:"required,gt=0,gtefield=MinReplicas"`
+}
+
+func NewReplicaConfiguration() ReplicaConfiguration {
+	return ReplicaConfiguration{
+		MinReplicas: 0,
+		MaxReplicas: 5,
+	}
+}
+
 type PluginManifestConfiguration struct {
 	Health               PluginManifestHealthProbes          `json:"health" bson:"health" validate:"required"`
-	Replicas             int                                 `json:"replicas" bson:"replicas" validate:"required,gt=0"`
+	Replicas             ReplicaConfiguration                `json:"replicas" bson:"replicas" validate:"required,dive"`
 	Resources            PluginManifestResources             `json:"resources" bson:"resources" validate:"required"`
 	EnvironmentVariables []PluginManifestEnvironmentVariable `json:"environmentVariables,omitempty" bson:"environment_variables,omitempty" validate:"omitempty,dive"`
 	Files                []PluginManifestConfigFile          `json:"files,omitempty" bson:"files,omitempty" validate:"omitempty,dive"`
@@ -188,7 +200,7 @@ type PluginManifestConfiguration struct {
 func NewPluginManifestConfiguration() PluginManifestConfiguration {
 	return PluginManifestConfiguration{
 		Health:               NewPluginManifestHealthProbes(),
-		Replicas:             1,
+		Replicas:             NewReplicaConfiguration(),
 		Resources:            NewPluginManifestResources(),
 		EnvironmentVariables: []PluginManifestEnvironmentVariable{},
 		Files:                []PluginManifestConfigFile{},

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/oneweave/event-api/compare/v1.6.0...v1.7.0) (2026-06-14)
+
+
+### Features
+
+* update broker event names and data ([8bcf1fb](https://github.com/oneweave/event-api/commit/8bcf1fbe44dd97224c67b7bcc274aff7d871d56e))
+
 ## [1.6.0](https://github.com/oneweave/event-api/compare/v1.5.0...v1.6.0) (2026-06-14)
 
 

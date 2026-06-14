@@ -4,16 +4,16 @@ import (
 	"github.com/oneweave/event-api/lib"
 )
 
-type BrokerStateRequestedCloudEvent struct {
+type BrokerUpdateRequestedCloudEvent struct {
 	lib.Envelope
-	Type string               `json:"type" bson:"type" validate:"required,eq=broker.update.requested.v1"`
-	Data BrokerStateEventData `json:"data" bson:"data" validate:"required,dive"`
+	Type string                `json:"type" bson:"type" validate:"required,eq=broker.update.requested.v1"`
+	Data BrokerUpdateEventData `json:"data" bson:"data" validate:"required,dive"`
 }
 
-func NewBrokerStateRequestedCloudEvent() BrokerStateRequestedCloudEvent {
-	return BrokerStateRequestedCloudEvent{
+func NewBrokerUpdateRequestedCloudEvent() BrokerUpdateRequestedCloudEvent {
+	return BrokerUpdateRequestedCloudEvent{
 		Envelope: lib.NewEnvelope(),
 		Type:     BrokerUpdateRequestedV1Type,
-		Data:     NewBrokerStateEventData(),
+		Data:     NewBrokerUpdateEventData(),
 	}
 }

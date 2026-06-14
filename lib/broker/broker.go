@@ -7,12 +7,12 @@ const (
 	BrokerUpdateFailedV1Type    = "broker.update.failed.v1"
 )
 
-type BrokerStateEventData struct {
+type BrokerUpdateEventData struct {
 	BrokerID           string `json:"brokerId" bson:"broker_id" validate:"required,uuid"`
 	ServiceID          string `json:"serviceId" bson:"service_id" validate:"required,uuid"`
 	ServiceVersionHash string `json:"serviceVersionHash" bson:"service_version_hash" validate:"required,sha256"`
 }
 
-func NewBrokerStateEventData() BrokerStateEventData {
-	return BrokerStateEventData{}
+func NewBrokerUpdateEventData() BrokerUpdateEventData {
+	return BrokerUpdateEventData{}
 }

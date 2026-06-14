@@ -4,28 +4,28 @@ import (
 	"github.com/oneweave/event-api/lib"
 )
 
-type BrokerStateFailedData struct {
-	BrokerStateEventData
+type BrokerUpdateFailedData struct {
+	BrokerUpdateEventData
 	lib.EventFailure
 }
 
-func NewBrokerStateFailedData() BrokerStateFailedData {
-	return BrokerStateFailedData{
-		BrokerStateEventData: NewBrokerStateEventData(),
-		EventFailure:         lib.NewEventFailure(),
+func NewBrokerUpdateFailedData() BrokerUpdateFailedData {
+	return BrokerUpdateFailedData{
+		BrokerUpdateEventData: NewBrokerUpdateEventData(),
+		EventFailure:          lib.NewEventFailure(),
 	}
 }
 
-type BrokerStateFailedCloudEvent struct {
+type BrokerUpdateFailedCloudEvent struct {
 	lib.Envelope
-	Type string                `json:"type" bson:"type" validate:"required,eq=broker.update.failed.v1"`
-	Data BrokerStateFailedData `json:"data" bson:"data" validate:"required,dive"`
+	Type string                 `json:"type" bson:"type" validate:"required,eq=broker.update.failed.v1"`
+	Data BrokerUpdateFailedData `json:"data" bson:"data" validate:"required,dive"`
 }
 
-func NewBrokerStateFailedCloudEvent() BrokerStateFailedCloudEvent {
-	return BrokerStateFailedCloudEvent{
+func NewBrokerUpdateFailedCloudEvent() BrokerUpdateFailedCloudEvent {
+	return BrokerUpdateFailedCloudEvent{
 		Envelope: lib.NewEnvelope(),
 		Type:     BrokerUpdateFailedV1Type,
-		Data:     NewBrokerStateFailedData(),
+		Data:     NewBrokerUpdateFailedData(),
 	}
 }

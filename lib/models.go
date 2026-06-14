@@ -25,6 +25,15 @@ func NewReleaseSourceBuildArg() ReleaseSourceBuildArg {
 	return ReleaseSourceBuildArg{}
 }
 
+type EventFailure struct {
+	FailureCode    string  `json:"failureCode" bson:"failure_code" validate:"required"`
+	FailureMessage *string `json:"failureMessage,omitempty" bson:"failure_message,omitempty" validate:"omitempty"`
+}
+
+func NewEventFailure() EventFailure {
+	return EventFailure{}
+}
+
 type ImageTarget struct {
 	Name          string   `json:"name" bson:"name" validate:"required"`
 	Kind          *string  `json:"kind,omitempty" bson:"kind,omitempty" validate:"required,oneof=oci-registry"`

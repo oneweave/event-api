@@ -7,13 +7,13 @@ import (
 // ArtifactBuildFailedData matches the ArtifactBuildFailedData schema.
 type ArtifactBuildFailedData struct {
 	ArtifactBuildBaseData
-	FailureCode    string `json:"failureCode" bson:"failure_code" validate:"required"`
-	FailureMessage string `json:"failureMessage" bson:"failure_message" validate:"required"`
+	lib.EventFailure
 }
 
 func NewArtifactBuildFailedData() ArtifactBuildFailedData {
 	return ArtifactBuildFailedData{
 		ArtifactBuildBaseData: NewArtifactBuildBaseData(),
+		EventFailure:          lib.NewEventFailure(),
 	}
 }
 

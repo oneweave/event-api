@@ -18,7 +18,7 @@ func NewArtifactReleaseDeprecatedData() ArtifactReleaseDeprecatedData {
 type ArtifactReleaseDeprecatedCloudEvent struct {
 	lib.Envelope
 	Type string                        `json:"type" bson:"type" validate:"required,eq=artifact.release.deprecated.v1"`
-	Data ArtifactReleaseDeprecatedData `json:"data" bson:"data" validate:"required,dive"`
+	Data ArtifactReleaseDeprecatedData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewArtifactReleaseDeprecatedCloudEvent() ArtifactReleaseDeprecatedCloudEvent {

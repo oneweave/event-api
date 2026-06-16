@@ -191,7 +191,7 @@ func NewReplicaConfiguration() ReplicaConfiguration {
 
 type PluginManifestConfiguration struct {
 	Health               PluginManifestHealthProbes          `json:"health" bson:"health" validate:"required"`
-	Replicas             ReplicaConfiguration                `json:"replicas" bson:"replicas" validate:"required,dive"`
+	Replicas             ReplicaConfiguration                `json:"replicas" bson:"replicas" validate:"required"`
 	Resources            PluginManifestResources             `json:"resources" bson:"resources" validate:"required"`
 	EnvironmentVariables []PluginManifestEnvironmentVariable `json:"environmentVariables,omitempty" bson:"environment_variables,omitempty" validate:"omitempty,dive"`
 	Files                []PluginManifestConfigFile          `json:"files,omitempty" bson:"files,omitempty" validate:"omitempty,dive"`
@@ -213,7 +213,7 @@ type PluginManifestSpec struct {
 	Dependencies    PluginManifestDependencies  `json:"dependencies" bson:"dependencies" validate:"required"`
 	Permissions     PluginManifestPermissions   `json:"permissions" bson:"permissions" validate:"required"`
 	Configuration   PluginManifestConfiguration `json:"configuration" bson:"configuration" validate:"required"`
-	ImagePullTarget ReleaseImagePullTarget      `json:"imagePullTarget" bson:"image_pull_target" validate:"required,dive"`
+	ImagePullTarget ReleaseImagePullTarget      `json:"imagePullTarget" bson:"image_pull_target" validate:"required"`
 	Observability   PluginManifestObservability `json:"observability" bson:"observability" validate:"required"`
 }
 

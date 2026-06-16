@@ -19,7 +19,7 @@ func NewBrokerUpdateFailedData() BrokerUpdateFailedData {
 type BrokerUpdateFailedCloudEvent struct {
 	lib.Envelope
 	Type string                 `json:"type" bson:"type" validate:"required,eq=broker.update.failed.v1"`
-	Data BrokerUpdateFailedData `json:"data" bson:"data" validate:"required,dive"`
+	Data BrokerUpdateFailedData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewBrokerUpdateFailedCloudEvent() BrokerUpdateFailedCloudEvent {

@@ -19,7 +19,7 @@ func NewArtifactReleasePublishedData() ArtifactReleasePublishedData {
 type ArtifactReleasePublishedCloudEvent struct {
 	lib.Envelope
 	Type string                       `json:"type" bson:"type" validate:"required,eq=artifact.release.published.v1"`
-	Data ArtifactReleasePublishedData `json:"data" bson:"data" validate:"required,dive"`
+	Data ArtifactReleasePublishedData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewArtifactReleasePublishedCloudEvent() ArtifactReleasePublishedCloudEvent {

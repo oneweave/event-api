@@ -19,7 +19,7 @@ func NewControllerUpdateFailedEventData() ControllerUpdateFailedEventData {
 type ControllerUpdateFailedCloudEvent struct {
 	lib.Envelope
 	Type string                          `json:"type" bson:"type" validate:"required,eq=controller.update.failed.v1"`
-	Data ControllerUpdateFailedEventData `json:"data" bson:"data" validate:"required,dive"`
+	Data ControllerUpdateFailedEventData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewControllerUpdateFailedCloudEvent() ControllerUpdateFailedCloudEvent {

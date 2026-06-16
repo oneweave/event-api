@@ -7,7 +7,7 @@ import (
 type ControllerUpdateRejectedCloudEvent struct {
 	lib.Envelope
 	Type string                        `json:"type" bson:"type" validate:"required,eq=controller.update.rejected.v1"`
-	Data ControllerUpdateEventBaseData `json:"data" bson:"data" validate:"required,dive"`
+	Data ControllerUpdateEventBaseData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewControllerUpdateRejectedCloudEvent() ControllerUpdateRejectedCloudEvent {

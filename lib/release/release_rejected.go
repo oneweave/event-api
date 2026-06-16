@@ -18,7 +18,7 @@ func NewArtifactReleaseRejectedData() ArtifactReleaseRejectedData {
 type ArtifactReleaseRejectedCloudEvent struct {
 	lib.Envelope
 	Type string                      `json:"type" bson:"type" validate:"required,eq=artifact.release.rejected.v1"`
-	Data ArtifactReleaseRejectedData `json:"data" bson:"data" validate:"required,dive"`
+	Data ArtifactReleaseRejectedData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewArtifactReleaseRejectedCloudEvent() ArtifactReleaseRejectedCloudEvent {

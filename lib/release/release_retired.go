@@ -7,7 +7,7 @@ import (
 type ArtifactReleaseRetiredCloudEvent struct {
 	lib.Envelope
 	Type string                  `json:"type" bson:"type" validate:"required,eq=artifact.release.retired.v1"`
-	Data ArtifactReleaseBaseData `json:"data" bson:"data" validate:"required,dive"`
+	Data ArtifactReleaseBaseData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewArtifactReleaseRetiredCloudEvent() ArtifactReleaseRetiredCloudEvent {

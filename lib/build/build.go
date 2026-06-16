@@ -18,7 +18,7 @@ func NewBuildSourceInfo() BuildSourceInfo {
 type ArtifactBuildBaseData struct {
 	BuildID    string          `json:"buildId" bson:"build_id" validate:"required,uuid"`
 	ReleaseID  string          `json:"releaseId" bson:"release_id" validate:"required,uuid"`
-	SourceInfo BuildSourceInfo `json:"sourceInfo" bson:"source_info" validate:"omitempty,dive"`
+	SourceInfo BuildSourceInfo `json:"sourceInfo" bson:"source_info" validate:"omitempty"`
 }
 
 func NewArtifactBuildBaseData() ArtifactBuildBaseData {

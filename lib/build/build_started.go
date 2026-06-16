@@ -18,7 +18,7 @@ func NewArtifactBuildStartedData() ArtifactBuildStartedData {
 type ArtifactBuildStartedCloudEvent struct {
 	lib.Envelope
 	Type string                   `json:"type" bson:"type" validate:"required,eq=artifact.build.started.v1"`
-	Data ArtifactBuildStartedData `json:"data" bson:"data" validate:"required,dive"`
+	Data ArtifactBuildStartedData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewArtifactBuildStartedCloudEvent() ArtifactBuildStartedCloudEvent {

@@ -19,7 +19,7 @@ func NewArtifactBuildSucceededData() ArtifactBuildSucceededData {
 type ArtifactBuildSucceededCloudEvent struct {
 	lib.Envelope
 	Type string                     `json:"type" bson:"type" validate:"required,eq=artifact.build.succeeded.v1"`
-	Data ArtifactBuildSucceededData `json:"data" bson:"data" validate:"required,dive"`
+	Data ArtifactBuildSucceededData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewArtifactBuildSucceededCloudEvent() ArtifactBuildSucceededCloudEvent {

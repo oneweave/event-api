@@ -38,8 +38,8 @@ type ImageTarget struct {
 	Name          string   `json:"name" bson:"name" validate:"required"`
 	Kind          *string  `json:"kind,omitempty" bson:"kind,omitempty" validate:"required,oneof=oci-registry"`
 	Protocol      *string  `json:"protocol,omitempty" bson:"protocol,omitempty" validate:"required,oneof=oci https"`
-	BaseURL       string   `json:"baseUrl" bson:"base_url" validate:"required"`
-	Namespace     string   `json:"namespace" bson:"namespace" validate:"required"`
+	BaseURL       string   `json:"baseUrl" bson:"base_url" validate:"required,endswith=/"`
+	Namespace     string   `json:"namespace" bson:"namespace" validate:"required,endswith=/"`
 	Tags          []string `json:"tags,omitempty" bson:"tags,omitempty" validate:"omitempty,dive,required,alphanum"`
 	CredentialRef *string  `json:"credentialRef,omitempty" bson:"credential_ref,omitempty"`
 }
@@ -82,9 +82,9 @@ func NewReleaseSourceImagePullTargetFromPushTarget(pushTarget ReleaseImagePushTa
 				Name:      pushTarget.Name,
 				Kind:      pushTarget.Kind,
 				Protocol:  pushTarget.Protocol,
-				BaseURL:   pushTarget.BaseURL,
-				Namespace: pushTarget.Namespace,
-				Tags:      []string{pushTarget.Tags[i]},
+				BaseURL:   withTrailingSlash(pushTarget.BaseURL),
+				Namespace: withTrailingSlash(pushTarget.Namespace),
+				Tags:      pushTarget.Tags,
 			},
 		}
 	}

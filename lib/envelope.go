@@ -8,6 +8,8 @@ import (
 )
 
 const (
+	EnvelopeSpecVersion       = "1.0"
+	DataContentTypeJSON       = "application/json"
 	CorrelationIdExtensionKey = "correlationid"
 	CausationIdExtensionKey   = "causationid"
 )
@@ -31,8 +33,8 @@ func NewEnvelope() Envelope {
 	nanoid, _ := nanoid.New()
 	return Envelope{
 		ID:              nanoid.String(),
-		SpecVersion:     "1.0",
-		DataContentType: "application/json",
+		SpecVersion:     EnvelopeSpecVersion,
+		DataContentType: DataContentTypeJSON,
 		Time:            now,
 	}
 }

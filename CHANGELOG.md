@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.10.0](https://github.com/oneweave/event-api/compare/v1.9.0...v1.10.0) (2026-06-16)
+
+
+### Features
+
+* set default for manifest file ([984c74c](https://github.com/oneweave/event-api/commit/984c74cb9431fb3cafca020f596c02f2792fe66f))
+
+
+### Bug Fixes
+
+* remove broken validators ([4ed9a41](https://github.com/oneweave/event-api/commit/4ed9a41dde7d898b57ad6118db978d07366ee5cd))
+
 ## [1.9.0](https://github.com/oneweave/event-api/compare/v1.8.0...v1.9.0) (2026-06-16)
 
 

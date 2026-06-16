@@ -10,7 +10,7 @@ type ArtifactReleaseRequestedData struct {
 	ReleaseTarget lib.ReleaseTarget `json:"releaseTarget" bson:"release_target" validate:"required"`
 }
 
-func NewArtifactReleaseRequestData() ArtifactReleaseRequestedData {
+func NewArtifactReleaseRequestedData() ArtifactReleaseRequestedData {
 	return ArtifactReleaseRequestedData{
 		ArtifactReleaseBaseData: NewArtifactReleaseBaseData(),
 		ReleaseSource:           lib.NewReleaseSource(),
@@ -28,6 +28,6 @@ func NewArtifactReleaseRequestedCloudEvent() ArtifactReleaseRequestedCloudEvent 
 	return ArtifactReleaseRequestedCloudEvent{
 		Envelope: lib.NewEnvelope(),
 		Type:     ReleaseRequestedV1Type,
-		Data:     NewArtifactReleaseRequestData(),
+		Data:     NewArtifactReleaseRequestedData(),
 	}
 }

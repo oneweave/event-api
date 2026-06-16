@@ -5,14 +5,14 @@ import (
 )
 
 type BrokerUpdateRejectedData struct {
-	RequestID       string                `json:"requestId" bson:"request_id" validate:"required,uuid"`
-	RejectionReason *string               `json:"rejectionReason,omitempty" bson:"rejection_reason,omitempty"`
-	Details         *map[string]any       `json:"details,omitempty" bson:"details,omitempty"`
-	Payload         BrokerUpdateEventData `json:"payload" bson:"payload" validate:"required"`
+	RequestID       string                 `json:"requestId" bson:"request_id" validate:"required,uuid"`
+	RejectionReason *string                `json:"rejectionReason,omitempty" bson:"rejection_reason,omitempty"`
+	Details         *map[string]any        `json:"details,omitempty" bson:"details,omitempty"`
+	Payload         BrokerUpdatedEventData `json:"payload" bson:"payload" validate:"required"`
 }
 
 func NewBrokerUpdateRejectedData() BrokerUpdateRejectedData {
-	return BrokerUpdateRejectedData{Payload: NewBrokerUpdateEventData()}
+	return BrokerUpdateRejectedData{Payload: NewBrokerUpdatedEventData()}
 }
 
 type BrokerUpdateRejectedCloudEvent struct {

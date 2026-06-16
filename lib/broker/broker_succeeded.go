@@ -5,7 +5,7 @@ import (
 )
 
 type BrokerUpdateSucceededData struct {
-	BrokerUpdateEventData
+	BrokerUpdatedEventData
 	Manifest lib.PluginManifest `json:"manifest" bson:"manifest,omitempty" validate:"omitempty"`
 }
 
@@ -20,8 +20,8 @@ func NewBrokerUpdateSucceededCloudEvent() BrokerUpdateSucceededCloudEvent {
 		Envelope: lib.NewEnvelope(),
 		Type:     BrokerUpdateSucceededV1Type,
 		Data: BrokerUpdateSucceededData{
-			BrokerUpdateEventData: NewBrokerUpdateEventData(),
-			Manifest:              lib.NewPluginManifest(),
+			BrokerUpdatedEventData: NewBrokerUpdatedEventData(),
+			Manifest:               lib.NewPluginManifest(),
 		},
 	}
 }

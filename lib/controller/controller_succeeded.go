@@ -5,7 +5,7 @@ import (
 )
 
 type ControllerUpdateSucceededEventData struct {
-	ControllerUpdateEventBaseData
+	ControllerUpdatedEventBaseData
 
 	OldVersion string `json:"oldVersion" bson:"old_version" validate:"required"`
 	NewVersion string `json:"newVersion" bson:"new_version" validate:"required"`

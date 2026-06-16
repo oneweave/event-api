@@ -7,7 +7,7 @@ const (
 	ControllerUpdateFailedV1Type    = "controller.update.failed.v1"
 )
 
-type ControllerUpdateEventBaseData struct {
+type ControllerUpdatedEventBaseData struct {
 	ControllerID string `json:"controllerId" bson:"controller_id" validate:"required,uuid"`
 	ServiceID    string `json:"serviceId" bson:"service_id" validate:"required,uuid"`
 }

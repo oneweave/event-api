@@ -5,14 +5,14 @@ import (
 )
 
 type ControllerUpdateFailedEventData struct {
-	ControllerUpdateEventBaseData
+	ControllerUpdatedEventBaseData
 	lib.EventFailure
 }
 
 func NewControllerUpdateFailedEventData() ControllerUpdateFailedEventData {
 	return ControllerUpdateFailedEventData{
-		ControllerUpdateEventBaseData: ControllerUpdateEventBaseData{},
-		EventFailure:                  lib.NewEventFailure(),
+		ControllerUpdatedEventBaseData: ControllerUpdatedEventBaseData{},
+		EventFailure:                   lib.NewEventFailure(),
 	}
 }
 

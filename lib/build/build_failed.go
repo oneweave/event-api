@@ -6,8 +6,8 @@ import (
 
 // ArtifactBuildFailedData matches the ArtifactBuildFailedData schema.
 type ArtifactBuildFailedData struct {
-	ArtifactBuildBaseData
-	lib.EventFailure
+	ArtifactBuildBaseData `json:",inline" yaml:",inline"`
+	lib.EventFailure      `json:",inline" yaml:",inline"`
 }
 
 func NewArtifactBuildFailedData() ArtifactBuildFailedData {
@@ -18,9 +18,9 @@ func NewArtifactBuildFailedData() ArtifactBuildFailedData {
 }
 
 type ArtifactBuildFailedCloudEvent struct {
-	lib.Envelope
-	Type string                  `json:"type" bson:"type" validate:"required,eq=artifact.build.failed.v1"`
-	Data ArtifactBuildFailedData `json:"data" bson:"data" validate:"required"`
+	lib.Envelope `json:",inline" yaml:",inline"`
+	Type         string                  `json:"type" bson:"type" validate:"required,eq=artifact.build.failed.v1"`
+	Data         ArtifactBuildFailedData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewArtifactBuildFailedCloudEvent() ArtifactBuildFailedCloudEvent {

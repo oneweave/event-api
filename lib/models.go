@@ -46,12 +46,12 @@ type ImageTarget struct {
 
 // ReleaseImagePushTarget matches the push target section in ReleaseSource.
 type ReleaseImagePushTarget struct {
-	ImageTarget
+	ImageTarget `json:",inline" yaml:",inline"`
 }
 
 // ReleaseImagePullTarget matches the pull target section in ReleaseSource.
 type ReleaseImagePullTarget struct {
-	ImageTarget
+	ImageTarget `json:",inline" yaml:",inline"`
 }
 
 func NewImageTarget() ImageTarget {

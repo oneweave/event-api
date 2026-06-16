@@ -5,7 +5,7 @@ import (
 )
 
 type ControllerUpdateSucceededEventData struct {
-	ControllerUpdatedEventBaseData
+	ControllerUpdatedEventBaseData `json:",inline" yaml:",inline"`
 
 	OldVersion string `json:"oldVersion" bson:"old_version" validate:"required"`
 	NewVersion string `json:"newVersion" bson:"new_version" validate:"required"`
@@ -13,9 +13,9 @@ type ControllerUpdateSucceededEventData struct {
 }
 
 type ControllerUpdateSucceededCloudEvent struct {
-	lib.Envelope
-	Type string                             `json:"type" bson:"type" validate:"required,eq=controller.update.succeeded.v1"`
-	Data ControllerUpdateSucceededEventData `json:"data" bson:"data" validate:"required"`
+	lib.Envelope `json:",inline" yaml:",inline"`
+	Type         string                             `json:"type" bson:"type" validate:"required,eq=controller.update.succeeded.v1"`
+	Data         ControllerUpdateSucceededEventData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewControllerUpdateSucceededCloudEvent() ControllerUpdateSucceededCloudEvent {

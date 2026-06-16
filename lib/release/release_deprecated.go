@@ -5,8 +5,8 @@ import (
 )
 
 type ArtifactReleaseDeprecatedData struct {
-	ArtifactReleaseBaseData
-	Reason string `json:"reason" bson:"reason" validate:"required"`
+	ArtifactReleaseBaseData `json:",inline" yaml:",inline"`
+	Reason                  string `json:"reason" bson:"reason" validate:"required"`
 }
 
 func NewArtifactReleaseDeprecatedData() ArtifactReleaseDeprecatedData {
@@ -16,9 +16,9 @@ func NewArtifactReleaseDeprecatedData() ArtifactReleaseDeprecatedData {
 }
 
 type ArtifactReleaseDeprecatedCloudEvent struct {
-	lib.Envelope
-	Type string                        `json:"type" bson:"type" validate:"required,eq=artifact.release.deprecated.v1"`
-	Data ArtifactReleaseDeprecatedData `json:"data" bson:"data" validate:"required"`
+	lib.Envelope `json:",inline" yaml:",inline"`
+	Type         string                        `json:"type" bson:"type" validate:"required,eq=artifact.release.deprecated.v1"`
+	Data         ArtifactReleaseDeprecatedData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewArtifactReleaseDeprecatedCloudEvent() ArtifactReleaseDeprecatedCloudEvent {

@@ -16,9 +16,9 @@ func NewBrokerUpdateRejectedData() BrokerUpdateRejectedData {
 }
 
 type BrokerUpdateRejectedCloudEvent struct {
-	lib.Envelope
-	Type string                   `json:"type" bson:"type" validate:"required,eq=broker.update.rejected.v1"`
-	Data BrokerUpdateRejectedData `json:"data" bson:"data" validate:"required"`
+	lib.Envelope `json:",inline" yaml:",inline"`
+	Type         string                   `json:"type" bson:"type" validate:"required,eq=broker.update.rejected.v1"`
+	Data         BrokerUpdateRejectedData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewBrokerUpdateRejectedCloudEvent() BrokerUpdateRejectedCloudEvent {

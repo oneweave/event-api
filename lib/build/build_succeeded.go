@@ -6,8 +6,8 @@ import (
 
 // ArtifactBuildSucceededData matches the ArtifactBuildSucceededData schema.
 type ArtifactBuildSucceededData struct {
-	ArtifactBuildBaseData
-	ImagePullTargets []lib.ReleaseImagePullTarget `json:"imagePullTargets" bson:"image_pull_targets" validate:"required,min=1,dive"`
+	ArtifactBuildBaseData `json:",inline" yaml:",inline"`
+	ImagePullTargets      []lib.ReleaseImagePullTarget `json:"imagePullTargets" bson:"image_pull_targets" validate:"required,min=1,dive"`
 }
 
 func NewArtifactBuildSucceededData() ArtifactBuildSucceededData {
@@ -17,9 +17,9 @@ func NewArtifactBuildSucceededData() ArtifactBuildSucceededData {
 }
 
 type ArtifactBuildSucceededCloudEvent struct {
-	lib.Envelope
-	Type string                     `json:"type" bson:"type" validate:"required,eq=artifact.build.succeeded.v1"`
-	Data ArtifactBuildSucceededData `json:"data" bson:"data" validate:"required"`
+	lib.Envelope `json:",inline" yaml:",inline"`
+	Type         string                     `json:"type" bson:"type" validate:"required,eq=artifact.build.succeeded.v1"`
+	Data         ArtifactBuildSucceededData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewArtifactBuildSucceededCloudEvent() ArtifactBuildSucceededCloudEvent {

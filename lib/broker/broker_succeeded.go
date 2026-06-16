@@ -5,14 +5,14 @@ import (
 )
 
 type BrokerUpdateSucceededData struct {
-	BrokerUpdatedEventData
-	Manifest lib.PluginManifest `json:"manifest" bson:"manifest,omitempty" validate:"omitempty"`
+	BrokerUpdatedEventData `json:",inline" yaml:",inline"`
+	Manifest               lib.PluginManifest `json:"manifest" bson:"manifest,omitempty" validate:"omitempty"`
 }
 
 type BrokerUpdateSucceededCloudEvent struct {
-	lib.Envelope
-	Type string                    `json:"type" bson:"type" validate:"required,eq=broker.update.succeeded.v1"`
-	Data BrokerUpdateSucceededData `json:"data" bson:"data" validate:"required"`
+	lib.Envelope `json:",inline" yaml:",inline"`
+	Type         string                    `json:"type" bson:"type" validate:"required,eq=broker.update.succeeded.v1"`
+	Data         BrokerUpdateSucceededData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewBrokerUpdateSucceededCloudEvent() BrokerUpdateSucceededCloudEvent {

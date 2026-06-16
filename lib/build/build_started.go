@@ -6,7 +6,7 @@ import (
 
 // ArtifactBuildStartedData matches the ArtifactBuildStartedData schema.
 type ArtifactBuildStartedData struct {
-	ArtifactBuildBaseData
+	ArtifactBuildBaseData `json:",inline" yaml:",inline"`
 }
 
 func NewArtifactBuildStartedData() ArtifactBuildStartedData {
@@ -16,9 +16,9 @@ func NewArtifactBuildStartedData() ArtifactBuildStartedData {
 }
 
 type ArtifactBuildStartedCloudEvent struct {
-	lib.Envelope
-	Type string                   `json:"type" bson:"type" validate:"required,eq=artifact.build.started.v1"`
-	Data ArtifactBuildStartedData `json:"data" bson:"data" validate:"required"`
+	lib.Envelope `json:",inline" yaml:",inline"`
+	Type         string                   `json:"type" bson:"type" validate:"required,eq=artifact.build.started.v1"`
+	Data         ArtifactBuildStartedData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewArtifactBuildStartedCloudEvent() ArtifactBuildStartedCloudEvent {

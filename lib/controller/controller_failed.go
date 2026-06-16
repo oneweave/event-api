@@ -5,8 +5,8 @@ import (
 )
 
 type ControllerUpdateFailedEventData struct {
-	ControllerUpdatedEventBaseData
-	lib.EventFailure
+	ControllerUpdatedEventBaseData `json:",inline" yaml:",inline"`
+	lib.EventFailure               `json:",inline" yaml:",inline"`
 }
 
 func NewControllerUpdateFailedEventData() ControllerUpdateFailedEventData {
@@ -17,9 +17,9 @@ func NewControllerUpdateFailedEventData() ControllerUpdateFailedEventData {
 }
 
 type ControllerUpdateFailedCloudEvent struct {
-	lib.Envelope
-	Type string                          `json:"type" bson:"type" validate:"required,eq=controller.update.failed.v1"`
-	Data ControllerUpdateFailedEventData `json:"data" bson:"data" validate:"required"`
+	lib.Envelope `json:",inline" yaml:",inline"`
+	Type         string                          `json:"type" bson:"type" validate:"required,eq=controller.update.failed.v1"`
+	Data         ControllerUpdateFailedEventData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewControllerUpdateFailedCloudEvent() ControllerUpdateFailedCloudEvent {

@@ -5,8 +5,8 @@ import (
 )
 
 type BrokerUpdateFailedData struct {
-	BrokerUpdatedEventData
-	lib.EventFailure
+	BrokerUpdatedEventData `json:",inline" yaml:",inline"`
+	lib.EventFailure       `json:",inline" yaml:",inline"`
 }
 
 func NewBrokerUpdateFailedData() BrokerUpdateFailedData {
@@ -17,9 +17,9 @@ func NewBrokerUpdateFailedData() BrokerUpdateFailedData {
 }
 
 type BrokerUpdateFailedCloudEvent struct {
-	lib.Envelope
-	Type string                 `json:"type" bson:"type" validate:"required,eq=broker.update.failed.v1"`
-	Data BrokerUpdateFailedData `json:"data" bson:"data" validate:"required"`
+	lib.Envelope `json:",inline" yaml:",inline"`
+	Type         string                 `json:"type" bson:"type" validate:"required,eq=broker.update.failed.v1"`
+	Data         BrokerUpdateFailedData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewBrokerUpdateFailedCloudEvent() BrokerUpdateFailedCloudEvent {

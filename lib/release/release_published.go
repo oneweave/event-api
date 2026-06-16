@@ -5,8 +5,8 @@ import (
 )
 
 type ArtifactReleasePublishedData struct {
-	ArtifactReleaseBaseData
-	ReleaseTarget lib.ReleaseTarget `json:"releaseTarget" bson:"release_target" validate:"required"`
+	ArtifactReleaseBaseData `json:",inline" yaml:",inline"`
+	ReleaseTarget           lib.ReleaseTarget `json:"releaseTarget" bson:"release_target" validate:"required"`
 }
 
 func NewArtifactReleasePublishedData() ArtifactReleasePublishedData {
@@ -17,9 +17,9 @@ func NewArtifactReleasePublishedData() ArtifactReleasePublishedData {
 }
 
 type ArtifactReleasePublishedCloudEvent struct {
-	lib.Envelope
-	Type string                       `json:"type" bson:"type" validate:"required,eq=artifact.release.published.v1"`
-	Data ArtifactReleasePublishedData `json:"data" bson:"data" validate:"required"`
+	lib.Envelope `json:",inline" yaml:",inline"`
+	Type         string                       `json:"type" bson:"type" validate:"required,eq=artifact.release.published.v1"`
+	Data         ArtifactReleasePublishedData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewArtifactReleasePublishedCloudEvent() ArtifactReleasePublishedCloudEvent {

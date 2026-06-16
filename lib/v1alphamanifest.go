@@ -1,5 +1,7 @@
 package lib
 
+const v1alphaPluginManifestAPIVersion = "oneweave/v1alpha"
+
 type PluginManifestMetadata struct {
 	Namespace   string  `json:"namespace" bson:"namespace" validate:"required"`
 	Name        string  `json:"name" bson:"name" validate:"required"`
@@ -105,10 +107,10 @@ func NewPluginManifestHealthProbes() PluginManifestHealthProbes {
 }
 
 type PluginManifestObservability struct {
-	Logs                string `json:"logs" bson:"logs" validate:"required"`
-	Metrics             string `json:"metrics" bson:"metrics" validate:"required"`
-	Tracing             string `json:"tracing" bson:"tracing" validate:"required"`
-	CorrelationIdHeader string `json:"correlationIdHeader" bson:"correlation_id_header" validate:"required"`
+	Logs                string `json:"logs" bson:"logs"`
+	Metrics             string `json:"metrics" bson:"metrics"`
+	Tracing             string `json:"tracing" bson:"tracing"`
+	CorrelationIdHeader string `json:"correlationIdHeader" bson:"correlation_id_header"`
 }
 
 func NewPluginManifestObservability() PluginManifestObservability {
@@ -120,7 +122,9 @@ type PluginManifestCompatibility struct {
 }
 
 func NewPluginManifestCompatibility() PluginManifestCompatibility {
-	return PluginManifestCompatibility{}
+	return PluginManifestCompatibility{
+		PluginAPIVersion: v1alphaPluginManifestAPIVersion,
+	}
 }
 
 type PluginManifestREST struct {
@@ -178,8 +182,8 @@ func NewPluginManifestPermissions() PluginManifestPermissions {
 }
 
 type ReplicaConfiguration struct {
-	MinReplicas int `json:"minReplicas" bson:"min_replicas" validate:"required,gt=0"`
-	MaxReplicas int `json:"maxReplicas" bson:"max_replicas" validate:"required,gt=0,gtefield=MinReplicas"`
+	MinReplicas int `json:"minReplicas" bson:"min_replicas" validate:"gte=0"`
+	MaxReplicas int `json:"maxReplicas" bson:"max_replicas" validate:"gt=0,gtefield=MinReplicas"`
 }
 
 func NewReplicaConfiguration() ReplicaConfiguration {
@@ -237,7 +241,7 @@ type PluginManifest struct {
 
 func NewV1AlphaPluginManifest() PluginManifest {
 	return PluginManifest{
-		APIVersion: "oneweave/v1alpha",
+		APIVersion: v1alphaPluginManifestAPIVersion,
 		Metadata:   NewPluginManifestMetadata(),
 		Spec:       NewPluginManifestSpec(),
 	}

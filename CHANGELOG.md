@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.8.0](https://github.com/oneweave/event-api/compare/v1.7.0...v1.8.0) (2026-06-16)
+
+
+### Features
+
+* add min and max replica configuration ([872bea5](https://github.com/oneweave/event-api/commit/872bea5ce813e1b2d0aa4b916b48bd96c214c1dc))
+
+
+### Bug Fixes
+
+* remove dive tags from structs ([1f23dfb](https://github.com/oneweave/event-api/commit/1f23dfbac055ff66a7002241225064fa387ce478))
+
 ## [1.7.0](https://github.com/oneweave/event-api/compare/v1.6.0...v1.7.0) (2026-06-14)
 
 

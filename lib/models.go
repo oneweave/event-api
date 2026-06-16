@@ -107,8 +107,7 @@ func NewReleaseSource() ReleaseSource {
 	dockerfilePath := "Dockerfile"
 	return ReleaseSource{
 		Repository:        NewReleaseSourceRepository(),
-		SourceRevisionRef: "",
-		SourceRevision:    "",
+		ManifestFilePath:  "weave.yaml",
 		DockerContextPath: &dockerContextPath,
 		DockerfilePath:    &dockerfilePath,
 	}

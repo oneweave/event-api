@@ -40,7 +40,7 @@ type ImageTarget struct {
 	Protocol      *string  `json:"protocol,omitempty" bson:"protocol,omitempty" validate:"required,oneof=oci https"`
 	BaseURL       string   `json:"baseUrl" bson:"base_url" validate:"required,endswith=/"`
 	Namespace     string   `json:"namespace" bson:"namespace" validate:"required,endswith=/"`
-	Tags          []string `json:"tags,omitempty" bson:"tags,omitempty" validate:"omitempty,dive,required,alphanum"`
+	Tags          []string `json:"tags,omitempty" bson:"tags,omitempty" validate:"min=1,dive,required,matches=^[\\w][\\w.-]{0,127}$"`
 	CredentialRef *string  `json:"credentialRef,omitempty" bson:"credential_ref,omitempty"`
 }
 
@@ -96,10 +96,9 @@ type ReleaseSource struct {
 	Repository        ReleaseSourceRepository `json:"repository" bson:"repository" validate:"required"`
 	SourceRevisionRef string                  `json:"sourceRevisionRef" bson:"source_revision_ref" validate:"required"`
 	SourceRevision    string                  `json:"sourceRevision" bson:"source_revision" validate:"required"`
-	ManifestFilePath  *string                 `json:"manifestFilePath,omitempty" bson:"manifest_file_path,omitempty"`
-	SubPath           *string                 `json:"subPath,omitempty" bson:"sub_path,omitempty" validate:"omitempty"`
+	ManifestFilePath  *string                 `json:"manifestFilePath,omitempty" bson:"manifest_file_path,omitempty" validate:"omitempty,matches=^.*[^/]$"`
 	DockerContextPath *string                 `json:"dockerContextPath,omitempty" bson:"docker_context_path,omitempty" validate:"omitempty"`
-	DockerfilePath    *string                 `json:"dockerfilePath,omitempty" bson:"dockerfile_path,omitempty" validate:"omitempty"`
+	DockerfilePath    *string                 `json:"dockerfilePath,omitempty" bson:"dockerfile_path,omitempty" validate:"omitempty,matches=^.*[^/]$"`
 	BuildArgs         []ReleaseSourceBuildArg `json:"buildArgs,omitempty" bson:"build_args,omitempty" validate:"omitempty,dive"`
 }
 

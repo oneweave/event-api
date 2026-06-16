@@ -45,4 +45,3 @@ func TestWithLeadingSlash(t *testing.T) {
 		})
 	}
 }
-

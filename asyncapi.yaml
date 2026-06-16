@@ -147,9 +147,6 @@ components:
         manifestFilePath:
           type: string
           nullable: true
-        subPath:
-          type: string
-          default: "."
         dockerContextPath:
           type: string
           default: "."

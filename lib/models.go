@@ -104,14 +104,12 @@ type ReleaseSource struct {
 }
 
 func NewReleaseSource() ReleaseSource {
-	subPath := "."
 	dockerContextPath := "."
 	dockerfilePath := "Dockerfile"
 	return ReleaseSource{
 		Repository:        NewReleaseSourceRepository(),
 		SourceRevisionRef: "",
 		SourceRevision:    "",
-		SubPath:           &subPath,
 		DockerContextPath: &dockerContextPath,
 		DockerfilePath:    &dockerfilePath,
 	}

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/oneweave/event-api/compare/v1.8.0...v1.9.0) (2026-06-16)
+
+
+### Features
+
+* improve validation ([652c63f](https://github.com/oneweave/event-api/commit/652c63fb693b45a18989553a1fa88544c3fcfaae))
+
 ## [1.8.0](https://github.com/oneweave/event-api/compare/v1.7.0...v1.8.0) (2026-06-16)
 
 

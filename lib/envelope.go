@@ -39,7 +39,7 @@ func NewEnvelope() Envelope {
 
 func NewEnvelopeFromCloudEvent(event cloudevents.Event) Envelope {
 	extensions := event.Extensions()
-	correlationID := extensions["correlationid"]
+	correlationID := extensions[CorrelationIdExtensionKey]
 	causationID := event.ID()
 
 	envelope := NewEnvelope()

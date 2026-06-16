@@ -96,7 +96,7 @@ type ReleaseSource struct {
 	Repository        ReleaseSourceRepository `json:"repository" bson:"repository" validate:"required"`
 	SourceRevisionRef string                  `json:"sourceRevisionRef" bson:"source_revision_ref"`
 	SourceRevision    string                  `json:"sourceRevision" bson:"source_revision" validate:"required"`
-	ManifestFilePath  *string                 `json:"manifestFilePath,omitempty" bson:"manifest_file_path,omitempty" validate:"omitempty"`
+	ManifestFilePath  string                  `json:"manifestFilePath,omitempty" bson:"manifest_file_path,omitempty" validate:"omitempty"`
 	DockerContextPath *string                 `json:"dockerContextPath,omitempty" bson:"docker_context_path,omitempty" validate:"omitempty"`
 	DockerfilePath    *string                 `json:"dockerfilePath,omitempty" bson:"dockerfile_path,omitempty" validate:"omitempty"`
 	BuildArgs         []ReleaseSourceBuildArg `json:"buildArgs,omitempty" bson:"build_args,omitempty" validate:"omitempty,dive"`

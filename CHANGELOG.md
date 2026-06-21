@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.0](https://github.com/oneweave/event-api/compare/v1.13.0...v1.14.0) (2026-06-21)
+
+
+### Features
+
+* add tenant events and data ([fd4b25c](https://github.com/oneweave/event-api/commit/fd4b25ce6c1728ede1158fe6eee4f5ba146b3aee))
+
 ## [1.13.0](https://github.com/oneweave/event-api/compare/v1.12.0...v1.13.0) (2026-06-21)
 
 

@@ -5,7 +5,7 @@ import (
 )
 
 type BrokerUpdateRejectedData struct {
-	RequestID       string               `json:"requestId" bson:"request_id" validate:"required,uuid"`
+	RequestID       string               `json:"requestId" bson:"request_id" validate:"required,eventid"`
 	RejectionReason *string              `json:"rejectionReason,omitempty" bson:"rejection_reason,omitempty"`
 	Details         *map[string]any      `json:"details,omitempty" bson:"details,omitempty"`
 	Payload         BrokerUpdateBaseData `json:"payload" bson:"payload" validate:"required"`

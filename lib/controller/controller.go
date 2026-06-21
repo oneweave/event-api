@@ -1,6 +1,8 @@
 package controller
 
 const (
+	Prefix = "ctl"
+
 	ControllerUpdateRequestedV1Type = "controller.update.requested.v1"
 	ControllerUpdateSucceededV1Type = "controller.update.succeeded.v1"
 	ControllerUpdateRejectedV1Type  = "controller.update.rejected.v1"
@@ -8,6 +10,6 @@ const (
 )
 
 type ControllerUpdateBaseData struct {
-	ControllerID string `json:"controllerId" bson:"controller_id" validate:"required,uuid"`
-	ServiceID    string `json:"serviceId" bson:"service_id" validate:"required,uuid"`
+	ControllerID string `json:"controllerId" bson:"controller_id" validate:"required,eventid"`
+	ServiceID    string `json:"serviceId" bson:"service_id" validate:"required,eventid"`
 }

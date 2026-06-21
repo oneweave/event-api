@@ -1,6 +1,8 @@
 package broker
 
 const (
+	Prefix = "brk"
+
 	BrokerUpdateRequestedV1Type = "broker.update.requested.v1"
 	BrokerUpdateSucceededV1Type = "broker.update.succeeded.v1"
 	BrokerUpdateRejectedV1Type  = "broker.update.rejected.v1"
@@ -8,8 +10,8 @@ const (
 )
 
 type BrokerUpdateBaseData struct {
-	BrokerID           string `json:"brokerId" bson:"broker_id" validate:"required,uuid"`
-	ServiceID          string `json:"serviceId" bson:"service_id" validate:"required,uuid"`
+	BrokerID           string `json:"brokerId" bson:"broker_id" validate:"required,eventid"`
+	ServiceID          string `json:"serviceId" bson:"service_id" validate:"required,eventid"`
 	ServiceVersionHash string `json:"serviceVersionHash" bson:"service_version_hash" validate:"required,sha256"`
 }
 

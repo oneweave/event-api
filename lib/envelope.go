@@ -4,10 +4,11 @@ import (
 	"time"
 
 	cloudevents "github.com/cloudevents/sdk-go/v2"
-	"github.com/sixafter/nanoid"
+	eventid "github.com/oneweave/event-id"
 )
 
 const (
+	Prefix                    = "evt"
 	EnvelopeSpecVersion       = "1.0"
 	DataContentTypeJSON       = "application/json"
 	CorrelationIdExtensionKey = "correlationid"
@@ -16,23 +17,23 @@ const (
 
 type Envelope struct {
 	SpecVersion     string `json:"specversion" bson:"spec_version" validate:"required,eq=1.0"`
-	ID              string `json:"id" bson:"id" validate:"required,uuid"`
+	ID              string `json:"id" bson:"id" validate:"required,eventid"`
 	Source          string `json:"source" bson:"source" validate:"required"`
 	Subject         string `json:"subject" bson:"subject" validate:"required"`
 	Time            string `json:"time" bson:"time" validate:"required,datetime=2006-01-02T15:04:05Z07:00"`
 	DataContentType string `json:"datacontenttype" bson:"data_content_type" validate:"required,eq=application/json"`
 	Dataschema      string `json:"dataschema" bson:"data_schema" validate:"required"`
 	// correlation for cross-service tracing, reuse correlationid from cloudevents extensions
-	CorrelationID string `json:"correlationid" bson:"correlation_id" validate:"required,uuid"`
+	CorrelationID string `json:"correlationid" bson:"correlation_id" validate:"required,eventid"`
 	// causation for event sourcing and debugging, use event ID as causation ID for traceability
-	CausationID string `json:"causationid" bson:"causation_id" validate:"required,uuid"`
+	CausationID string `json:"causationid" bson:"causation_id" validate:"required,eventid"`
 }
 
 func NewEnvelope() Envelope {
 	now := time.Now().UTC().Format(time.RFC3339)
-	nanoid, _ := nanoid.New()
+	id, _ := eventid.New(Prefix)
 	return Envelope{
-		ID:              nanoid.String(),
+		ID:              id,
 		SpecVersion:     EnvelopeSpecVersion,
 		DataContentType: DataContentTypeJSON,
 		Time:            now,

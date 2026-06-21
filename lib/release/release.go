@@ -1,6 +1,8 @@
 package release
 
 const (
+	Prefix = "rel"
+
 	ArtifactReleaseValidatedV1Type = "artifact.release.validated.v1"
 	ArtifactReleaseRejectedV1Type  = "artifact.release.rejected.v1"
 
@@ -11,8 +13,8 @@ const (
 )
 
 type ArtifactReleaseBaseData struct {
-	ReleaseID  string `json:"releaseId" bson:"release_id" validate:"required,uuid"`
-	ArtifactID string `json:"artifactId" bson:"artifact_id" validate:"required,uuid"`
+	ReleaseID  string `json:"releaseId" bson:"release_id" validate:"required,eventid"`
+	ArtifactID string `json:"artifactId" bson:"artifact_id" validate:"required,eventid"`
 }
 
 func NewArtifactReleaseBaseData() ArtifactReleaseBaseData {

@@ -143,6 +143,12 @@ components:
         $ref: "#/components/schemas/ControllerUpdateRejectedCloudEvent"
 
   schemas:
+    # --- Base event-id Identifier ---
+    EventID:
+      type: string
+      pattern: "^[a-z]{1,5}_[0-9a-hjkmnpqrstvwxyz]{26}$"
+      description: Prefixed UUIDv7 encoded in lowercase Crockford Base32.
+
     # --- CloudEvent Envelopes ---
     ArtifactReleaseRequestedCloudEvent:
       type: object
@@ -160,8 +166,7 @@ components:
         - data
       properties: &CloudEventProperties
         id:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         source:
           type: string
         specversion:
@@ -181,11 +186,9 @@ components:
         dataschema:
           type: string
         correlationid:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         causationid:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         data:
           $ref: "#/components/schemas/ArtifactReleaseRequestedData"
 
@@ -386,11 +389,9 @@ components:
         - artifactId
       properties:
         releaseId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         artifactId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
 
     ArtifactReleaseValidatedData:
       type: object
@@ -400,11 +401,9 @@ components:
         - manifest
       properties:
         releaseId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         artifactId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         manifest:
           $ref: "#/components/schemas/PluginManifest"
 
@@ -417,11 +416,9 @@ components:
         - releaseTarget
       properties:
         releaseId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         artifactId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         releaseSource:
           $ref: "#/components/schemas/ReleaseSource"
         releaseTarget:
@@ -435,11 +432,9 @@ components:
         - reason
       properties:
         releaseId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         artifactId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         reason:
           type: string
 
@@ -452,11 +447,9 @@ components:
         - manifest
       properties:
         releaseId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         artifactId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         releaseTarget:
           $ref: "#/components/schemas/ReleaseTarget"
         manifest:
@@ -470,11 +463,9 @@ components:
         - reason
       properties:
         releaseId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         artifactId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         reason:
           type: string
 
@@ -591,11 +582,9 @@ components:
         - releaseId
       properties:
         buildId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         releaseId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         sourceInfo:
           $ref: "#/components/schemas/BuildSourceInfo"
 
@@ -619,11 +608,9 @@ components:
         - releaseTarget
       properties:
         buildId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         releaseId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         sourceInfo:
           $ref: "#/components/schemas/BuildSourceInfo"
         releaseSource:
@@ -643,11 +630,9 @@ components:
         - manifest
       properties:
         buildId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         releaseId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         sourceInfo:
           $ref: "#/components/schemas/BuildSourceInfo"
         imagePullTargets:
@@ -665,11 +650,9 @@ components:
         - failureCode
       properties:
         buildId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         releaseId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         sourceInfo:
           $ref: "#/components/schemas/BuildSourceInfo"
         failureCode:
@@ -686,11 +669,9 @@ components:
         - serviceVersionHash
       properties:
         brokerId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         serviceId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         serviceVersionHash:
           type: string
 
@@ -703,11 +684,9 @@ components:
         - manifest
       properties:
         brokerId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         serviceId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         serviceVersionHash:
           type: string
         manifest:
@@ -721,11 +700,9 @@ components:
         - serviceVersionHash
       properties:
         brokerId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         serviceId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         serviceVersionHash:
           type: string
         manifest:
@@ -740,11 +717,9 @@ components:
         - failureCode
       properties:
         brokerId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         serviceId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         serviceVersionHash:
           type: string
         failureCode:
@@ -760,8 +735,7 @@ components:
         - payload
       properties:
         requestId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         rejectionReason:
           type: string
           nullable: true
@@ -779,11 +753,9 @@ components:
         - serviceId
       properties:
         controllerId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         serviceId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
 
     ControllerUpdateRequestedData:
       type: object
@@ -793,11 +765,9 @@ components:
         - manifest
       properties:
         controllerId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         serviceId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         manifest:
           $ref: "#/components/schemas/PluginManifest"
 
@@ -811,11 +781,9 @@ components:
         - baseUrl
       properties:
         controllerId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         serviceId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         oldVersion:
           type: string
         newVersion:
@@ -831,11 +799,9 @@ components:
         - failureCode
       properties:
         controllerId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         serviceId:
-          type: string
-          format: uuid
+          $ref: "#/components/schemas/EventID"
         failureCode:
           type: string
         failureMessage:

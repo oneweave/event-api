@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.13.0](https://github.com/oneweave/event-api/compare/v1.12.0...v1.13.0) (2026-06-21)
+
+
+### Features
+
+* remove artifact id, not needed ([799df78](https://github.com/oneweave/event-api/commit/799df786168f6fe1d84dfe9a13f69d646d471c34))
+* remove duplicated fields from build event data ([d138f60](https://github.com/oneweave/event-api/commit/d138f60813d7984fcd527044ef9f74a2605a9a9d))
+
 ## [1.12.0](https://github.com/oneweave/event-api/compare/v1.11.1...v1.12.0) (2026-06-21)
 
 

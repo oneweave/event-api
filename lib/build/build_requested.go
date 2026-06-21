@@ -6,16 +6,15 @@ import (
 
 // ArtifactBuildRequestedData matches the ArtifactBuildRequestedData schema.
 type ArtifactBuildRequestedData struct {
-	ArtifactBuildBaseData `json:",inline" yaml:",inline"`
-	ReleaseSource         lib.ReleaseSource `json:"releaseSource" bson:"release_source" validate:"required"`
-	ReleaseTarget         lib.ReleaseTarget `json:"releaseTarget" bson:"release_target" validate:"required"`
+	ReleaseID     string            `json:"releaseId" bson:"release_id" validate:"required,eventid"`
+	ReleaseSource lib.ReleaseSource `json:"releaseSource" bson:"release_source" validate:"required"`
+	ReleaseTarget lib.ReleaseTarget `json:"releaseTarget" bson:"release_target" validate:"required"`
 }
 
 func NewArtifactBuildRequestedData() ArtifactBuildRequestedData {
 	return ArtifactBuildRequestedData{
-		ArtifactBuildBaseData: NewArtifactBuildBaseData(),
-		ReleaseSource:         lib.NewReleaseSource(),
-		ReleaseTarget:         lib.NewReleaseTarget(),
+		ReleaseSource: lib.NewReleaseSource(),
+		ReleaseTarget: lib.NewReleaseTarget(),
 	}
 }
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.1](https://github.com/oneweave/event-api/compare/v1.11.0...v1.11.1) (2026-06-21)
+
+
+### Bug Fixes
+
+* add missing release fields to build succeeded ([5e3def4](https://github.com/oneweave/event-api/commit/5e3def47b13e3bc5ad88a4a7fbbf3580ed8f102c))
+
 ## [1.11.0](https://github.com/oneweave/event-api/compare/v1.10.0...v1.11.0) (2026-06-21)
 
 

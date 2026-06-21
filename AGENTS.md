@@ -6,6 +6,13 @@
 - `lib/*.go` implements the Go model layer and must mirror validations from `asyncapi.yaml`.
 - Models in `lib` are CloudEvent payload types and data schemas for artifact release/build lifecycle events.
 
+## Working shape
+- `lib/envelope.go` defines the shared CloudEvent envelope and validation helpers.
+- `lib/validator.go` provides `ValidateStruct` and `ParseAndValidate` for all event payloads.
+- Domain packages under `lib/{build,release,broker,controller}` own their event data and CloudEvent wrappers.
+- Constructors named `New...` should return fully initialized zero-value-safe structs, including nested defaults.
+- Event wrapper structs embed `lib.Envelope` and keep a matching `Type` field with an exact `eq=` validator.
+
 ## Important files
 - `asyncapi.yaml` — AsyncAPI contract definitions for messages and schemas.
 - `lib/release.go` — core schema structs and builder/release payload models.
@@ -18,6 +25,7 @@
 - Go 1.25
 - Use `gofmt -w` on Go files before committing.
 - Validation command: `go test ./...`
+- Prefer narrow validation on touched packages first, then run the full test suite when changes span multiple event types.
 
 ## Coding conventions
 - Maintain `json` tags on every struct field.
@@ -28,9 +36,11 @@
 - Constructor functions must set default struct values according to `asyncapi.yaml` defaults.
 - Event structs should embed `BaseEvent` and still define their own `Type` field for exact equality validation.
 - Keep AsyncAPI schema and Go model validation aligned; `asyncapi.yaml` is always the leading source of truth.
+- Keep package names and event type constants aligned with schema names, and prefer small, schema-driven edits over broad refactors.
 
 ## Suggested behavior for AI coding tasks
 - Prefer schema-driven changes: update `asyncapi.yaml` and corresponding Go structs together.
 - Do not add new package directories unless the task specifically requires expansion.
 - Preserve existing naming and event semantics for CloudEvent types and payloads.
 - Keep changes small and well-scoped in this small repository.
+- When changing validation behavior, check both constructors and `ParseAndValidate` callers for consistency.

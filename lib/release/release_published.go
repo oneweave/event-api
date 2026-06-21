@@ -6,13 +6,15 @@ import (
 
 type ArtifactReleasePublishedData struct {
 	ArtifactReleaseBaseData `json:",inline" yaml:",inline"`
-	ReleaseTarget           lib.ReleaseTarget `json:"releaseTarget" bson:"release_target" validate:"required"`
+	ReleaseTarget           lib.ReleaseTarget  `json:"releaseTarget" bson:"release_target" validate:"required"`
+	Manifest                lib.PluginManifest `json:"manifest" bson:"manifest" validate:"required"`
 }
 
 func NewArtifactReleasePublishedData() ArtifactReleasePublishedData {
 	return ArtifactReleasePublishedData{
 		ArtifactReleaseBaseData: NewArtifactReleaseBaseData(),
 		ReleaseTarget:           lib.NewReleaseTarget(),
+		Manifest:                lib.NewPluginManifest(),
 	}
 }
 

@@ -7,11 +7,17 @@ import (
 // ArtifactBuildStartedData matches the ArtifactBuildStartedData schema.
 type ArtifactBuildStartedData struct {
 	ArtifactBuildBaseData `json:",inline" yaml:",inline"`
+	ReleaseSource         lib.ReleaseSource  `json:"releaseSource" bson:"release_source" validate:"required"`
+	ReleaseTarget         lib.ReleaseTarget  `json:"releaseTarget" bson:"release_target" validate:"required"`
+	Manifest              lib.PluginManifest `json:"manifest" bson:"manifest,omitempty" validate:"required"`
 }
 
 func NewArtifactBuildStartedData() ArtifactBuildStartedData {
 	return ArtifactBuildStartedData{
 		ArtifactBuildBaseData: NewArtifactBuildBaseData(),
+		ReleaseSource:         lib.NewReleaseSource(),
+		ReleaseTarget:         lib.NewReleaseTarget(),
+		Manifest:              lib.NewPluginManifest(),
 	}
 }
 

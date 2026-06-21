@@ -8,11 +8,13 @@ import (
 type ArtifactBuildSucceededData struct {
 	ArtifactBuildBaseData `json:",inline" yaml:",inline"`
 	ImagePullTargets      []lib.ReleaseImagePullTarget `json:"imagePullTargets" bson:"image_pull_targets" validate:"required,min=1,dive"`
+	Manifest              lib.PluginManifest           `json:"manifest" bson:"manifest" validate:"required"`
 }
 
 func NewArtifactBuildSucceededData() ArtifactBuildSucceededData {
 	return ArtifactBuildSucceededData{
 		ArtifactBuildBaseData: NewArtifactBuildBaseData(),
+		Manifest:              lib.NewPluginManifest(),
 	}
 }
 

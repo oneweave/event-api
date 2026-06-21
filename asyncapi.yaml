@@ -198,7 +198,7 @@ components:
           type: string
           enum: [artifact.release.validated.v1]
         data:
-          $ref: "#/components/schemas/ArtifactReleaseBaseData"
+          $ref: "#/components/schemas/ArtifactReleaseValidatedData"
 
     ArtifactReleaseRejectedCloudEvent:
       type: object
@@ -297,7 +297,7 @@ components:
           type: string
           enum: [broker.update.requested.v1]
         data:
-          $ref: "#/components/schemas/BrokerUpdateBaseData"
+          $ref: "#/components/schemas/BrokerUpdateRequestedData"
 
     BrokerUpdateSucceededCloudEvent:
       type: object
@@ -341,7 +341,7 @@ components:
           type: string
           enum: [controller.update.requested.v1]
         data:
-          $ref: "#/components/schemas/ControllerUpdateBaseData"
+          $ref: "#/components/schemas/ControllerUpdateRequestedData"
 
     ControllerUpdateSucceededCloudEvent:
       type: object
@@ -392,6 +392,22 @@ components:
           type: string
           format: uuid
 
+    ArtifactReleaseValidatedData:
+      type: object
+      required:
+        - releaseId
+        - artifactId
+        - manifest
+      properties:
+        releaseId:
+          type: string
+          format: uuid
+        artifactId:
+          type: string
+          format: uuid
+        manifest:
+          $ref: "#/components/schemas/PluginManifest"
+
     ArtifactReleaseRequestedData:
       type: object
       required:
@@ -433,6 +449,7 @@ components:
         - releaseId
         - artifactId
         - releaseTarget
+        - manifest
       properties:
         releaseId:
           type: string
@@ -442,6 +459,8 @@ components:
           format: uuid
         releaseTarget:
           $ref: "#/components/schemas/ReleaseTarget"
+        manifest:
+          $ref: "#/components/schemas/PluginManifest"
 
     ArtifactReleaseDeprecatedData:
       type: object
@@ -592,7 +611,25 @@ components:
           type: string
 
     ArtifactBuildRequestedData:
-      $ref: "#/components/schemas/ArtifactBuildBaseData"
+      type: object
+      required:
+        - buildId
+        - releaseId
+        - releaseSource
+        - releaseTarget
+      properties:
+        buildId:
+          type: string
+          format: uuid
+        releaseId:
+          type: string
+          format: uuid
+        sourceInfo:
+          $ref: "#/components/schemas/BuildSourceInfo"
+        releaseSource:
+          $ref: "#/components/schemas/ReleaseSource"
+        releaseTarget:
+          $ref: "#/components/schemas/ReleaseTarget"
 
     ArtifactBuildStartedData:
       $ref: "#/components/schemas/ArtifactBuildBaseData"
@@ -603,6 +640,7 @@ components:
         - buildId
         - releaseId
         - imagePullTargets
+        - manifest
       properties:
         buildId:
           type: string
@@ -616,6 +654,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ReleaseImagePullTarget"
+        manifest:
+          $ref: "#/components/schemas/PluginManifest"
 
     ArtifactBuildFailedData:
       type: object
@@ -653,6 +693,25 @@ components:
           format: uuid
         serviceVersionHash:
           type: string
+
+    BrokerUpdateRequestedData:
+      type: object
+      required:
+        - brokerId
+        - serviceId
+        - serviceVersionHash
+        - manifest
+      properties:
+        brokerId:
+          type: string
+          format: uuid
+        serviceId:
+          type: string
+          format: uuid
+        serviceVersionHash:
+          type: string
+        manifest:
+          $ref: "#/components/schemas/PluginManifest"
 
     BrokerUpdateSucceededData:
       type: object
@@ -725,6 +784,22 @@ components:
         serviceId:
           type: string
           format: uuid
+
+    ControllerUpdateRequestedData:
+      type: object
+      required:
+        - controllerId
+        - serviceId
+        - manifest
+      properties:
+        controllerId:
+          type: string
+          format: uuid
+        serviceId:
+          type: string
+          format: uuid
+        manifest:
+          $ref: "#/components/schemas/PluginManifest"
 
     ControllerUpdateSucceededData:
       type: object

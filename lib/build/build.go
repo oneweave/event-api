@@ -7,19 +7,8 @@ const (
 	ArtifactBuildFailedV1Type    = "artifact.build.failed.v1"
 )
 
-type BuildSourceInfo struct {
-	Revision  string `json:"revision" bson:"revision" validate:"required"`
-	Commitish string `json:"commitish" bson:"commitish" validate:"required,alphanum,len=40"`
-}
-
-func NewBuildSourceInfo() BuildSourceInfo {
-	return BuildSourceInfo{}
-}
-
 type ArtifactBuildBaseData struct {
-	BuildID    string          `json:"buildId" bson:"build_id" validate:"required,uuid"`
-	ReleaseID  string          `json:"releaseId" bson:"release_id" validate:"required,uuid"`
-	SourceInfo BuildSourceInfo `json:"sourceInfo" bson:"source_info" validate:"omitempty"`
+	BuildID string `json:"buildId" bson:"build_id" validate:"required,uuid"`
 }
 
 func NewArtifactBuildBaseData() ArtifactBuildBaseData {

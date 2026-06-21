@@ -4,7 +4,7 @@ info:
   version: 0.0.1
   description:
     Event contract for OneWeave artifact-builder release requests, build results,
-    broker updates, and controller updates.
+    broker updates, controller updates, and tenant registration lifecycle events.
 
 components:
   messages:
@@ -141,6 +141,22 @@ components:
       contentType: application/cloudevents+json; version=1.0
       payload:
         $ref: "#/components/schemas/ControllerUpdateRejectedCloudEvent"
+
+    # --- Tenant Domain ---
+    TenantRegisteredV1:
+      name: TenantRegisteredV1
+      title: tenant.registered.v1
+      summary: A new tenant has been registered in the platform.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/TenantRegisteredCloudEvent"
+    TenantUpdatedV1:
+      name: TenantUpdatedV1
+      title: tenant.updated.v1
+      summary: A tenant has been updated on the platform.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/TenantUpdatedCloudEvent"
 
   schemas:
     # --- Base event-id Identifier ---
@@ -378,6 +394,29 @@ components:
           enum: [controller.update.rejected.v1]
         data:
           $ref: "#/components/schemas/ControllerUpdateBaseData"
+
+    TenantRegisteredCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [tenant.registered.v1]
+        data:
+          $ref: "#/components/schemas/TenantRegisteredData"
+
+    TenantUpdatedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [tenant.updated.v1]
+        data:
+          $ref: "#/components/schemas/TenantBaseData"
+
 
 
     # --- Data Payloads ---
@@ -1084,4 +1123,46 @@ components:
         tracing:
           type: string
         correlationIdHeader:
+          type: string
+
+    # --- Tenant Domain Data Payloads ---
+
+    TenantUser:
+      type: object
+      required:
+        - userId
+        - firstName
+        - secondName
+        - email
+      properties:
+        userId:
+          $ref: "#/components/schemas/EventID"
+        firstName:
+          type: string
+        secondName:
+          type: string
+        email:
+          type: string
+          format: email
+
+    TenantBaseData:
+      type: object
+      required:
+        - tenantId
+        - name
+      properties:
+        tenantId:
+          $ref: "#/components/schemas/EventID"
+        name:
+          type: string
+
+    TenantRegisteredData:
+      type: object
+      required:
+        - tenantId
+        - name
+      properties:
+        tenantId:
+          $ref: "#/components/schemas/EventID"
+        name:
           type: string

@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.11.0](https://github.com/oneweave/event-api/compare/v1.10.0...v1.11.0) (2026-06-21)
+
+
+### Features
+
+* add artifact build request ([053c3dd](https://github.com/oneweave/event-api/commit/053c3dd2b86d506cfe6e94963d657bd79a87e5c9))
+* update asyncapi spec ([c0c003e](https://github.com/oneweave/event-api/commit/c0c003e3c8d742bd10a5aabbd04b06ea58daf613))
+* update event payloads ([3d7bed4](https://github.com/oneweave/event-api/commit/3d7bed4502c8ffeec17c91b341bb42a5ec7b0bbb))
+
 ## [1.10.0](https://github.com/oneweave/event-api/compare/v1.9.0...v1.10.0) (2026-06-16)
 
 

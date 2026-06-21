@@ -13,7 +13,7 @@ type ArtifactReleaseRetiredCloudEvent struct {
 func NewArtifactReleaseRetiredCloudEvent() ArtifactReleaseRetiredCloudEvent {
 	return ArtifactReleaseRetiredCloudEvent{
 		Envelope: lib.NewEnvelope(),
-		Type:     ReleaseRetiredV1Type,
+		Type:     ArtifactReleaseRetiredV1Type,
 		Data:     NewArtifactReleaseBaseData(),
 	}
 }

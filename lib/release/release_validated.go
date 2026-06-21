@@ -13,7 +13,7 @@ type ArtifactReleaseValidatedCloudEvent struct {
 func NewArtifactReleaseValidatedCloudEvent() ArtifactReleaseValidatedCloudEvent {
 	return ArtifactReleaseValidatedCloudEvent{
 		Envelope: lib.NewEnvelope(),
-		Type:     ReleaseValidatedV1Type,
+		Type:     ArtifactReleaseValidatedV1Type,
 		Data:     NewArtifactReleaseBaseData(),
 	}
 }

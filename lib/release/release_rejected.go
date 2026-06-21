@@ -24,7 +24,7 @@ type ArtifactReleaseRejectedCloudEvent struct {
 func NewArtifactReleaseRejectedCloudEvent() ArtifactReleaseRejectedCloudEvent {
 	return ArtifactReleaseRejectedCloudEvent{
 		Envelope: lib.NewEnvelope(),
-		Type:     ReleaseRejectedV1Type,
+		Type:     ArtifactReleaseRejectedV1Type,
 		Data:     NewArtifactReleaseRejectedData(),
 	}
 }

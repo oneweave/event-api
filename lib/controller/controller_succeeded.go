@@ -4,8 +4,8 @@ import (
 	"github.com/oneweave/event-api/lib"
 )
 
-type ControllerUpdateSucceededEventData struct {
-	ControllerUpdatedEventBaseData `json:",inline" yaml:",inline"`
+type ControllerUpdateSucceededData struct {
+	ControllerUpdateBaseData `json:",inline" yaml:",inline"`
 
 	OldVersion string `json:"oldVersion" bson:"old_version" validate:"required"`
 	NewVersion string `json:"newVersion" bson:"new_version" validate:"required"`
@@ -14,14 +14,14 @@ type ControllerUpdateSucceededEventData struct {
 
 type ControllerUpdateSucceededCloudEvent struct {
 	lib.Envelope `json:",inline" yaml:",inline"`
-	Type         string                             `json:"type" bson:"type" validate:"required,eq=controller.update.succeeded.v1"`
-	Data         ControllerUpdateSucceededEventData `json:"data" bson:"data" validate:"required"`
+	Type         string                        `json:"type" bson:"type" validate:"required,eq=controller.update.succeeded.v1"`
+	Data         ControllerUpdateSucceededData `json:"data" bson:"data" validate:"required"`
 }
 
 func NewControllerUpdateSucceededCloudEvent() ControllerUpdateSucceededCloudEvent {
 	return ControllerUpdateSucceededCloudEvent{
 		Envelope: lib.NewEnvelope(),
 		Type:     ControllerUpdateSucceededV1Type,
-		Data:     ControllerUpdateSucceededEventData{},
+		Data:     ControllerUpdateSucceededData{},
 	}
 }

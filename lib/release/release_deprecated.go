@@ -24,7 +24,7 @@ type ArtifactReleaseDeprecatedCloudEvent struct {
 func NewArtifactReleaseDeprecatedCloudEvent() ArtifactReleaseDeprecatedCloudEvent {
 	return ArtifactReleaseDeprecatedCloudEvent{
 		Envelope: lib.NewEnvelope(),
-		Type:     ReleaseDeprecatedV1Type,
+		Type:     ArtifactReleaseDeprecatedV1Type,
 		Data:     NewArtifactReleaseDeprecatedData(),
 	}
 }

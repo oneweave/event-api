@@ -25,7 +25,7 @@ type ArtifactReleasePublishedCloudEvent struct {
 func NewArtifactReleasePublishedCloudEvent() ArtifactReleasePublishedCloudEvent {
 	return ArtifactReleasePublishedCloudEvent{
 		Envelope: lib.NewEnvelope(),
-		Type:     ReleasePublishedV1Type,
+		Type:     ArtifactReleasePublishedV1Type,
 		Data:     NewArtifactReleasePublishedData(),
 	}
 }

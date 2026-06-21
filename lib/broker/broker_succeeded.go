@@ -5,8 +5,8 @@ import (
 )
 
 type BrokerUpdateSucceededData struct {
-	BrokerUpdatedEventData `json:",inline" yaml:",inline"`
-	Manifest               lib.PluginManifest `json:"manifest" bson:"manifest,omitempty" validate:"omitempty"`
+	BrokerUpdateBaseData `json:",inline" yaml:",inline"`
+	Manifest             lib.PluginManifest `json:"manifest" bson:"manifest,omitempty" validate:"omitempty"`
 }
 
 type BrokerUpdateSucceededCloudEvent struct {
@@ -20,8 +20,8 @@ func NewBrokerUpdateSucceededCloudEvent() BrokerUpdateSucceededCloudEvent {
 		Envelope: lib.NewEnvelope(),
 		Type:     BrokerUpdateSucceededV1Type,
 		Data: BrokerUpdateSucceededData{
-			BrokerUpdatedEventData: NewBrokerUpdatedEventData(),
-			Manifest:               lib.NewPluginManifest(),
+			BrokerUpdateBaseData: NewBrokerUpdateBaseData(),
+			Manifest:             lib.NewPluginManifest(),
 		},
 	}
 }

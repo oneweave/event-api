@@ -5,14 +5,14 @@ import (
 )
 
 type BrokerUpdateFailedData struct {
-	BrokerUpdatedEventData `json:",inline" yaml:",inline"`
-	lib.EventFailure       `json:",inline" yaml:",inline"`
+	BrokerUpdateBaseData `json:",inline" yaml:",inline"`
+	lib.EventFailure     `json:",inline" yaml:",inline"`
 }
 
 func NewBrokerUpdateFailedData() BrokerUpdateFailedData {
 	return BrokerUpdateFailedData{
-		BrokerUpdatedEventData: NewBrokerUpdatedEventData(),
-		EventFailure:           lib.NewEventFailure(),
+		BrokerUpdateBaseData: NewBrokerUpdateBaseData(),
+		EventFailure:         lib.NewEventFailure(),
 	}
 }
 

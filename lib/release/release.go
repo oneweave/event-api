@@ -1,13 +1,13 @@
 package release
 
 const (
-	ReleaseValidatedV1Type = "artifact.release.validated.v1"
-	ReleaseRejectedV1Type  = "artifact.release.rejected.v1"
+	ArtifactReleaseValidatedV1Type = "artifact.release.validated.v1"
+	ArtifactReleaseRejectedV1Type  = "artifact.release.rejected.v1"
 
-	ReleaseRequestedV1Type  = "artifact.release.requested.v1"
-	ReleasePublishedV1Type  = "artifact.release.published.v1"
-	ReleaseDeprecatedV1Type = "artifact.release.deprecated.v1"
-	ReleaseRetiredV1Type    = "artifact.release.retired.v1"
+	ArtifactReleaseRequestedV1Type  = "artifact.release.requested.v1"
+	ArtifactReleasePublishedV1Type  = "artifact.release.published.v1"
+	ArtifactReleaseDeprecatedV1Type = "artifact.release.deprecated.v1"
+	ArtifactReleaseRetiredV1Type    = "artifact.release.retired.v1"
 )
 
 type ArtifactReleaseBaseData struct {

@@ -3,11 +3,12 @@ info:
   title: OneWeave Generic Event API Components
   version: 0.0.1
   description:
-    Event contract for OneWeave artifact-builder release requests and build result
-    publication.
+    Event contract for OneWeave artifact-builder release requests, build results,
+    broker updates, and controller updates.
 
 components:
   messages:
+    # --- Release Domain ---
     ArtifactReleaseRequestedV1:
       name: ArtifactReleaseRequestedV1
       title: artifact.release.requested.v1
@@ -22,6 +23,43 @@ components:
       contentType: application/cloudevents+json; version=1.0
       payload:
         $ref: "#/components/schemas/ArtifactReleaseValidatedCloudEvent"
+    ArtifactReleaseRejectedV1:
+      name: ArtifactReleaseRejectedV1
+      title: artifact.release.rejected.v1
+      summary: Release creation request was rejected.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ArtifactReleaseRejectedCloudEvent"
+    ArtifactReleasePublishedV1:
+      name: ArtifactReleasePublishedV1
+      title: artifact.release.published.v1
+      summary: Release has been published.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ArtifactReleasePublishedCloudEvent"
+    ArtifactReleaseDeprecatedV1:
+      name: ArtifactReleaseDeprecatedV1
+      title: artifact.release.deprecated.v1
+      summary: Release has been deprecated.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ArtifactReleaseDeprecatedCloudEvent"
+    ArtifactReleaseRetiredV1:
+      name: ArtifactReleaseRetiredV1
+      title: artifact.release.retired.v1
+      summary: Release has been retired.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ArtifactReleaseRetiredCloudEvent"
+
+    # --- Build Domain ---
+    ArtifactBuildRequestedV1:
+      name: ArtifactBuildRequestedV1
+      title: artifact.build.requested.v1
+      summary: Build request has been submitted.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ArtifactBuildRequestedCloudEvent"
     ArtifactBuildStartedV1:
       name: ArtifactBuildStartedV1
       title: artifact.build.started.v1
@@ -29,26 +67,6 @@ components:
       contentType: application/cloudevents+json; version=1.0
       payload:
         $ref: "#/components/schemas/ArtifactBuildStartedCloudEvent"
-      examples:
-        - name: started
-          summary: Build chain acknowledged the verified build request.
-          payload:
-            id: a7e4cb77-8c41-4714-a1c7-2c8fef9a1cc9
-            source: urn:oneweave:core:artifact-builder
-            specversion: "1.0"
-            type: artifact.build.started.v1
-            subject: build/6d8f8f62-1ed4-4e2e-bc0b-8b9dcd64f7c1
-            time: 2026-05-01T12:01:00Z
-            datacontenttype: application/json
-            dataschema: urn:oneweave:core:artifact-builder:events:artifact.build.started.v1
-            correlationid: 4d7f5f65-5b67-47fd-a2d8-4eddf0b9f2ae
-            causationid: 6d8f8f62-1ed4-4e2e-bc0b-8b9dcd64f7c1
-            data:
-              buildId: 6d8f8f62-1ed4-4e2e-bc0b-8b9dcd64f7c1
-              serviceId: 0f6d9844-7cf4-4c6f-9b0d-6b08f9c50ef4
-              sourceRevisionRef: main
-              sourceRevision: 6d7d4f8c7c2f0db6d9fef7d33dd9c72a0d8a8f91
-              serviceVersion: 1.2.3
     ArtifactBuildSucceededV1:
       name: ArtifactBuildSucceededV1
       title: artifact.build.succeeded.v1
@@ -56,34 +74,6 @@ components:
       contentType: application/cloudevents+json; version=1.0
       payload:
         $ref: "#/components/schemas/ArtifactBuildSucceededCloudEvent"
-      examples:
-        - name: succeeded
-          summary: Build completed successfully and produced a deployable artifact.
-          payload:
-            id: 5cb4fd7d-6130-4e5f-8c38-64f4ce7a8f18
-            source: urn:oneweave:core:artifact-builder
-            specversion: "1.0"
-            type: artifact.build.succeeded.v1
-            subject: build/6d8f8f62-1ed4-4e2e-bc0b-8b9dcd64f7c1
-            time: 2026-05-01T12:05:00Z
-            datacontenttype: application/json
-            dataschema: urn:oneweave:core:artifact-builder:events:artifact.build.succeeded.v1
-            correlationid: 4d7f5f65-5b67-47fd-a2d8-4eddf0b9f2ae
-            causationid: a7e4cb77-8c41-4714-a1c7-2c8fef9a1cc9
-            data:
-              buildId: 6d8f8f62-1ed4-4e2e-bc0b-8b9dcd64f7c1
-              serviceId: 0f6d9844-7cf4-4c6f-9b0d-6b08f9c50ef4
-              sourceRevisionRef: main
-              sourceRevision: 6d7d4f8c7c2f0db6d9fef7d33dd9c72a0d8a8f91
-              serviceVersion: 1.2.3
-              imagePullTargets:
-                - kind: oci-registry
-                  name: artifact-builder
-                  protocol: oci
-                  baseUrl: registry.example.internal
-                  namespace: core/artifact-builder
-                  tag: "1.2.3"
-                  credentialRef: null
     ArtifactBuildFailedV1:
       name: ArtifactBuildFailedV1
       title: artifact.build.failed.v1
@@ -91,154 +81,318 @@ components:
       contentType: application/cloudevents+json; version=1.0
       payload:
         $ref: "#/components/schemas/ArtifactBuildFailedCloudEvent"
-      examples:
-        - name: failed
-          summary: Build failed and no deployable artifact was produced.
-          payload:
-            id: 8a5e0a3f-9f2a-4d3f-9a8c-bf2e4d7c5f03
-            source: urn:oneweave:core:artifact-builder
-            specversion: "1.0"
-            type: artifact.build.failed.v1
-            subject: build/6d8f8f62-1ed4-4e2e-bc0b-8b9dcd64f7c1
-            time: 2026-05-01T12:03:00Z
-            datacontenttype: application/json
-            dataschema: urn:oneweave:core:artifact-builder:events:artifact.build.failed.v1
-            correlationid: 4d7f5f65-5b67-47fd-a2d8-4eddf0b9f2ae
-            causationid: a7e4cb77-8c41-4714-a1c7-2c8fef9a1cc9
-            data:
-              buildId: 6d8f8f62-1ed4-4e2e-bc0b-8b9dcd64f7c1
-              serviceId: 0f6d9844-7cf4-4c6f-9b0d-6b08f9c50ef4
-              sourceRevisionRef: main
-              sourceRevision: 6d7d4f8c7c2f0db6d9fef7d33dd9c72a0d8a8f91
-              serviceVersion: 1.2.3
-              failureCode: BUILD_EXECUTION_FAILED
-              failureMessage: Build execution failed before producing an artifact.
+
+    # --- Broker Domain ---
+    BrokerUpdateRequestedV1:
+      name: BrokerUpdateRequestedV1
+      title: broker.update.requested.v1
+      summary: Broker update request has been submitted.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/BrokerUpdateRequestedCloudEvent"
+    BrokerUpdateSucceededV1:
+      name: BrokerUpdateSucceededV1
+      title: broker.update.succeeded.v1
+      summary: Broker update succeeded.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/BrokerUpdateSucceededCloudEvent"
+    BrokerUpdateFailedV1:
+      name: BrokerUpdateFailedV1
+      title: broker.update.failed.v1
+      summary: Broker update failed.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/BrokerUpdateFailedCloudEvent"
+    BrokerUpdateRejectedV1:
+      name: BrokerUpdateRejectedV1
+      title: broker.update.rejected.v1
+      summary: Broker update was rejected.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/BrokerUpdateRejectedCloudEvent"
+
+    # --- Controller Domain ---
+    ControllerUpdateRequestedV1:
+      name: ControllerUpdateRequestedV1
+      title: controller.update.requested.v1
+      summary: Controller update request has been submitted.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ControllerUpdateRequestedCloudEvent"
+    ControllerUpdateSucceededV1:
+      name: ControllerUpdateSucceededV1
+      title: controller.update.succeeded.v1
+      summary: Controller update succeeded.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ControllerUpdateSucceededCloudEvent"
+    ControllerUpdateFailedV1:
+      name: ControllerUpdateFailedV1
+      title: controller.update.failed.v1
+      summary: Controller update failed.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ControllerUpdateFailedCloudEvent"
+    ControllerUpdateRejectedV1:
+      name: ControllerUpdateRejectedV1
+      title: controller.update.rejected.v1
+      summary: Controller update was rejected.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ControllerUpdateRejectedCloudEvent"
+
   schemas:
-    ReleaseSource:
+    # --- CloudEvent Envelopes ---
+    ArtifactReleaseRequestedCloudEvent:
       type: object
-      description: Reusable build input sufficient to fetch source, locate build
-        context, and construct a deployable artifact build request.
-      fields:
-        repository:
-          type: object
-          fields:
-            kind:
-              type: string
-              default: git
-              enum:
-                - git
-            protocol:
-              type: string
-              default: https
-              enum:
-                - https
-                - ssh
-                - git
-            url:
-              type: string
-            credentialRef:
-              type: string
-              nullable: true
-        sourceRevisionRef:
+      required: &CloudEventRequired
+        - id
+        - source
+        - specversion
+        - type
+        - subject
+        - time
+        - datacontenttype
+        - dataschema
+        - correlationid
+        - causationid
+        - data
+      properties: &CloudEventProperties
+        id:
           type: string
-          pattern: "^[a-zA-Z0-9]+$"
-        sourceRevision:
+          format: uuid
+        source:
           type: string
-        manifestFilePath:
+        specversion:
           type: string
-          nullable: true
-        dockerContextPath:
+          enum: ["1.0"]
+        type:
           type: string
-          default: "."
-        dockerfilePath:
+          enum: [artifact.release.requested.v1]
+        subject:
           type: string
-          default: "Dockerfile"
-        buildArgs:
-          type: array
-          default: []
-          items:
-            type: object
-            fields:
-              name:
-                type: string
-                pattern: "^[a-zA-Z0-9]+$"
-              value:
-                type: string
-                nullable: true
-    ReleaseTarget:
+        time:
+          type: string
+          format: date-time
+        datacontenttype:
+          type: string
+          enum: [application/json]
+        dataschema:
+          type: string
+        correlationid:
+          type: string
+          format: uuid
+        causationid:
+          type: string
+          format: uuid
+        data:
+          $ref: "#/components/schemas/ArtifactReleaseRequestedData"
+
+    ArtifactReleaseValidatedCloudEvent:
       type: object
-      description: Target details for release artifact publication.
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [artifact.release.validated.v1]
+        data:
+          $ref: "#/components/schemas/ArtifactReleaseBaseData"
+
+    ArtifactReleaseRejectedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [artifact.release.rejected.v1]
+        data:
+          $ref: "#/components/schemas/ArtifactReleaseRejectedData"
+
+    ArtifactReleasePublishedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [artifact.release.published.v1]
+        data:
+          $ref: "#/components/schemas/ArtifactReleasePublishedData"
+
+    ArtifactReleaseDeprecatedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [artifact.release.deprecated.v1]
+        data:
+          $ref: "#/components/schemas/ArtifactReleaseDeprecatedData"
+
+    ArtifactReleaseRetiredCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [artifact.release.retired.v1]
+        data:
+          $ref: "#/components/schemas/ArtifactReleaseBaseData"
+
+    ArtifactBuildRequestedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [artifact.build.requested.v1]
+        data:
+          $ref: "#/components/schemas/ArtifactBuildRequestedData"
+
+    ArtifactBuildStartedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [artifact.build.started.v1]
+        data:
+          $ref: "#/components/schemas/ArtifactBuildStartedData"
+
+    ArtifactBuildSucceededCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [artifact.build.succeeded.v1]
+        data:
+          $ref: "#/components/schemas/ArtifactBuildSucceededData"
+
+    ArtifactBuildFailedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [artifact.build.failed.v1]
+        data:
+          $ref: "#/components/schemas/ArtifactBuildFailedData"
+
+    BrokerUpdateRequestedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [broker.update.requested.v1]
+        data:
+          $ref: "#/components/schemas/BrokerUpdateBaseData"
+
+    BrokerUpdateSucceededCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [broker.update.succeeded.v1]
+        data:
+          $ref: "#/components/schemas/BrokerUpdateSucceededData"
+
+    BrokerUpdateFailedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [broker.update.failed.v1]
+        data:
+          $ref: "#/components/schemas/BrokerUpdateFailedData"
+
+    BrokerUpdateRejectedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [broker.update.rejected.v1]
+        data:
+          $ref: "#/components/schemas/BrokerUpdateRejectedData"
+
+    ControllerUpdateRequestedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [controller.update.requested.v1]
+        data:
+          $ref: "#/components/schemas/ControllerUpdateBaseData"
+
+    ControllerUpdateSucceededCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [controller.update.succeeded.v1]
+        data:
+          $ref: "#/components/schemas/ControllerUpdateSucceededData"
+
+    ControllerUpdateFailedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [controller.update.failed.v1]
+        data:
+          $ref: "#/components/schemas/ControllerUpdateFailedData"
+
+    ControllerUpdateRejectedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [controller.update.rejected.v1]
+        data:
+          $ref: "#/components/schemas/ControllerUpdateBaseData"
+
+
+    # --- Data Payloads ---
+
+    ArtifactReleaseBaseData:
+      type: object
       required:
-        - requestedVersion
-        - platform
-        - imagePushTarget
-      fields:
-        requestedVersion:
+        - releaseId
+        - artifactId
+      properties:
+        releaseId:
           type: string
-        platform:
+          format: uuid
+        artifactId:
           type: string
-          default: linux/amd64
-          enum:
-            - linux/amd64
-        imagePushTarget:
-          $ref: "#/components/schemas/ImagePushTarget"
-    ImagePushTarget:
-      type: object
-      fields:
-        kind:
-          type: string
-          default: oci-registry
-          enum:
-            - oci-registry
-        name:
-          type: string
-        protocol:
-          type: string
-          default: oci
-          enum:
-            - oci
-            - https
-        baseUrl:
-          type: string
-        namespace:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-            pattern: "^[a-zA-Z0-9]+$"
-        credentialRef:
-          type: string
-          nullable: true
-    ImagePullTarget:
-      type: object
-      fields:
-        kind:
-          type: string
-          default: oci-registry
-          enum:
-            - oci-registry
-        name:
-          type: string
-        protocol:
-          type: string
-          default: oci
-          enum:
-            - oci
-            - https
-        baseUrl:
-          type: string
-        namespace:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-            pattern: "^[a-zA-Z0-9]+$"
-        credentialRef:
-          type: string
-          nullable: true
-    ArtifactBuildRequestData:
+          format: uuid
+
+    ArtifactReleaseRequestedData:
       type: object
       required:
         - releaseId
@@ -256,323 +410,637 @@ components:
           $ref: "#/components/schemas/ReleaseSource"
         releaseTarget:
           $ref: "#/components/schemas/ReleaseTarget"
-    ArtifactReleaseArtifactIdData:
+
+    ArtifactReleaseRejectedData:
       type: object
       required:
+        - releaseId
         - artifactId
+        - reason
       properties:
+        releaseId:
+          type: string
+          format: uuid
         artifactId:
           type: string
           format: uuid
-    ArtifactBuildStartedData:
+        reason:
+          type: string
+
+    ArtifactReleasePublishedData:
+      type: object
+      required:
+        - releaseId
+        - artifactId
+        - releaseTarget
+      properties:
+        releaseId:
+          type: string
+          format: uuid
+        artifactId:
+          type: string
+          format: uuid
+        releaseTarget:
+          $ref: "#/components/schemas/ReleaseTarget"
+
+    ArtifactReleaseDeprecatedData:
+      type: object
+      required:
+        - releaseId
+        - artifactId
+        - reason
+      properties:
+        releaseId:
+          type: string
+          format: uuid
+        artifactId:
+          type: string
+          format: uuid
+        reason:
+          type: string
+
+    ReleaseSource:
+      type: object
+      required:
+        - repository
+        - sourceRevision
+      properties:
+        repository:
+          $ref: "#/components/schemas/ReleaseSourceRepository"
+        sourceRevisionRef:
+          type: string
+        sourceRevision:
+          type: string
+        manifestFilePath:
+          type: string
+        dockerContextPath:
+          type: string
+          nullable: true
+        dockerfilePath:
+          type: string
+          nullable: true
+        buildArgs:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReleaseSourceBuildArg"
+
+    ReleaseSourceRepository:
+      type: object
+      required:
+        - kind
+        - protocol
+        - url
+      properties:
+        kind:
+          type: string
+          enum: [git]
+        protocol:
+          type: string
+          enum: [https, ssh, git]
+        url:
+          type: string
+        credentialRef:
+          type: string
+          nullable: true
+
+    ReleaseSourceBuildArg:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+          nullable: true
+
+    ReleaseTarget:
+      type: object
+      required:
+        - publicVersion
+        - platform
+        - imagePushTarget
+      properties:
+        publicVersion:
+          type: string
+        platform:
+          type: string
+          enum: ["linux/amd64"]
+        imagePushTarget:
+          $ref: "#/components/schemas/ReleaseImagePushTarget"
+
+    ImageTarget:
+      type: object
+      required:
+        - name
+        - kind
+        - protocol
+        - baseUrl
+        - namespace
+        - tags
+      properties:
+        name:
+          type: string
+        kind:
+          type: string
+          enum: [oci-registry]
+        protocol:
+          type: string
+          enum: [oci, https]
+        baseUrl:
+          type: string
+        namespace:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        credentialRef:
+          type: string
+          nullable: true
+
+    ReleaseImagePushTarget:
+      $ref: "#/components/schemas/ImageTarget"
+
+    ReleaseImagePullTarget:
+      $ref: "#/components/schemas/ImageTarget"
+
+    ArtifactBuildBaseData:
       type: object
       required:
         - buildId
-        - serviceId
-        - sourceRevisionRef
-        - sourceRevision
-        - serviceVersion
+        - releaseId
       properties:
         buildId:
           type: string
           format: uuid
-        serviceId:
+        releaseId:
           type: string
           format: uuid
-        sourceRevisionRef:
+        sourceInfo:
+          $ref: "#/components/schemas/BuildSourceInfo"
+
+    BuildSourceInfo:
+      type: object
+      required:
+        - revision
+        - commitish
+      properties:
+        revision:
           type: string
-          pattern: "^[a-zA-Z0-9]+$"
-        sourceRevision:
+        commitish:
           type: string
-        serviceVersion:
-          type: string
+
+    ArtifactBuildRequestedData:
+      $ref: "#/components/schemas/ArtifactBuildBaseData"
+
+    ArtifactBuildStartedData:
+      $ref: "#/components/schemas/ArtifactBuildBaseData"
+
     ArtifactBuildSucceededData:
       type: object
       required:
         - buildId
-        - serviceId
-        - sourceRevisionRef
-        - sourceRevision
-        - serviceVersion
+        - releaseId
         - imagePullTargets
       properties:
         buildId:
           type: string
           format: uuid
-        serviceId:
+        releaseId:
           type: string
           format: uuid
-        sourceRevisionRef:
-          type: string
-          pattern: "^[a-zA-Z0-9]+$"
-        sourceRevision:
-          type: string
-        serviceVersion:
-          type: string
+        sourceInfo:
+          $ref: "#/components/schemas/BuildSourceInfo"
         imagePullTargets:
           type: array
           items:
-            $ref: "#/components/schemas/ImagePullTarget"
+            $ref: "#/components/schemas/ReleaseImagePullTarget"
+
     ArtifactBuildFailedData:
       type: object
       required:
         - buildId
-        - serviceId
-        - sourceRevisionRef
-        - sourceRevision
-        - serviceVersion
+        - releaseId
+        - failureCode
       properties:
         buildId:
+          type: string
+          format: uuid
+        releaseId:
+          type: string
+          format: uuid
+        sourceInfo:
+          $ref: "#/components/schemas/BuildSourceInfo"
+        failureCode:
+          type: string
+        failureMessage:
+          type: string
+          nullable: true
+
+    BrokerUpdateBaseData:
+      type: object
+      required:
+        - brokerId
+        - serviceId
+        - serviceVersionHash
+      properties:
+        brokerId:
           type: string
           format: uuid
         serviceId:
           type: string
           format: uuid
-        sourceRevisionRef:
+        serviceVersionHash:
           type: string
-          pattern: "^[a-zA-Z0-9]+$"
-        sourceRevision:
+
+    BrokerUpdateSucceededData:
+      type: object
+      required:
+        - brokerId
+        - serviceId
+        - serviceVersionHash
+      properties:
+        brokerId:
           type: string
-        serviceVersion:
+          format: uuid
+        serviceId:
+          type: string
+          format: uuid
+        serviceVersionHash:
+          type: string
+        manifest:
+          $ref: "#/components/schemas/PluginManifest"
+
+    BrokerUpdateFailedData:
+      type: object
+      required:
+        - brokerId
+        - serviceId
+        - serviceVersionHash
+        - failureCode
+      properties:
+        brokerId:
+          type: string
+          format: uuid
+        serviceId:
+          type: string
+          format: uuid
+        serviceVersionHash:
           type: string
         failureCode:
           type: string
-          nullable: true
         failureMessage:
           type: string
           nullable: true
-    ArtifactReleaseRequestedCloudEvent:
+
+    BrokerUpdateRejectedData:
       type: object
       required:
-        - id
-        - source
-        - specversion
-        - type
-        - subject
-        - time
-        - datacontenttype
-        - dataschema
-        - correlationid
-        - causationid
-        - data
+        - requestId
+        - payload
       properties:
-        id:
+        requestId:
           type: string
           format: uuid
-        source:
+        rejectionReason:
           type: string
-        specversion:
-          type: string
-          enum:
-            - "1.0"
-        type:
-          type: string
-          enum:
-            - artifact.release.requested.v1
-        subject:
-          type: string
-        time:
-          type: string
-          format: date-time
-        datacontenttype:
-          type: string
-          enum:
-            - application/json
-        dataschema:
-          type: string
-        correlationid:
-          type: string
-          format: uuid
-        causationid:
-          type: string
-          format: uuid
-        data:
-          $ref: "#/components/schemas/ArtifactBuildRequestData"
-    ArtifactReleaseValidatedCloudEvent:
+          nullable: true
+        details:
+          type: object
+          additionalProperties: true
+          nullable: true
+        payload:
+          $ref: "#/components/schemas/BrokerUpdateBaseData"
+
+    ControllerUpdateBaseData:
       type: object
       required:
-        - id
-        - source
-        - specversion
-        - type
-        - subject
-        - time
-        - datacontenttype
-        - dataschema
-        - correlationid
-        - causationid
-        - data
+        - controllerId
+        - serviceId
       properties:
-        id:
+        controllerId:
           type: string
           format: uuid
-        source:
-          type: string
-        specversion:
-          type: string
-          enum:
-            - "1.0"
-        type:
-          type: string
-          enum:
-            - artifact.release.validated.v1
-        subject:
-          type: string
-        time:
-          type: string
-          format: date-time
-        datacontenttype:
-          type: string
-          enum:
-            - application/json
-        dataschema:
-          type: string
-        correlationid:
+        serviceId:
           type: string
           format: uuid
-        causationid:
-          type: string
-          format: uuid
-        data:
-          $ref: "#/components/schemas/ArtifactReleaseArtifactIdData"
-    ArtifactBuildStartedCloudEvent:
+
+    ControllerUpdateSucceededData:
       type: object
       required:
-        - id
-        - source
-        - specversion
-        - type
-        - subject
-        - time
-        - datacontenttype
-        - dataschema
-        - correlationid
-        - causationid
-        - data
+        - controllerId
+        - serviceId
+        - oldVersion
+        - newVersion
+        - baseUrl
       properties:
-        id:
+        controllerId:
           type: string
           format: uuid
-        source:
-          type: string
-        specversion:
-          type: string
-          enum:
-            - "1.0"
-        type:
-          type: string
-          enum:
-            - artifact.build.started.v1
-        subject:
-          type: string
-        time:
-          type: string
-          format: date-time
-        datacontenttype:
-          type: string
-          enum:
-            - application/json
-        dataschema:
-          type: string
-        correlationid:
+        serviceId:
           type: string
           format: uuid
-        causationid:
+        oldVersion:
           type: string
-          format: uuid
-        data:
-          $ref: "#/components/schemas/ArtifactBuildStartedData"
-    ArtifactBuildSucceededCloudEvent:
+        newVersion:
+          type: string
+        baseUrl:
+          type: string
+
+    ControllerUpdateFailedData:
       type: object
       required:
-        - id
-        - source
-        - specversion
-        - type
-        - subject
-        - time
-        - datacontenttype
-        - dataschema
-        - correlationid
-        - causationid
-        - data
+        - controllerId
+        - serviceId
+        - failureCode
       properties:
-        id:
+        controllerId:
           type: string
           format: uuid
-        source:
-          type: string
-        specversion:
-          type: string
-          enum:
-            - "1.0"
-        type:
-          type: string
-          enum:
-            - artifact.build.succeeded.v1
-        subject:
-          type: string
-        time:
-          type: string
-          format: date-time
-        datacontenttype:
-          type: string
-          enum:
-            - application/json
-        dataschema:
-          type: string
-        correlationid:
+        serviceId:
           type: string
           format: uuid
-        causationid:
+        failureCode:
           type: string
-          format: uuid
-        data:
-          $ref: "#/components/schemas/ArtifactBuildSucceededData"
-    ArtifactBuildFailedCloudEvent:
+        failureMessage:
+          type: string
+          nullable: true
+
+    PluginManifest:
       type: object
       required:
-        - id
-        - source
-        - specversion
-        - type
-        - subject
-        - time
-        - datacontenttype
-        - dataschema
-        - correlationid
-        - causationid
-        - data
+        - apiVersion
+        - metadata
+        - spec
       properties:
-        id:
+        apiVersion:
           type: string
-          format: uuid
-        source:
+          enum: ["oneweave/v1alpha"]
+        metadata:
+          $ref: "#/components/schemas/PluginManifestMetadata"
+        spec:
+          $ref: "#/components/schemas/PluginManifestSpec"
+
+    PluginManifestMetadata:
+      type: object
+      required:
+        - namespace
+        - name
+        - version
+      properties:
+        namespace:
           type: string
-        specversion:
+        name:
           type: string
-          enum:
-            - "1.0"
-        type:
+        version:
           type: string
-          enum:
-            - artifact.build.failed.v1
-        subject:
+        description:
           type: string
-        time:
+          nullable: true
+        owner:
           type: string
-          format: date-time
-        datacontenttype:
+          nullable: true
+
+    PluginManifestSpec:
+      type: object
+      required:
+        - compatibility
+        - interfaces
+        - dependencies
+        - permissions
+        - configuration
+        - imagePullTarget
+        - observability
+      properties:
+        compatibility:
+          $ref: "#/components/schemas/PluginManifestCompatibility"
+        interfaces:
+          $ref: "#/components/schemas/PluginManifestInterfaces"
+        dependencies:
+          $ref: "#/components/schemas/PluginManifestDependencies"
+        permissions:
+          $ref: "#/components/schemas/PluginManifestPermissions"
+        configuration:
+          $ref: "#/components/schemas/PluginManifestConfiguration"
+        imagePullTarget:
+          $ref: "#/components/schemas/ReleaseImagePullTarget"
+        observability:
+          $ref: "#/components/schemas/PluginManifestObservability"
+
+    PluginManifestCompatibility:
+      type: object
+      required:
+        - pluginApiVersion
+      properties:
+        pluginApiVersion:
           type: string
-          enum:
-            - application/json
-        dataschema:
+
+    PluginManifestInterfaces:
+      type: object
+      required:
+        - rest
+        - events
+      properties:
+        rest:
+          $ref: "#/components/schemas/PluginManifestREST"
+        events:
+          $ref: "#/components/schemas/PluginManifestEvents"
+
+    PluginManifestREST:
+      type: object
+      properties:
+        public:
+          type: array
+          items:
+            $ref: "#/components/schemas/PluginManifestRestEndpoint"
+        internal:
+          type: array
+          items:
+            $ref: "#/components/schemas/PluginManifestRestEndpoint"
+
+    PluginManifestRestEndpoint:
+      type: object
+      required:
+        - path
+        - methods
+      properties:
+        path:
           type: string
-        correlationid:
+        methods:
+          type: array
+          items:
+            type: string
+        allowAnonymous:
+          type: boolean
+          nullable: true
+
+    PluginManifestEvents:
+      type: object
+      properties:
+        publishes:
+          type: array
+          items:
+            $ref: "#/components/schemas/PluginManifestEventDescriptor"
+        consumes:
+          type: array
+          items:
+            $ref: "#/components/schemas/PluginManifestEventDescriptor"
+
+    PluginManifestEventDescriptor:
+      type: object
+      required:
+        - name
+      properties:
+        name:
           type: string
-          format: uuid
-        causationid:
+        requiresCapabilities:
+          type: array
+          items:
+            type: string
+        required:
+          type: boolean
+          nullable: true
+
+    PluginManifestDependencies:
+      type: object
+      properties:
+        services:
+          type: array
+          items:
+            $ref: "#/components/schemas/PluginManifestDependency"
+
+    PluginManifestDependency:
+      type: object
+      required:
+        - name
+      properties:
+        name:
           type: string
-          format: uuid
-        data:
-          $ref: "#/components/schemas/ArtifactBuildFailedData"
+        version:
+          type: string
+          nullable: true
+        required:
+          type: boolean
+          nullable: true
+
+    PluginManifestPermissions:
+      type: object
+      required:
+        - dataAccess
+      properties:
+        dataAccess:
+          $ref: "#/components/schemas/PluginManifestPermissionDataAccess"
+
+    PluginManifestPermissionDataAccess:
+      type: object
+      properties:
+        owns:
+          type: array
+          items:
+            type: string
+        dependsOn:
+          type: array
+          items:
+            type: string
+
+    PluginManifestConfiguration:
+      type: object
+      required:
+        - health
+        - replicas
+        - resources
+      properties:
+        health:
+          $ref: "#/components/schemas/PluginManifestHealthProbes"
+        replicas:
+          $ref: "#/components/schemas/ReplicaConfiguration"
+        resources:
+          $ref: "#/components/schemas/PluginManifestResources"
+        environmentVariables:
+          type: array
+          items:
+            $ref: "#/components/schemas/PluginManifestEnvironmentVariable"
+        files:
+          type: array
+          items:
+            $ref: "#/components/schemas/PluginManifestConfigFile"
+
+    PluginManifestHealthProbes:
+      type: object
+      required:
+        - liveness
+        - readiness
+        - startup
+      properties:
+        liveness:
+          type: string
+        readiness:
+          type: string
+        startup:
+          type: string
+
+    ReplicaConfiguration:
+      type: object
+      required:
+        - minReplicas
+        - maxReplicas
+      properties:
+        minReplicas:
+          type: integer
+        maxReplicas:
+          type: integer
+
+    PluginManifestResources:
+      type: object
+      required:
+        - cpu
+        - memory
+      properties:
+        cpu:
+          type: string
+        memory:
+          type: string
+
+    PluginManifestEnvironmentVariable:
+      type: object
+      required:
+        - key
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+          nullable: true
+        required:
+          type: boolean
+          nullable: true
+        description:
+          type: string
+          nullable: true
+
+    PluginManifestConfigFile:
+      type: object
+      required:
+        - path
+      properties:
+        path:
+          type: string
+        required:
+          type: boolean
+          nullable: true
+        description:
+          type: string
+          nullable: true
+
+    PluginManifestObservability:
+      type: object
+      properties:
+        logs:
+          type: string
+        metrics:
+          type: string
+        tracing:
+          type: string
+        correlationIdHeader:
+          type: string

@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.12.0](https://github.com/oneweave/event-api/compare/v1.11.1...v1.12.0) (2026-06-21)
+
+
+### Features
+
+* add fn to parse and validate ([a9fdacf](https://github.com/oneweave/event-api/commit/a9fdacf2d2fe204bc9dd8fe77d138b26fb865eee))
+* use our event-id instead of uuids ([7616ca3](https://github.com/oneweave/event-api/commit/7616ca3a0d69e585d907b97095f273a507f6175f))
+
 ## [1.11.1](https://github.com/oneweave/event-api/compare/v1.11.0...v1.11.1) (2026-06-21)
 
 

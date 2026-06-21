@@ -60,6 +60,7 @@ func NewImageTarget() ImageTarget {
 	imageTarget := ImageTarget{
 		Kind:     &kind,
 		Protocol: &protocol,
+		Tags:     []string{"latest"},
 	}
 	return imageTarget
 }

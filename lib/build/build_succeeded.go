@@ -7,13 +7,16 @@ import (
 // ArtifactBuildSucceededData matches the ArtifactBuildSucceededData schema.
 type ArtifactBuildSucceededData struct {
 	ArtifactBuildBaseData `json:",inline" yaml:",inline"`
-	ImagePullTargets      []lib.ReleaseImagePullTarget `json:"imagePullTargets" bson:"image_pull_targets" validate:"required,min=1,dive"`
-	Manifest              lib.PluginManifest           `json:"manifest" bson:"manifest" validate:"required"`
+	ReleaseSource         lib.ReleaseSource  `json:"releaseSource" bson:"release_source" validate:"required"`
+	ReleaseTarget         lib.ReleaseTarget  `json:"releaseTarget" bson:"release_target" validate:"required"`
+	Manifest              lib.PluginManifest `json:"manifest" bson:"manifest" validate:"required"`
 }
 
 func NewArtifactBuildSucceededData() ArtifactBuildSucceededData {
 	return ArtifactBuildSucceededData{
 		ArtifactBuildBaseData: NewArtifactBuildBaseData(),
+		ReleaseSource:         lib.NewReleaseSource(),
+		ReleaseTarget:         lib.NewReleaseTarget(),
 		Manifest:              lib.NewPluginManifest(),
 	}
 }

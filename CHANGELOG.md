@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.0](https://github.com/oneweave/event-api/compare/v1.14.0...v1.15.0) (2026-06-21)
+
+
+### Features
+
+* add tenant status enum ([d196913](https://github.com/oneweave/event-api/commit/d196913b735cbf34260c42bf6cb29a27e1a05e67))
+
 ## [1.14.0](https://github.com/oneweave/event-api/compare/v1.13.0...v1.14.0) (2026-06-21)
 
 

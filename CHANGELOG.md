@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.0](https://github.com/oneweave/event-api/compare/v1.16.0...v1.17.0) (2026-06-22)
+
+
+### Features
+
+* update controller update events ([3a179f1](https://github.com/oneweave/event-api/commit/3a179f1215d5b514f78378d35053c5574bf478d7))
+
 ## [1.16.0](https://github.com/oneweave/event-api/compare/v1.15.0...v1.16.0) (2026-06-22)
 
 

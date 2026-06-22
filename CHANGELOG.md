@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.18.0](https://github.com/oneweave/event-api/compare/v1.17.0...v1.18.0) (2026-06-22)
+
+
+### Features
+
+* add method to create envelope from an existing envelope ([e6fe541](https://github.com/oneweave/event-api/commit/e6fe54139665a94512cdc33a3f1ebfdede595c68))
+* update cloud event building ([e386983](https://github.com/oneweave/event-api/commit/e386983718831c76e5ac1d75f6dfd529e36cb7cf))
+
 ## [1.17.0](https://github.com/oneweave/event-api/compare/v1.16.0...v1.17.0) (2026-06-22)
 
 

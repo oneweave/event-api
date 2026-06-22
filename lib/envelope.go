@@ -40,6 +40,11 @@ func NewEnvelope() Envelope {
 	}
 }
 
+// NewEnvelopeFromCloudEvent creates a new Envelope
+// by copying relevant fields from the provided CloudEvent.
+// Use this when you want to create a new event
+// based on an existing/incoming CloudEvent
+// that is causally related to an existing event
 func NewEnvelopeFromCloudEvent(event cloudevents.Event) Envelope {
 	extensions := event.Extensions()
 	correlationID := extensions[CorrelationIdExtensionKey]
@@ -47,6 +52,21 @@ func NewEnvelopeFromCloudEvent(event cloudevents.Event) Envelope {
 	envelope := NewEnvelope()
 	envelope.CorrelationID = correlationID.(string)
 	envelope.CausationID = event.ID()
+	// we expect type to be set by the sender
+	return envelope
+}
+
+// NewEnvelopeFromEnvelope creates a new Envelope by copying
+// relevant fields from the provided Envelope.
+// Use this when you already have an existing Envelope
+// and want to create a new event that is causally related to an existing event
+func NewEnvelopeFromEnvelope(fromEnvelope Envelope) Envelope {
+	envelope := NewEnvelope()
+	envelope.CorrelationID = fromEnvelope.CorrelationID
+	envelope.CausationID = fromEnvelope.CausationID
+	envelope.Dataschema = fromEnvelope.Dataschema
+	envelope.Source = fromEnvelope.Source
+	envelope.Subject = fromEnvelope.Subject
 	// we expect type to be set by the sender
 	return envelope
 }

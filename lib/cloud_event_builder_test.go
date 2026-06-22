@@ -33,7 +33,7 @@ func TestNewCloudEventFromEnvelope_Success(t *testing.T) {
 
 	payload := map[string]string{"message": "hello"}
 
-	event, err := NewCloudEventFromEnvelope(&envelope, "test.event.v1", payload)
+	event, err := NewCloudEventFromEnvelope(&envelope, "test.event.v1", envelope.Source, dataSchema, payload)
 	assert.NoError(err)
 	assert.NotNil(event)
 	assert.Equal("test.event.v1", event.Type())
@@ -67,7 +67,7 @@ func TestNewCloudEventFromEnvelope_InvalidTime(t *testing.T) {
 		CausationID:     validID,
 	}
 
-	_, err = NewCloudEventFromEnvelope(&envelope, "test.event.v1", map[string]string{"message": "bad"})
+	_, err = NewCloudEventFromEnvelope(&envelope, "test.event.v1", envelope.Source, dataSchema, map[string]string{"message": "bad"})
 	assert.Error(err)
 }
 
@@ -91,6 +91,7 @@ func TestCloudEventBuilder_Build_UsesEnvelopeSourceWhenUnset(t *testing.T) {
 	}
 
 	builder := NewCloudEventBuilder(&envelope).
+		WithEventSource(envelope.Source).
 		WithEventType("builder.event.v1").
 		WithPayload(map[string]string{"status": "ok"})
 

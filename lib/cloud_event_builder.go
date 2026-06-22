@@ -8,10 +8,14 @@ import (
 	cloudevents "github.com/cloudevents/sdk-go/v2"
 )
 
-func NewCloudEventFromEnvelope(envelope *Envelope, eventType string, payload interface{}) (*cloudevents.Event, error) {
+func NewCloudEventFromEnvelope(envelope *Envelope, eventType, eventSource, dataschema string, payload interface{}) (*cloudevents.Event, error) {
 	event := cloudevents.NewEvent()
 	event.SetID(envelope.ID)
-	event.SetSource(envelope.Source)
+	if eventSource != "" {
+		event.SetSource(eventSource)
+	} else {
+		event.SetSource(envelope.Source)
+	}
 	event.SetSpecVersion(envelope.SpecVersion)
 	event.SetType(eventType)
 	event.SetSubject(envelope.Subject)
@@ -24,7 +28,9 @@ func NewCloudEventFromEnvelope(envelope *Envelope, eventType string, payload int
 		event.SetTime(eventTime.UTC())
 	}
 	event.SetDataContentType(envelope.DataContentType)
-	event.SetDataSchema(envelope.Dataschema)
+	if dataschema != "" {
+		event.SetDataSchema(dataschema)
+	}
 	event.SetExtension(CorrelationIdExtensionKey, envelope.CorrelationID)
 	event.SetExtension(CausationIdExtensionKey, envelope.CausationID)
 	if err := event.SetData(envelope.DataContentType, payload); err != nil {
@@ -74,20 +80,17 @@ func (b CloudEventBuilder) WithEventSource(eventSource string) CloudEventBuilder
 
 func (b CloudEventBuilder) Build() (*cloudevents.Event, error) {
 	if b.envelope == nil {
-		return nil, fmt.Errorf("envelope is required")
+		return nil, fmt.Errorf("envelope is required to build a cloud event")
 	}
 	if b.eventType == "" {
-		return nil, fmt.Errorf("event type is required")
+		return nil, fmt.Errorf("event type is required to build a cloud event")
 	}
 	if b.data == nil {
-		return nil, fmt.Errorf("event data is required")
+		return nil, fmt.Errorf("event data is required to build a cloud event")
 	}
-	envelope := *b.envelope
-	if b.eventSource != "" {
-		envelope.Source = b.eventSource
+	if b.eventSource == "" {
+		return nil, fmt.Errorf("event source is required to build a cloud event")
 	}
-	if b.dataschema != "" {
-		envelope.Dataschema = b.dataschema
-	}
-	return NewCloudEventFromEnvelope(&envelope, b.eventType, b.data)
+
+	return NewCloudEventFromEnvelope(b.envelope, b.eventType, b.eventSource, b.dataschema, b.data)
 }

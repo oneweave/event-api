@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.16.0](https://github.com/oneweave/event-api/compare/v1.15.0...v1.16.0) (2026-06-22)
+
+
+### Features
+
+* add cloud event builder ([55c89ed](https://github.com/oneweave/event-api/commit/55c89ed9b3313254727131ef3575732450589e58))
+
 ## [1.15.0](https://github.com/oneweave/event-api/compare/v1.14.0...v1.15.0) (2026-06-21)
 
 

@@ -16,13 +16,13 @@ const (
 )
 
 type Envelope struct {
-	SpecVersion     string `json:"specversion" bson:"spec_version" validate:"required,eq=1.0"`
-	ID              string `json:"id" bson:"id" validate:"required,eventid"`
-	Source          string `json:"source" bson:"source" validate:"required"`
-	Subject         string `json:"subject" bson:"subject" validate:"required"`
-	Time            string `json:"time" bson:"time" validate:"required,datetime=2006-01-02T15:04:05Z07:00"`
-	DataContentType string `json:"datacontenttype" bson:"data_content_type" validate:"required,eq=application/json"`
-	Dataschema      string `json:"dataschema" bson:"data_schema" validate:"required"`
+	SpecVersion     string  `json:"specversion" bson:"spec_version" validate:"required,eq=1.0"`
+	ID              string  `json:"id" bson:"id" validate:"required,eventid"`
+	Source          string  `json:"source" bson:"source" validate:"required"`
+	Subject         string  `json:"subject" bson:"subject" validate:"required"`
+	Time            string  `json:"time" bson:"time" validate:"required,datetime=2006-01-02T15:04:05Z07:00"`
+	DataContentType string  `json:"datacontenttype" bson:"data_content_type" validate:"required,eq=application/json"`
+	Dataschema      *string `json:"dataschema" bson:"data_schema" validate:"omitempty,uri"`
 	// correlation for cross-service tracing, reuse correlationid from cloudevents extensions
 	CorrelationID string `json:"correlationid" bson:"correlation_id" validate:"required,eventid"`
 	// causation for event sourcing and debugging, use event ID as causation ID for traceability
@@ -43,11 +43,10 @@ func NewEnvelope() Envelope {
 func NewEnvelopeFromCloudEvent(event cloudevents.Event) Envelope {
 	extensions := event.Extensions()
 	correlationID := extensions[CorrelationIdExtensionKey]
-	causationID := event.ID()
 
 	envelope := NewEnvelope()
 	envelope.CorrelationID = correlationID.(string)
-	envelope.CausationID = causationID
+	envelope.CausationID = event.ID()
 	// we expect type to be set by the sender
 	return envelope
 }

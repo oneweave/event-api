@@ -6,6 +6,7 @@ import (
 
 type ControllerUpdateFailedData struct {
 	ControllerUpdateBaseData `json:",inline" yaml:",inline"`
+	ControllerUpdateID       string `json:"controllerUpdateId" bson:"controller_update_id" validate:"required,eventid"`
 	lib.EventFailure         `json:",inline" yaml:",inline"`
 }
 

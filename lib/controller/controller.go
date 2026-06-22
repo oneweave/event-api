@@ -10,6 +10,5 @@ const (
 )
 
 type ControllerUpdateBaseData struct {
-	ControllerID string `json:"controllerId" bson:"controller_id" validate:"required,eventid"`
-	ServiceID    string `json:"serviceId" bson:"service_id" validate:"required,eventid"`
+	ServiceID string `json:"serviceId" bson:"service_id" validate:"required,eventid"`
 }

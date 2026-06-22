@@ -393,7 +393,7 @@ components:
           type: string
           enum: [controller.update.rejected.v1]
         data:
-          $ref: "#/components/schemas/ControllerUpdateBaseData"
+          $ref: "#/components/schemas/ControllerUpdateRejectedData"
 
     TenantRegisteredCloudEvent:
       type: object
@@ -788,23 +788,17 @@ components:
     ControllerUpdateBaseData:
       type: object
       required:
-        - controllerId
         - serviceId
       properties:
-        controllerId:
-          $ref: "#/components/schemas/EventID"
         serviceId:
           $ref: "#/components/schemas/EventID"
 
     ControllerUpdateRequestedData:
       type: object
       required:
-        - controllerId
         - serviceId
         - manifest
       properties:
-        controllerId:
-          $ref: "#/components/schemas/EventID"
         serviceId:
           $ref: "#/components/schemas/EventID"
         manifest:
@@ -813,13 +807,13 @@ components:
     ControllerUpdateSucceededData:
       type: object
       required:
-        - controllerId
+        - controllerUpdateId
         - serviceId
         - oldVersion
         - newVersion
         - baseUrl
       properties:
-        controllerId:
+        controllerUpdateId:
           $ref: "#/components/schemas/EventID"
         serviceId:
           $ref: "#/components/schemas/EventID"
@@ -833,11 +827,11 @@ components:
     ControllerUpdateFailedData:
       type: object
       required:
-        - controllerId
+        - controllerUpdateId
         - serviceId
         - failureCode
       properties:
-        controllerId:
+        controllerUpdateId:
           $ref: "#/components/schemas/EventID"
         serviceId:
           $ref: "#/components/schemas/EventID"
@@ -846,6 +840,17 @@ components:
         failureMessage:
           type: string
           nullable: true
+
+    ControllerUpdateRejectedData:
+      type: object
+      required:
+        - controllerUpdateId
+        - serviceId
+      properties:
+        controllerUpdateId:
+          $ref: "#/components/schemas/EventID"
+        serviceId:
+          $ref: "#/components/schemas/EventID"
 
     PluginManifest:
       type: object

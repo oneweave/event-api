@@ -11,11 +11,7 @@ import (
 func NewCloudEventFromEnvelope(envelope *Envelope, eventType, eventSource, dataschema string, payload interface{}) (*cloudevents.Event, error) {
 	event := cloudevents.NewEvent()
 	event.SetID(envelope.ID)
-	if eventSource != "" {
-		event.SetSource(eventSource)
-	} else {
-		event.SetSource(envelope.Source)
-	}
+	event.SetSource(envelope.Source)
 	event.SetSpecVersion(envelope.SpecVersion)
 	event.SetType(eventType)
 	event.SetSubject(envelope.Subject)
@@ -45,11 +41,12 @@ func NewCloudEventFromEnvelope(envelope *Envelope, eventType, eventSource, datas
 }
 
 type CloudEventBuilder struct {
-	dataschema  string
-	envelope    *Envelope
-	eventSource string
-	eventType   string
-	data        interface{}
+	dataschema   string
+	envelope     *Envelope
+	eventSource  string
+	eventSubject string
+	eventType    string
+	data         interface{}
 }
 
 func NewCloudEventBuilder(envelope *Envelope) CloudEventBuilder {
@@ -78,6 +75,11 @@ func (b CloudEventBuilder) WithEventSource(eventSource string) CloudEventBuilder
 	return b
 }
 
+func (b CloudEventBuilder) WithSubject(subject string) CloudEventBuilder {
+	b.eventSubject = subject
+	return b
+}
+
 func (b CloudEventBuilder) Build() (*cloudevents.Event, error) {
 	if b.envelope == nil {
 		return nil, fmt.Errorf("envelope is required to build a cloud event")
@@ -90,6 +92,9 @@ func (b CloudEventBuilder) Build() (*cloudevents.Event, error) {
 	}
 	if b.eventSource == "" {
 		return nil, fmt.Errorf("event source is required to build a cloud event")
+	}
+	if b.eventSubject != "" {
+		b.envelope.Subject = b.eventSubject
 	}
 
 	return NewCloudEventFromEnvelope(b.envelope, b.eventType, b.eventSource, b.dataschema, b.data)

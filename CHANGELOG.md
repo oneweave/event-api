@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.19.0](https://github.com/oneweave/event-api/compare/v1.18.0...v1.19.0) (2026-06-26)
+
+
+### Features
+
+* add builder method for event subject ([fcc8149](https://github.com/oneweave/event-api/commit/fcc8149fbcf49000d5f8e645d7ffb3c52f10b17f))
+* update controller update succeeded event ([f478c97](https://github.com/oneweave/event-api/commit/f478c973a16a446250cbf3bbd6bf528468566ae8))
+
 ## [1.18.0](https://github.com/oneweave/event-api/compare/v1.17.0...v1.18.0) (2026-06-22)
 
 

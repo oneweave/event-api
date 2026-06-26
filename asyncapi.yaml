@@ -802,7 +802,7 @@ components:
         - tags
         - mainUri
         - uris
-        - serviceName
+        - manifest
       properties:
         tags:
           type: array
@@ -814,8 +814,8 @@ components:
           type: array
           items:
             type: string
-        serviceName:
-          type: string
+        manifest:
+          $ref: "#/components/schemas/PluginManifest"
 
     ControllerUpdateFailedData:
       type: object

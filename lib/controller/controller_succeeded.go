@@ -7,10 +7,10 @@ import (
 type ControllerUpdateSucceededData struct {
 	ControllerUpdateBaseData `json:",inline" yaml:",inline"`
 
-	Tags        []string `json:"tags" bson:"tags" validate:"required,dive,required"`
-	MainUri     string   `json:"mainUri" bson:"main_uri" validate:"required,url,startswith=http|startswith=https"`
-	Uris        []string `json:"uris" bson:"uris" validate:"required,dive,url,startswith=http|startswith=https"`
-	ServiceName string   `json:"serviceName" bson:"service_name" validate:"required"`
+	Tags     []string           `json:"tags" bson:"tags" validate:"required,dive,required"`
+	MainUri  string             `json:"mainUri" bson:"main_uri" validate:"required,url,startswith=http|startswith=https"`
+	Uris     []string           `json:"uris" bson:"uris" validate:"required,dive,url,startswith=http|startswith=https"`
+	Manifest lib.PluginManifest `json:"manifest" bson:"manifest" validate:"required"`
 }
 
 type ControllerUpdateSucceededCloudEvent struct {

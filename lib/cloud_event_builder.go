@@ -11,7 +11,7 @@ import (
 func NewCloudEventFromEnvelope(envelope *Envelope, eventType, eventSource, dataschema string, payload interface{}) (*cloudevents.Event, error) {
 	event := cloudevents.NewEvent()
 	event.SetID(envelope.ID)
-	event.SetSource(envelope.Source)
+	event.SetSource(eventSource)
 	event.SetSpecVersion(envelope.SpecVersion)
 	event.SetType(eventType)
 	event.SetSubject(envelope.Subject)

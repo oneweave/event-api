@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.19.1](https://github.com/oneweave/event-api/compare/v1.19.0...v1.19.1) (2026-06-26)
+
+
+### Bug Fixes
+
+* add manifest to controller update request ([b0a8eab](https://github.com/oneweave/event-api/commit/b0a8eab0f56ee1d00f48c13ce31b85a23eb5bef9))
+
 ## [1.19.0](https://github.com/oneweave/event-api/compare/v1.18.0...v1.19.0) (2026-06-26)
 
 

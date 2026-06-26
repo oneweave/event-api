@@ -787,53 +787,43 @@ components:
 
     ControllerUpdateBaseData:
       type: object
-      required:
-        - serviceId
-      properties:
-        serviceId:
-          $ref: "#/components/schemas/EventID"
 
     ControllerUpdateRequestedData:
       type: object
       required:
-        - serviceId
         - manifest
       properties:
-        serviceId:
-          $ref: "#/components/schemas/EventID"
         manifest:
           $ref: "#/components/schemas/PluginManifest"
 
     ControllerUpdateSucceededData:
       type: object
       required:
-        - controllerUpdateId
-        - serviceId
-        - oldVersion
-        - newVersion
-        - baseUrl
+        - tags
+        - mainUri
+        - uris
+        - serviceName
       properties:
-        controllerUpdateId:
-          $ref: "#/components/schemas/EventID"
-        serviceId:
-          $ref: "#/components/schemas/EventID"
-        oldVersion:
+        tags:
+          type: array
+          items:
+            type: string
+        mainUri:
           type: string
-        newVersion:
-          type: string
-        baseUrl:
+        uris:
+          type: array
+          items:
+            type: string
+        serviceName:
           type: string
 
     ControllerUpdateFailedData:
       type: object
       required:
         - controllerUpdateId
-        - serviceId
         - failureCode
       properties:
         controllerUpdateId:
-          $ref: "#/components/schemas/EventID"
-        serviceId:
           $ref: "#/components/schemas/EventID"
         failureCode:
           type: string
@@ -845,11 +835,8 @@ components:
       type: object
       required:
         - controllerUpdateId
-        - serviceId
       properties:
         controllerUpdateId:
-          $ref: "#/components/schemas/EventID"
-        serviceId:
           $ref: "#/components/schemas/EventID"
 
     PluginManifest:

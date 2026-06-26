@@ -6,11 +6,13 @@ import (
 
 type ControllerUpdateRequestedData struct {
 	ControllerUpdateBaseData `json:",inline" yaml:",inline"`
+	Manifest                 lib.PluginManifest `json:"manifest" bson:"manifest" validate:"required"`
 }
 
 func NewControllerUpdateRequestedData() ControllerUpdateRequestedData {
 	return ControllerUpdateRequestedData{
 		ControllerUpdateBaseData: ControllerUpdateBaseData{},
+		Manifest:                 lib.NewPluginManifest(),
 	}
 }
 

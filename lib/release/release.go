@@ -13,7 +13,6 @@ const (
 )
 
 type ArtifactReleaseBaseData struct {
-	ReleaseID string `json:"releaseId" bson:"release_id" validate:"required,eventid"`
 }
 
 func NewArtifactReleaseBaseData() ArtifactReleaseBaseData {

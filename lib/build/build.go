@@ -10,8 +10,7 @@ const (
 )
 
 type ArtifactBuildBaseData struct {
-	BuildID   string `json:"buildId" bson:"build_id" validate:"required,eventid"`
-	ReleaseID string `json:"releaseId" bson:"release_id" validate:"required,eventid"`
+	BuildID string `json:"buildId" bson:"build_id" validate:"required,eventid"`
 }
 
 func NewArtifactBuildBaseData() ArtifactBuildBaseData {

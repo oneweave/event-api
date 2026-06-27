@@ -6,7 +6,6 @@ import (
 
 // ArtifactBuildRequestedData matches the ArtifactBuildRequestedData schema.
 type ArtifactBuildRequestedData struct {
-	ReleaseID     string            `json:"releaseId" bson:"release_id" validate:"required,eventid"`
 	ReleaseSource lib.ReleaseSource `json:"releaseSource" bson:"release_source" validate:"required"`
 	ReleaseTarget lib.ReleaseTarget `json:"releaseTarget" bson:"release_target" validate:"required"`
 }

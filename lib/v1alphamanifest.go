@@ -3,11 +3,12 @@ package lib
 const v1alphaPluginManifestAPIVersion = "oneweave/v1alpha"
 
 type PluginManifestMetadata struct {
-	Namespace   string  `json:"namespace" bson:"namespace" validate:"required"`
-	Name        string  `json:"name" bson:"name" validate:"required"`
-	Version     string  `json:"version" bson:"version" validate:"required"`
-	Description *string `json:"description,omitempty" bson:"description,omitempty"`
-	Owner       *string `json:"owner,omitempty" bson:"owner,omitempty"`
+	Namespace   string            `json:"namespace" bson:"namespace" validate:"required"`
+	Name        string            `json:"name" bson:"name" validate:"required"`
+	Version     string            `json:"version" bson:"version" validate:"required"`
+	Description *string           `json:"description,omitempty" bson:"description,omitempty"`
+	Owner       *string           `json:"owner,omitempty" bson:"owner,omitempty"`
+	Annotations map[string]string `json:"annotations,omitempty" bson:"annotations,omitempty"`
 }
 
 func NewPluginManifestMetadata() PluginManifestMetadata { return PluginManifestMetadata{} }

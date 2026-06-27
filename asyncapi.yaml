@@ -873,6 +873,10 @@ components:
         owner:
           type: string
           nullable: true
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
 
     PluginManifestSpec:
       type: object

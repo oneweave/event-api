@@ -158,6 +158,139 @@ components:
       payload:
         $ref: "#/components/schemas/TenantUpdatedCloudEvent"
 
+    # --- Liveness Domain ---
+    ArtifactBuilderLivenessRequested:
+      name: ArtifactBuilderLivenessRequested
+      title: artifact.builder.liveness.requested
+      summary: Liveness check requested for artifact-builder.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ArtifactBuilderLivenessRequestedCloudEvent"
+    ArtifactBuilderLivenessPassed:
+      name: ArtifactBuilderLivenessPassed
+      title: artifact.builder.liveness.passed
+      summary: Liveness check passed for artifact-builder.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ArtifactBuilderLivenessPassedCloudEvent"
+    ArtifactBuilderLivenessFailed:
+      name: ArtifactBuilderLivenessFailed
+      title: artifact.builder.liveness.failed
+      summary: Liveness check failed for artifact-builder.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ArtifactBuilderLivenessFailedCloudEvent"
+
+    ArtifactRegistryLivenessRequested:
+      name: ArtifactRegistryLivenessRequested
+      title: artifact.registry.liveness.requested
+      summary: Liveness check requested for artifact-registry.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ArtifactRegistryLivenessRequestedCloudEvent"
+    ArtifactRegistryLivenessPassed:
+      name: ArtifactRegistryLivenessPassed
+      title: artifact.registry.liveness.passed
+      summary: Liveness check passed for artifact-registry.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ArtifactRegistryLivenessPassedCloudEvent"
+    ArtifactRegistryLivenessFailed:
+      name: ArtifactRegistryLivenessFailed
+      title: artifact.registry.liveness.failed
+      summary: Liveness check failed for artifact-registry.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ArtifactRegistryLivenessFailedCloudEvent"
+
+    ServiceBrokerLivenessRequested:
+      name: ServiceBrokerLivenessRequested
+      title: service.broker.liveness.requested
+      summary: Liveness check requested for service-broker.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ServiceBrokerLivenessRequestedCloudEvent"
+    ServiceBrokerLivenessPassed:
+      name: ServiceBrokerLivenessPassed
+      title: service.broker.liveness.passed
+      summary: Liveness check passed for service-broker.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ServiceBrokerLivenessPassedCloudEvent"
+    ServiceBrokerLivenessFailed:
+      name: ServiceBrokerLivenessFailed
+      title: service.broker.liveness.failed
+      summary: Liveness check failed for service-broker.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ServiceBrokerLivenessFailedCloudEvent"
+
+    ServiceControllerLivenessRequested:
+      name: ServiceControllerLivenessRequested
+      title: service.controller.liveness.requested
+      summary: Liveness check requested for service-controller.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ServiceControllerLivenessRequestedCloudEvent"
+    ServiceControllerLivenessPassed:
+      name: ServiceControllerLivenessPassed
+      title: service.controller.liveness.passed
+      summary: Liveness check passed for service-controller.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ServiceControllerLivenessPassedCloudEvent"
+    ServiceControllerLivenessFailed:
+      name: ServiceControllerLivenessFailed
+      title: service.controller.liveness.failed
+      summary: Liveness check failed for service-controller.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ServiceControllerLivenessFailedCloudEvent"
+
+    ServiceRegistryLivenessRequested:
+      name: ServiceRegistryLivenessRequested
+      title: service.registry.liveness.requested
+      summary: Liveness check requested for service-registry.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ServiceRegistryLivenessRequestedCloudEvent"
+    ServiceRegistryLivenessPassed:
+      name: ServiceRegistryLivenessPassed
+      title: service.registry.liveness.passed
+      summary: Liveness check passed for service-registry.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ServiceRegistryLivenessPassedCloudEvent"
+    ServiceRegistryLivenessFailed:
+      name: ServiceRegistryLivenessFailed
+      title: service.registry.liveness.failed
+      summary: Liveness check failed for service-registry.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/ServiceRegistryLivenessFailedCloudEvent"
+
+    TenantManagementLivenessRequested:
+      name: TenantManagementLivenessRequested
+      title: tenant.management.liveness.requested
+      summary: Liveness check requested for tenant-management.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/TenantManagementLivenessRequestedCloudEvent"
+    TenantManagementLivenessPassed:
+      name: TenantManagementLivenessPassed
+      title: tenant.management.liveness.passed
+      summary: Liveness check passed for tenant-management.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/TenantManagementLivenessPassedCloudEvent"
+    TenantManagementLivenessFailed:
+      name: TenantManagementLivenessFailed
+      title: tenant.management.liveness.failed
+      summary: Liveness check failed for tenant-management.
+      contentType: application/cloudevents+json; version=1.0
+      payload:
+        $ref: "#/components/schemas/TenantManagementLivenessFailedCloudEvent"
+
   schemas:
     # --- Base event-id Identifier ---
     EventID:
@@ -1162,3 +1295,227 @@ components:
           $ref: "#/components/schemas/EventID"
         name:
           type: string
+
+    # --- Liveness Domain Data Payloads ---
+    LivenessRequestedData:
+      type: object
+
+    LivenessPassedData:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum: [healthy]
+
+    LivenessFailedData:
+      type: object
+      required:
+        - status
+        - error
+      properties:
+        status:
+          type: string
+          enum: [unhealthy]
+        error:
+          type: string
+
+    # --- Liveness CloudEvents ---
+    ArtifactBuilderLivenessRequestedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [artifact.builder.liveness.requested]
+        data:
+          $ref: "#/components/schemas/LivenessRequestedData"
+
+    ArtifactBuilderLivenessPassedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [artifact.builder.liveness.passed]
+        data:
+          $ref: "#/components/schemas/LivenessPassedData"
+
+    ArtifactBuilderLivenessFailedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [artifact.builder.liveness.failed]
+        data:
+          $ref: "#/components/schemas/LivenessFailedData"
+
+    ArtifactRegistryLivenessRequestedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [artifact.registry.liveness.requested]
+        data:
+          $ref: "#/components/schemas/LivenessRequestedData"
+
+    ArtifactRegistryLivenessPassedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [artifact.registry.liveness.passed]
+        data:
+          $ref: "#/components/schemas/LivenessPassedData"
+
+    ArtifactRegistryLivenessFailedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [artifact.registry.liveness.failed]
+        data:
+          $ref: "#/components/schemas/LivenessFailedData"
+
+    ServiceBrokerLivenessRequestedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [service.broker.liveness.requested]
+        data:
+          $ref: "#/components/schemas/LivenessRequestedData"
+
+    ServiceBrokerLivenessPassedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [service.broker.liveness.passed]
+        data:
+          $ref: "#/components/schemas/LivenessPassedData"
+
+    ServiceBrokerLivenessFailedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [service.broker.liveness.failed]
+        data:
+          $ref: "#/components/schemas/LivenessFailedData"
+
+    ServiceControllerLivenessRequestedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [service.controller.liveness.requested]
+        data:
+          $ref: "#/components/schemas/LivenessRequestedData"
+
+    ServiceControllerLivenessPassedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [service.controller.liveness.passed]
+        data:
+          $ref: "#/components/schemas/LivenessPassedData"
+
+    ServiceControllerLivenessFailedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [service.controller.liveness.failed]
+        data:
+          $ref: "#/components/schemas/LivenessFailedData"
+
+    ServiceRegistryLivenessRequestedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [service.registry.liveness.requested]
+        data:
+          $ref: "#/components/schemas/LivenessRequestedData"
+
+    ServiceRegistryLivenessPassedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [service.registry.liveness.passed]
+        data:
+          $ref: "#/components/schemas/LivenessPassedData"
+
+    ServiceRegistryLivenessFailedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [service.registry.liveness.failed]
+        data:
+          $ref: "#/components/schemas/LivenessFailedData"
+
+    TenantManagementLivenessRequestedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [tenant.management.liveness.requested]
+        data:
+          $ref: "#/components/schemas/LivenessRequestedData"
+
+    TenantManagementLivenessPassedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [tenant.management.liveness.passed]
+        data:
+          $ref: "#/components/schemas/LivenessPassedData"
+
+    TenantManagementLivenessFailedCloudEvent:
+      type: object
+      required: *CloudEventRequired
+      properties:
+        <<: *CloudEventProperties
+        type:
+          type: string
+          enum: [tenant.management.liveness.failed]
+        data:
+          $ref: "#/components/schemas/LivenessFailedData"

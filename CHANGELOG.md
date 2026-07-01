@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.21.0](https://github.com/oneweave/event-api/compare/v1.20.0...v1.21.0) (2026-07-01)
+
+
+### Features
+
+* add liveness events ([145f4cf](https://github.com/oneweave/event-api/commit/145f4cf1cd31b57714a70e435ce60f3a0317d14c))
+* update schema and structs ([d348d64](https://github.com/oneweave/event-api/commit/d348d643d89e70553b054bd907634b8aac465247))
+
 ## [1.20.0](https://github.com/oneweave/event-api/compare/v1.19.1...v1.20.0) (2026-06-26)
 
 

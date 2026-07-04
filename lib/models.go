@@ -92,6 +92,24 @@ func NewReleaseSourceImagePullTargetFromPushTarget(pushTarget ReleaseImagePushTa
 	return pullTargets
 }
 
+type ArtifactSource struct {
+	Repository ReleaseSourceRepository `json:"repository" bson:"repository" validate:"required"`
+	// only one of workspaceManifestFilePath or manifestFilePath should be set, if both are set, workspaceManifestFilePath will be used
+	WorkspaceManifestFilePath *string `json:"workspaceManifestFilePath,omitempty" bson:"workspace_manifest_file_path,omitempty" validate:"omitempty"`
+	WorkspaceItemName         *string `json:"workspaceItemName,omitempty" bson:"workspace_item_name,omitempty" validate:"omitempty"`
+	ManifestFilePath          *string `json:"manifestFilePath,omitempty" bson:"manifest_file_path,omitempty" validate:"omitempty"`
+}
+
+func NewArtifactSource() ArtifactSource {
+	manifestFilePath := "weave.yaml"
+	workspaceManifestFilePath := "weave-workspace.yaml"
+	return ArtifactSource{
+		Repository:                NewReleaseSourceRepository(),
+		ManifestFilePath:          &manifestFilePath,
+		WorkspaceManifestFilePath: &workspaceManifestFilePath,
+	}
+}
+
 // ReleaseSource matches the releaseSource payload shape from artifact.release.requested.v1.
 type ReleaseSource struct {
 	Repository        ReleaseSourceRepository `json:"repository" bson:"repository" validate:"required"`

@@ -129,8 +129,8 @@ func NewPluginManifestCompatibility() PluginManifestCompatibility {
 }
 
 type PluginManifestREST struct {
-	Public   []PluginManifestRestEndpoint `json:"public,omitempty" bson:"public,omitempty" validate:"omitempty,dive"`
-	Internal []PluginManifestRestEndpoint `json:"internal,omitempty" bson:"internal,omitempty" validate:"omitempty,dive"`
+	Public   []PluginManifestRestEndpoint `json:"public" bson:"public" validate:"omitempty,dive"`
+	Internal []PluginManifestRestEndpoint `json:"internal" bson:"internal" validate:"omitempty,dive"`
 }
 
 func NewPluginManifestREST() PluginManifestREST {
@@ -141,8 +141,8 @@ func NewPluginManifestREST() PluginManifestREST {
 }
 
 type PluginManifestEvents struct {
-	Publishes []PluginManifestEventDescriptor `json:"publishes,omitempty" bson:"publishes,omitempty" validate:"omitempty,dive"`
-	Consumes  []PluginManifestEventDescriptor `json:"consumes,omitempty" bson:"consumes,omitempty" validate:"omitempty,dive"`
+	Publishes []PluginManifestEventDescriptor `json:"publishes" bson:"publishes" validate:"omitempty,dive"`
+	Consumes  []PluginManifestEventDescriptor `json:"consumes" bson:"consumes" validate:"omitempty,dive"`
 }
 
 func NewPluginManifestEvents() PluginManifestEvents {
@@ -165,7 +165,7 @@ func NewPluginManifestInterfaces() PluginManifestInterfaces {
 }
 
 type PluginManifestDependencies struct {
-	Services []PluginManifestDependency `json:"services,omitempty" bson:"services,omitempty" validate:"omitempty,dive"`
+	Services []PluginManifestDependency `json:"services" bson:"services" validate:"omitempty,dive"`
 }
 
 func NewPluginManifestDependencies() PluginManifestDependencies {

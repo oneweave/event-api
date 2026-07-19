@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.22.0](https://github.com/oneweave/event-api/compare/v1.21.0...v1.22.0) (2026-07-19)
+
+
+### Features
+
+* add artifact source type ([3d75828](https://github.com/oneweave/event-api/commit/3d75828ea285354caebf35041dac5a29d2d30b45))
+* ensure arrays are serialized also when empty ([0682ecb](https://github.com/oneweave/event-api/commit/0682ecbf6fa19761eed2735dd08f6eabef6b51f8))
+
 ## [1.21.0](https://github.com/oneweave/event-api/compare/v1.20.0...v1.21.0) (2026-07-01)
 
 

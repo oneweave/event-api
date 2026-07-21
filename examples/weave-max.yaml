@@ -1,0 +1,72 @@
+apiVersion: oneweave/v1alpha
+kind: Manifest
+metadata:
+  namespace: example
+  name: example-service
+  version: v1
+  description: Example plugin manifest with optional fields populated
+  owner: platform-team
+  annotations:
+    env: dev
+    team: core
+spec:
+  compatibility:
+    pluginApiVersion: oneweave/v1alpha
+  interfaces:
+    rest:
+      public:
+        - path: /healthz
+          methods:
+            - GET
+          allowAnonymous: true
+      internal:
+        - path: /internal/status
+          methods:
+            - GET
+    events:
+      publishes:
+        - name: artifact.release.published.v1
+          requiresCapabilities:
+            - oneweave.core.write
+          required: true
+      consumes:
+        - name: artifact.release.requested.v1
+          requiresCapabilities:
+            - oneweave.core.read
+          required: true
+  dependencies:
+    services:
+      - name: api-gateway
+        version: v1
+        required: true
+  permissions:
+    dataAccess:
+      owns:
+        - releases
+      dependsOn:
+        - artifacts
+  configuration:
+    health:
+      liveness: /live
+      readiness: /ready
+      startup: /startup
+    replicas:
+      minReplicas: 1
+      maxReplicas: 3
+    resources:
+      cpu: "1"
+      memory: 512Mi
+    environmentVariables:
+      - key: LOG_LEVEL
+        value: info
+        required: true
+        description: Log verbosity for the service
+    files:
+      - path: /etc/weave/config.yaml
+        required: true
+        description: Main runtime configuration file
+  observability:
+    logs: stdout
+    metrics: /metrics
+    tracing: otel
+    correlationIdHeader: x-correlation-id

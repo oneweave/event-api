@@ -1,0 +1,13 @@
+apiVersion: oneweave/v1alpha
+kind: Workspace
+metadata:
+  namespace: example
+  name: example-workspace
+  version: v1
+  description: Example workspace for testing
+  owner: example-owner
+spec:
+  services:
+    - name: example-service
+      path: .
+      manifestFilePath: weave.yaml

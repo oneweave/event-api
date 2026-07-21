@@ -1,6 +1,7 @@
 package lib
 
 import (
+	"encoding/json"
 	"testing"
 
 	cloudevents "github.com/cloudevents/sdk-go/v2"
@@ -99,5 +100,45 @@ func TestParseAndValidate(t *testing.T) {
 
 		_, err = ParseAndValidate[TestStruct](event)
 		assert.Error(err)
+	})
+}
+
+func TestPluginManifestValidation_EmptyArrays(t *testing.T) {
+	assert := a.New(t)
+
+	// Create a default valid manifest
+	manifest := NewPluginManifest()
+	manifest.Metadata.Namespace = "test-ns"
+	manifest.Metadata.Name = "test-svc"
+	manifest.Metadata.Version = "1.0.0"
+
+	manifest.Spec.ImagePullTarget.Name = "test-image"
+	manifest.Spec.ImagePullTarget.BaseURL = "gcr.io/"
+	manifest.Spec.ImagePullTarget.Namespace = "my-project/"
+	manifest.Spec.ImagePullTarget.Tags = []string{"latest"}
+
+	manifest.Spec.Interfaces.REST.Public = []PluginManifestRestEndpoint{}
+	manifest.Spec.Interfaces.REST.Internal = []PluginManifestRestEndpoint{}
+	manifest.Spec.Interfaces.Events.Publishes = []PluginManifestEventDescriptor{}
+	manifest.Spec.Interfaces.Events.Consumes = []PluginManifestEventDescriptor{}
+	manifest.Spec.Dependencies.Services = []PluginManifestDependency{}
+
+	manifest.Spec.Observability.CorrelationIdHeader = "X-Correlation-ID"
+
+	t.Run("validates correctly as Go struct directly", func(t *testing.T) {
+		err := ValidateStruct(&manifest)
+		assert.NoError(err)
+	})
+
+	t.Run("validates correctly after JSON roundtrip with empty arrays", func(t *testing.T) {
+		data, err := json.Marshal(manifest)
+		assert.NoError(err)
+
+		var deserialized PluginManifest
+		err = json.Unmarshal(data, &deserialized)
+		assert.NoError(err)
+
+		err = ValidateStruct(&deserialized)
+		assert.NoError(err)
 	})
 }

@@ -1,0 +1,7 @@
+apiVersion: oneweave/v1alpha
+kind: Manifest
+metadata:
+  namespace: example
+  name: example-service
+  version: v1
+spec: {}

@@ -13,6 +13,16 @@
 - Constructors named `New...` should return fully initialized zero-value-safe structs, including nested defaults.
 - Event wrapper structs embed `lib.Envelope` and keep a matching `Type` field with an exact `eq=` validator.
 
+## Manifest Synchronization and Conversion
+- **Manifest Dual-Model**: The codebase splits manifest representation into:
+  - `ExtPluginManifest` (in [v1alpha_ext_manifest.go](file:///d:/oneweave-async-client/lib/v1alpha_ext_manifest.go)): The external representation of the user-written YAML file (`weave.yaml`), using pointer fields to allow optional configurations.
+  - `PluginManifest` (in [v1alphamanifest.go](file:///d:/oneweave-async-client/lib/v1alphamanifest.go)): The internal system representation, using concrete fields, default-populated structures, and strict validation.
+- **Fields Alignment Rule**: Every field added or modified in the external manifest (`ExtPluginManifestSpec`) MUST also be updated in the internal manifest (`PluginManifestSpec`) and vice-versa, unless the field is an internal/system-only property (e.g. `ImagePullTarget`) that is strictly populated post-build.
+- **Initialization and Conversion**:
+  - Always use `NewExtPluginManifest()` to initialize the external model with default structures before unmarshalling JSON/YAML onto it.
+  - Conversion from external to internal is handled via JSON round-trip (`ToInternal()`), which automatically dereferences pointers and merges user configuration on top of internal model defaults.
+  - Slices/arrays omitted in the user's YAML must be normalized to empty slices (e.g. `[]string{}`) instead of `nil` in the internal representation.
+
 ## Important files
 - `asyncapi.yaml` — AsyncAPI contract definitions for messages and schemas.
 - `lib/release.go` — core schema structs and builder/release payload models.

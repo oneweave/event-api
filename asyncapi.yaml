@@ -976,12 +976,16 @@ components:
       type: object
       required:
         - apiVersion
+        - kind
         - metadata
         - spec
       properties:
         apiVersion:
           type: string
           enum: ["oneweave/v1alpha"]
+        kind:
+          type: string
+          enum: ["InternalManifest"]
         metadata:
           $ref: "#/components/schemas/PluginManifestMetadata"
         spec:

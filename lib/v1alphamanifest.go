@@ -1,6 +1,13 @@
 package lib
 
-const v1alphaPluginManifestAPIVersion = "oneweave/v1alpha"
+// When adding new fields to the manifest,
+// - think whether the new fields are public API too, if yes, add them also to the v1alpha_ext_manifest.go
+// - ensure that default values are set in corresponding New*() functions and that validation is added in ValidateStruct().
+
+const (
+	v1alphaPluginManifestAPIVersion = "oneweave/v1alpha"
+	pluginManifestKind              = "InternalManifest"
+)
 
 type PluginManifestMetadata struct {
 	Namespace   string            `json:"namespace" bson:"namespace" validate:"required"`
@@ -236,6 +243,7 @@ func NewPluginManifestSpec() PluginManifestSpec {
 
 type PluginManifest struct {
 	APIVersion string                 `json:"apiVersion" bson:"api_version" validate:"required,eq=oneweave/v1alpha"`
+	Kind       string                 `json:"kind" bson:"kind" validate:"required,eq=InternalManifest"`
 	Metadata   PluginManifestMetadata `json:"metadata" bson:"metadata" validate:"required"`
 	Spec       PluginManifestSpec     `json:"spec" bson:"spec" validate:"required"`
 }
@@ -243,6 +251,7 @@ type PluginManifest struct {
 func NewV1AlphaPluginManifest() PluginManifest {
 	return PluginManifest{
 		APIVersion: v1alphaPluginManifestAPIVersion,
+		Kind:       pluginManifestKind,
 		Metadata:   NewPluginManifestMetadata(),
 		Spec:       NewPluginManifestSpec(),
 	}

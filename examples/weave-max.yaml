@@ -60,6 +60,11 @@ spec:
       - key: LOG_LEVEL
         value: info
         description: Log verbosity for the service
+    environmentVariablesFromSecrets:
+      - key: DB_PASSWORD
+        secret: db-password-secret
+        version: latest
+        description: Database password secret reference
   observability:
     logs: stdout
     metrics: /metrics

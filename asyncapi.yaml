@@ -997,6 +997,7 @@ components:
         - namespace
         - name
         - version
+        - annotations
       properties:
         namespace:
           type: string
@@ -1174,10 +1175,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/PluginManifestEnvironmentVariable"
-        files:
-          type: array
-          items:
-            $ref: "#/components/schemas/PluginManifestConfigFile"
 
     PluginManifestHealthProbes:
       type: object
@@ -1224,23 +1221,6 @@ components:
           type: string
         value:
           type: string
-          nullable: true
-        required:
-          type: boolean
-          nullable: true
-        description:
-          type: string
-          nullable: true
-
-    PluginManifestConfigFile:
-      type: object
-      required:
-        - path
-      properties:
-        path:
-          type: string
-        required:
-          type: boolean
           nullable: true
         description:
           type: string

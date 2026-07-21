@@ -18,7 +18,7 @@ func TestWorkspaceManifestDefaults(t *testing.T) {
 
 	assert.Equal(v1alphaPluginManifestAPIVersion, manifest.APIVersion)
 	assert.Equal(workspaceManifestKind, manifest.Kind)
-	assert.Equal(PluginManifestMetadata{}, manifest.Metadata)
+	assert.Equal(PluginManifestMetadata{Annotations: map[string]string{}}, manifest.Metadata)
 	assert.Empty(manifest.Spec.Services)
 }
 

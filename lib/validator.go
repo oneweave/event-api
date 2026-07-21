@@ -3,6 +3,7 @@ package lib
 import (
 	"fmt"
 	"log"
+	"reflect"
 
 	cloudevents "github.com/cloudevents/sdk-go/v2"
 	"github.com/go-playground/validator/v10"
@@ -13,12 +14,24 @@ var defaultValidator = validator.New(validator.WithRequiredStructEnabled())
 
 func init() {
 	_ = defaultValidator.RegisterValidation("eventid", ValidateEventID)
+	_ = defaultValidator.RegisterValidation("notnil", ValidateNotNil)
 }
 
 // ValidateEventID validates that a string is a valid event-id.
 func ValidateEventID(fl validator.FieldLevel) bool {
 	_, err := eventid.Decode(fl.Field().String(), "")
 	return err == nil
+}
+
+// ValidateNotNil validates that a field is not nil (allows empty maps, slices, etc.).
+func ValidateNotNil(fl validator.FieldLevel) bool {
+	field := fl.Field()
+	switch field.Kind() {
+	case reflect.Map, reflect.Slice, reflect.Chan, reflect.Func, reflect.Interface, reflect.Pointer:
+		return !field.IsNil()
+	default:
+		return !field.IsZero()
+	}
 }
 
 // ValidateStruct validates any struct using the default validator instance.

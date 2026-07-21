@@ -49,8 +49,6 @@ func TestParseAndNormalizeManifest_WeaveMin(t *testing.T) {
 	assert.Len(internal.Spec.Permissions.DataAccess.DependsOn, 0)
 	assert.NotNil(internal.Spec.Configuration.EnvironmentVariables)
 	assert.Len(internal.Spec.Configuration.EnvironmentVariables, 0)
-	assert.NotNil(internal.Spec.Configuration.Files)
-	assert.Len(internal.Spec.Configuration.Files, 0)
 
 	// Verify that defaults are populated
 	assert.Equal(0, internal.Spec.Configuration.Replicas.MinReplicas)
@@ -114,7 +112,7 @@ func TestParseAndNormalizeManifest_WeaveInternal(t *testing.T) {
 	assert.Len(internal.Spec.Dependencies.Services, 1)
 	assert.Equal("api-gateway", internal.Spec.Dependencies.Services[0].Name)
 	assert.Equal("v1", *internal.Spec.Dependencies.Services[0].Version)
-	assert.True(*internal.Spec.Dependencies.Services[0].Required)
+	assert.True(internal.Spec.Dependencies.Services[0].Required)
 
 	assert.Equal([]string{"releases"}, internal.Spec.Permissions.DataAccess.Owns)
 	assert.Equal([]string{"artifacts"}, internal.Spec.Permissions.DataAccess.DependsOn)
@@ -128,11 +126,6 @@ func TestParseAndNormalizeManifest_WeaveInternal(t *testing.T) {
 	assert.Len(internal.Spec.Configuration.EnvironmentVariables, 1)
 	assert.Equal("LOG_LEVEL", internal.Spec.Configuration.EnvironmentVariables[0].Key)
 	assert.Equal("info", *internal.Spec.Configuration.EnvironmentVariables[0].Value)
-	assert.True(*internal.Spec.Configuration.EnvironmentVariables[0].Required)
-
-	assert.Len(internal.Spec.Configuration.Files, 1)
-	assert.Equal("/etc/weave/config.yaml", internal.Spec.Configuration.Files[0].Path)
-	assert.True(*internal.Spec.Configuration.Files[0].Required)
 
 	// Verify observability
 	assert.Equal("stdout", internal.Spec.Observability.Logs)
@@ -182,5 +175,19 @@ spec:
       maxReplicas: 3
 `)
 	_, err = ParseAndConvertManifest(invalidReplicas)
+	assert.Error(err)
+
+	// 4. Invalid annotations (not a map of strings, e.g. integer value)
+	invalidAnnotations := []byte(`
+apiVersion: oneweave/v1alpha
+kind: Manifest
+metadata:
+  namespace: example
+  name: example-service
+  version: v1
+  annotations:
+    env: 123
+`)
+	_, err = ParseAndConvertManifest(invalidAnnotations)
 	assert.Error(err)
 }

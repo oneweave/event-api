@@ -22,7 +22,7 @@ func TestExtPluginManifestDefaults(t *testing.T) {
 
 	assert.Equal(v1alphaPluginManifestAPIVersion, manifest.APIVersion)
 	assert.Equal(extPluginManifestKind, manifest.Kind)
-	assert.Equal(PluginManifestMetadata{}, manifest.Metadata)
+	assert.Equal(PluginManifestMetadata{Annotations: map[string]string{}}, manifest.Metadata)
 	assert.NotNil(manifest.Spec.Compatibility)
 	assert.NotNil(manifest.Spec.Interfaces)
 	assert.NotNil(manifest.Spec.Dependencies)
@@ -77,7 +77,6 @@ func TestExtPluginManifestValidation_Variants(t *testing.T) {
 				manifest.Spec.Interfaces.Events.Consumes = []PluginManifestEventDescriptor{}
 				manifest.Spec.Dependencies.Services = []PluginManifestDependency{}
 				manifest.Spec.Configuration.EnvironmentVariables = []PluginManifestEnvironmentVariable{}
-				manifest.Spec.Configuration.Files = []PluginManifestConfigFile{}
 				return manifest
 			}(),
 		},
@@ -144,7 +143,7 @@ func TestExtPluginManifestValidation_FullyConfigured(t *testing.T) {
 		{
 			Name:     "api-gateway",
 			Version:  strPtr("v1"),
-			Required: boolPtr(true),
+			Required: true,
 		},
 	}
 	manifest.Spec.Permissions.DataAccess.Owns = []string{"releases"}
@@ -166,15 +165,7 @@ func TestExtPluginManifestValidation_FullyConfigured(t *testing.T) {
 		{
 			Key:         "LOG_LEVEL",
 			Value:       strPtr("info"),
-			Required:    boolPtr(true),
 			Description: strPtr("Log verbosity for the service"),
-		},
-	}
-	manifest.Spec.Configuration.Files = []PluginManifestConfigFile{
-		{
-			Path:        "/etc/weave/config.yaml",
-			Required:    boolPtr(true),
-			Description: strPtr("Main runtime configuration file"),
 		},
 	}
 	manifest.Spec.Observability.Logs = "stdout"
@@ -228,6 +219,17 @@ func TestExtPluginManifestValidation_Invalid(t *testing.T) {
 				manifest.Metadata.Name = "test-plugin"
 				manifest.Metadata.Version = "1.0.0"
 				manifest.Kind = ""
+				return manifest
+			}(),
+		},
+		{
+			name: "nil metadata annotations",
+			manifest: func() ExtPluginManifest {
+				manifest := NewExtPluginManifest()
+				manifest.Metadata.Namespace = "test-ns"
+				manifest.Metadata.Name = "test-plugin"
+				manifest.Metadata.Version = "1.0.0"
+				manifest.Metadata.Annotations = nil
 				return manifest
 			}(),
 		},

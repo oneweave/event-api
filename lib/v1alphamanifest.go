@@ -15,10 +15,14 @@ type PluginManifestMetadata struct {
 	Version     string            `json:"version" bson:"version" validate:"required"`
 	Description *string           `json:"description,omitempty" bson:"description,omitempty"`
 	Owner       *string           `json:"owner,omitempty" bson:"owner,omitempty"`
-	Annotations map[string]string `json:"annotations,omitempty" bson:"annotations,omitempty"`
+	Annotations map[string]string `json:"annotations" bson:"annotations" validate:"notnil,dive"`
 }
 
-func NewPluginManifestMetadata() PluginManifestMetadata { return PluginManifestMetadata{} }
+func NewPluginManifestMetadata() PluginManifestMetadata {
+	return PluginManifestMetadata{
+		Annotations: map[string]string{},
+	}
+}
 
 type PluginManifestRestEndpoint struct {
 	Path           string   `json:"path" bson:"path" validate:"required,startswith=/"`
@@ -30,7 +34,7 @@ func NewPluginManifestRestEndpoint() PluginManifestRestEndpoint { return PluginM
 
 type PluginManifestEventDescriptor struct {
 	Name                 string   `json:"name" bson:"name" validate:"required"`
-	RequiresCapabilities []string `json:"requiresCapabilities,omitempty" bson:"requires_capabilities,omitempty" validate:"omitempty,dive,required"`
+	RequiresCapabilities []string `json:"requiresCapabilities,omitempty" bson:"requires_capabilities,omitempty" validate:"omitempty,dive"`
 	Required             *bool    `json:"required,omitempty" bson:"required,omitempty"`
 }
 
@@ -43,10 +47,14 @@ func NewPluginManifestEventDescriptor() PluginManifestEventDescriptor {
 type PluginManifestDependency struct {
 	Name     string  `json:"name" bson:"name" validate:"required"`
 	Version  *string `json:"version,omitempty" bson:"version,omitempty"`
-	Required *bool   `json:"required,omitempty" bson:"required,omitempty"`
+	Required bool    `json:"required" bson:"required" validate:"required"`
 }
 
-func NewPluginManifestDependency() PluginManifestDependency { return PluginManifestDependency{} }
+func NewPluginManifestDependency() PluginManifestDependency {
+	return PluginManifestDependency{
+		Required: true,
+	}
+}
 
 type PluginManifestPermissionDataAccess struct {
 	Owns      []string `json:"owns" bson:"owns" validate:"required,dive"`
@@ -63,21 +71,12 @@ func NewPluginManifestPermissionDataAccess() PluginManifestPermissionDataAccess 
 type PluginManifestEnvironmentVariable struct {
 	Key         string  `json:"key" bson:"key" validate:"required"`
 	Value       *string `json:"value,omitempty" bson:"value,omitempty"`
-	Required    *bool   `json:"required,omitempty" bson:"required,omitempty"`
 	Description *string `json:"description,omitempty" bson:"description,omitempty"`
 }
 
 func NewPluginManifestEnvironmentVariable() PluginManifestEnvironmentVariable {
 	return PluginManifestEnvironmentVariable{}
 }
-
-type PluginManifestConfigFile struct {
-	Path        string  `json:"path" bson:"path" validate:"required,startswith=/"`
-	Required    *bool   `json:"required,omitempty" bson:"required,omitempty"`
-	Description *string `json:"description,omitempty" bson:"description,omitempty"`
-}
-
-func NewPluginManifestConfigFile() PluginManifestConfigFile { return PluginManifestConfigFile{} }
 
 type PluginManifestArtifactRegistry struct {
 	Kind          string  `json:"kind" bson:"kind" validate:"required,oneof=oci-registry"`
@@ -206,7 +205,6 @@ type PluginManifestConfiguration struct {
 	Replicas             ReplicaConfiguration                `json:"replicas" bson:"replicas" validate:"required"`
 	Resources            PluginManifestResources             `json:"resources" bson:"resources" validate:"required"`
 	EnvironmentVariables []PluginManifestEnvironmentVariable `json:"environmentVariables,omitempty" bson:"environment_variables,omitempty" validate:"omitempty,dive"`
-	Files                []PluginManifestConfigFile          `json:"files,omitempty" bson:"files,omitempty" validate:"omitempty,dive"`
 }
 
 func NewPluginManifestConfiguration() PluginManifestConfiguration {
@@ -215,7 +213,6 @@ func NewPluginManifestConfiguration() PluginManifestConfiguration {
 		Replicas:             NewReplicaConfiguration(),
 		Resources:            NewPluginManifestResources(),
 		EnvironmentVariables: []PluginManifestEnvironmentVariable{},
-		Files:                []PluginManifestConfigFile{},
 	}
 }
 

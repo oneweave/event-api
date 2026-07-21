@@ -59,12 +59,7 @@ spec:
     environmentVariables:
       - key: LOG_LEVEL
         value: info
-        required: true
         description: Log verbosity for the service
-    files:
-      - path: /etc/weave/config.yaml
-        required: true
-        description: Main runtime configuration file
   observability:
     logs: stdout
     metrics: /metrics

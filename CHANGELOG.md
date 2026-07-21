@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.23.0](https://github.com/oneweave/event-api/compare/v1.18.0...v1.23.0) (2026-07-21)
+
+
+### Features
+
+* add artifact source type ([b6752c5](https://github.com/oneweave/event-api/commit/b6752c5ee765828963d3a12b272c8f48f796d3f7))
+* add builder method for event subject ([fcc8149](https://github.com/oneweave/event-api/commit/fcc8149fbcf49000d5f8e645d7ffb3c52f10b17f))
+* add kind property to manifest ([6b22e9a](https://github.com/oneweave/event-api/commit/6b22e9a069ed357a06851d2ce93112320e9fdfd8))
+* add liveness events ([a6fd964](https://github.com/oneweave/event-api/commit/a6fd964aff5069b0626d5e5fb8aaae7b7e1b9025))
+* add manifest to controller update event ([623e067](https://github.com/oneweave/event-api/commit/623e06708692e8bc3c3f604692132ebaa06cd8d1))
+* ensure arrays are serialized also when empty ([1adfaff](https://github.com/oneweave/event-api/commit/1adfaffe76cc5465296157eb9a04b08494e85e43))
+* update controller update succeeded event ([f478c97](https://github.com/oneweave/event-api/commit/f478c973a16a446250cbf3bbd6bf528468566ae8))
+* update manifest ([c10a4dc](https://github.com/oneweave/event-api/commit/c10a4dc069dc3d04026219fb6996e2e9ec8882fe))
+* update schema and structs ([4e36fef](https://github.com/oneweave/event-api/commit/4e36fefd5d06e5b2154c8bcc40df847d24032fb6))
+* use internal and external manifests ([d0e0c96](https://github.com/oneweave/event-api/commit/d0e0c967b49eb6acbc0cdcbc400981fc69b45d0c))
+
+
+### Bug Fixes
+
+* add manifest to controller update request ([a813e56](https://github.com/oneweave/event-api/commit/a813e56c1f468c2a57a98cde18c75efa2a4b7e3d))
+
+
+### Miscellaneous Chores
+
+* trigger release ([acb2bfe](https://github.com/oneweave/event-api/commit/acb2bfec7eff02a757cf118aa107542bf1ee6e22))
+
 ## [1.22.0](https://github.com/oneweave/event-api/compare/v1.21.0...v1.22.0) (2026-07-19)
 
 

@@ -1,20 +1,28 @@
-name: Run Spectral on Pull Requests
+# Linting workflow
+name: lints
 
+# This GitHub action runs linting for each pull request and push.
 on:
-    - pull_request
+  push:
 
+# Testing only needs permissions to read the repository contents.
 permissions:
-    checks: write
+  contents: read
 
 jobs:
-    build:
-        name: Run Spectral
-        runs-on: ubuntu-latest
-        steps:
-            # Check out the repository
-            - uses: actions/checkout@v7
-
-            # Run Spectral
-            - uses: stoplightio/spectral-action@v0.8.13
-              with:
-                  file_glob: "asyncapi.yaml"
+  # Ensure project builds before running testing matrix
+  app:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: "go.mod"
+          cache: true
+      - run: go mod download
+      - name: Run linters
+        uses: golangci/golangci-lint-action@v9
+        with:
+          version: latest

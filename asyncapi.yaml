@@ -1175,6 +1175,10 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/PluginManifestEnvironmentVariable"
+        environmentVariablesFromSecrets:
+          type: array
+          items:
+            $ref: "#/components/schemas/PluginManifestEnvironmentVariableFromSecret"
 
     PluginManifestHealthProbes:
       type: object
@@ -1220,6 +1224,23 @@ components:
         key:
           type: string
         value:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+
+    PluginManifestEnvironmentVariableFromSecret:
+      type: object
+      required:
+        - key
+        - secret
+      properties:
+        key:
+          type: string
+        secret:
+          type: string
+        version:
           type: string
           nullable: true
         description:

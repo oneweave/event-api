@@ -78,6 +78,17 @@ func NewPluginManifestEnvironmentVariable() PluginManifestEnvironmentVariable {
 	return PluginManifestEnvironmentVariable{}
 }
 
+type PluginManifestEnvironmentVariableFromSecret struct {
+	Key         string  `json:"key" bson:"key" validate:"required"`
+	Secret      string  `json:"secret" bson:"secret" validate:"required"`
+	Version     *string `json:"version,omitempty" bson:"version,omitempty"`
+	Description *string `json:"description,omitempty" bson:"description,omitempty"`
+}
+
+func NewPluginManifestEnvironmentVariableFromSecret() PluginManifestEnvironmentVariableFromSecret {
+	return PluginManifestEnvironmentVariableFromSecret{}
+}
+
 type PluginManifestArtifactRegistry struct {
 	Kind          string  `json:"kind" bson:"kind" validate:"required,oneof=oci-registry"`
 	Protocol      string  `json:"protocol" bson:"protocol" validate:"required,oneof=oci https"`
@@ -201,18 +212,20 @@ func NewReplicaConfiguration() ReplicaConfiguration {
 }
 
 type PluginManifestConfiguration struct {
-	Health               PluginManifestHealthProbes          `json:"health" bson:"health" validate:"required"`
-	Replicas             ReplicaConfiguration                `json:"replicas" bson:"replicas" validate:"required"`
-	Resources            PluginManifestResources             `json:"resources" bson:"resources" validate:"required"`
-	EnvironmentVariables []PluginManifestEnvironmentVariable `json:"environmentVariables,omitempty" bson:"environment_variables,omitempty" validate:"omitempty,dive"`
+	Health                          PluginManifestHealthProbes                    `json:"health" bson:"health" validate:"required"`
+	Replicas                        ReplicaConfiguration                          `json:"replicas" bson:"replicas" validate:"required"`
+	Resources                       PluginManifestResources                       `json:"resources" bson:"resources" validate:"required"`
+	EnvironmentVariables            []PluginManifestEnvironmentVariable           `json:"environmentVariables" bson:"environment_variables" validate:"required,dive"`
+	EnvironmentVariablesFromSecrets []PluginManifestEnvironmentVariableFromSecret `json:"environmentVariablesFromSecrets" bson:"environment_variables_from_secrets" validate:"required,dive"`
 }
 
 func NewPluginManifestConfiguration() PluginManifestConfiguration {
 	return PluginManifestConfiguration{
-		Health:               NewPluginManifestHealthProbes(),
-		Replicas:             NewReplicaConfiguration(),
-		Resources:            NewPluginManifestResources(),
-		EnvironmentVariables: []PluginManifestEnvironmentVariable{},
+		Health:                          NewPluginManifestHealthProbes(),
+		Replicas:                        NewReplicaConfiguration(),
+		Resources:                       NewPluginManifestResources(),
+		EnvironmentVariables:            []PluginManifestEnvironmentVariable{},
+		EnvironmentVariablesFromSecrets: []PluginManifestEnvironmentVariableFromSecret{},
 	}
 }
 

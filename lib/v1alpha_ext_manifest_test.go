@@ -77,6 +77,7 @@ func TestExtPluginManifestValidation_Variants(t *testing.T) {
 				manifest.Spec.Interfaces.Events.Consumes = []PluginManifestEventDescriptor{}
 				manifest.Spec.Dependencies.Services = []PluginManifestDependency{}
 				manifest.Spec.Configuration.EnvironmentVariables = []PluginManifestEnvironmentVariable{}
+				manifest.Spec.Configuration.EnvironmentVariablesFromSecrets = []PluginManifestEnvironmentVariableFromSecret{}
 				return manifest
 			}(),
 		},
@@ -166,6 +167,14 @@ func TestExtPluginManifestValidation_FullyConfigured(t *testing.T) {
 			Key:         "LOG_LEVEL",
 			Value:       strPtr("info"),
 			Description: strPtr("Log verbosity for the service"),
+		},
+	}
+	manifest.Spec.Configuration.EnvironmentVariablesFromSecrets = []PluginManifestEnvironmentVariableFromSecret{
+		{
+			Key:         "DB_PASSWORD",
+			Secret:      "db-password-secret",
+			Version:     strPtr("latest"),
+			Description: strPtr("Database password secret reference"),
 		},
 	}
 	manifest.Spec.Observability.Logs = "stdout"

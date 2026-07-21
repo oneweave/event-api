@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.24.0](https://github.com/oneweave/event-api/compare/v1.23.0...v1.24.0) (2026-07-21)
+
+
+### Features
+
+* support secrets as env vars ([134e778](https://github.com/oneweave/event-api/commit/134e778b07d2817f2ac6da54e15b447801f971ee))
+* support secrets as env vars ([a5b243d](https://github.com/oneweave/event-api/commit/a5b243d625760750c03d5cc78597332c8aa2aaa6))
+
 ## [1.23.0](https://github.com/oneweave/event-api/compare/v1.18.0...v1.23.0) (2026-07-21)
 
 

@@ -40,7 +40,7 @@ type ImageTarget struct {
 	Protocol      *string  `json:"protocol,omitempty" bson:"protocol,omitempty" validate:"required,oneof=oci https"`
 	BaseURL       string   `json:"baseUrl" bson:"base_url" validate:"required,endswith=/"`
 	Namespace     string   `json:"namespace" bson:"namespace" validate:"required,endswith=/"`
-	Tags          []string `json:"tags,omitempty" bson:"tags,omitempty" validate:"min=1,dive,required"`
+	Tags          []string `json:"tags" bson:"tags" validate:"min=1,dive,required"`
 	CredentialRef *string  `json:"credentialRef,omitempty" bson:"credential_ref,omitempty"`
 }
 

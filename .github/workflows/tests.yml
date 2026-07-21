@@ -5,14 +5,14 @@ name: tests
 on:
   push:
 
-    # Testing only needs permissions to read the repository contents.
+# Testing only needs permissions to read the repository contents.
 permissions:
   contents: read
 
 jobs:
-  # Ensure project builds before running testing matrix
-  build:
-    name: Build
+  # Ensure project tests run successfully
+  tests:
+    name: Tests
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -21,4 +21,4 @@ jobs:
         with:
           go-version-file: "./go.mod"
           cache: true
-      - run: go test -v -timeout 30s ./...
+      - run: ./test.sh

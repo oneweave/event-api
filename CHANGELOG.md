@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.25.0](https://github.com/oneweave/event-api/compare/v1.24.0...v1.25.0) (2026-07-25)
+
+
+### Features
+
+* add platform profile ([3bab561](https://github.com/oneweave/event-api/commit/3bab5610632e3d2f7eadaf258abb26f037d1a2f2))
+
 ## [1.24.0](https://github.com/oneweave/event-api/compare/v1.23.0...v1.24.0) (2026-07-21)
 
 

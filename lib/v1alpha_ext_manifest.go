@@ -80,5 +80,8 @@ func (ext *ExtPluginManifest) toInternal() (PluginManifest, error) {
 	// Ensure the Kind is set to the internal kind
 	internal.Kind = pluginManifestKind
 
+	// External user manifests are strictly forced to unprivileged tenant service profile
+	internal.Spec.Permissions.PlatformProfile = PlatformProfileTenantUnprivileged
+
 	return internal, nil
 }

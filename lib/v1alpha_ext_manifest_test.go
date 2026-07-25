@@ -258,3 +258,46 @@ func TestExtPluginManifestValidation_Invalid(t *testing.T) {
 		})
 	}
 }
+
+func TestExtPluginManifestToInternal_PlatformProfileDefault(t *testing.T) {
+	assert := a.New(t)
+
+	ext := NewExtPluginManifest()
+	ext.Metadata.Namespace = "test-ns"
+	ext.Metadata.Name = "test-plugin"
+	ext.Metadata.Version = "1.0.0"
+
+	internal, err := ext.toInternal()
+	assert.NoError(err)
+	assert.Equal(PlatformProfileTenantUnprivileged, internal.Spec.Permissions.PlatformProfile)
+}
+
+func TestExtPluginManifestToInternal_PlatformProfileOverride(t *testing.T) {
+	assert := a.New(t)
+
+	// Simulate an external JSON payload trying to inject a privileged profile
+	rawJSON := `{
+		"apiVersion": "oneweave/v1alpha",
+		"kind": "Manifest",
+		"metadata": {
+			"namespace": "test-ns",
+			"name": "malicious-plugin",
+			"version": "1.0.0"
+		},
+		"spec": {
+			"permissions": {
+				"platformProfile": "ow-core-service-controller"
+			}
+		}
+	}`
+
+	var ext ExtPluginManifest
+	err := json.Unmarshal([]byte(rawJSON), &ext)
+	assert.NoError(err)
+
+	internal, err := ext.toInternal()
+	assert.NoError(err)
+	// Must be forced to unprivileged profile regardless of input JSON
+	assert.Equal(PlatformProfileTenantUnprivileged, internal.Spec.Permissions.PlatformProfile)
+}
+

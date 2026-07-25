@@ -9,6 +9,17 @@ const (
 	pluginManifestKind              = "InternalManifest"
 )
 
+type PlatformProfile string
+
+// Note: When adding or changing PlatformProfile constants, ensure you also update
+// the `validate:"required,oneof=..."` tag on PluginManifestPermissions.PlatformProfile below,
+// as well as the enum in asyncapi.yaml.
+const (
+	PlatformProfileCoreServiceBroker     PlatformProfile = "ow-core-service-broker"
+	PlatformProfileCoreServiceController PlatformProfile = "ow-core-service-controller"
+	PlatformProfileTenantUnprivileged    PlatformProfile = "ow-tenant-unpriviledged-service"
+)
+
 type PluginManifestMetadata struct {
 	Namespace   string            `json:"namespace" bson:"namespace" validate:"required"`
 	Name        string            `json:"name" bson:"name" validate:"required"`
@@ -192,11 +203,15 @@ func NewPluginManifestDependencies() PluginManifestDependencies {
 }
 
 type PluginManifestPermissions struct {
-	DataAccess PluginManifestPermissionDataAccess `json:"dataAccess" bson:"data_access" validate:"required"`
+	DataAccess      PluginManifestPermissionDataAccess `json:"dataAccess" bson:"data_access" validate:"required"`
+	PlatformProfile PlatformProfile                    `json:"platformProfile" bson:"platform_profile" validate:"required,oneof=ow-core-service-broker ow-core-service-controller ow-tenant-unpriviledged-service"`
 }
 
 func NewPluginManifestPermissions() PluginManifestPermissions {
-	return PluginManifestPermissions{DataAccess: NewPluginManifestPermissionDataAccess()}
+	return PluginManifestPermissions{
+		DataAccess:      NewPluginManifestPermissionDataAccess(),
+		PlatformProfile: PlatformProfileTenantUnprivileged,
+	}
 }
 
 type ReplicaConfiguration struct {

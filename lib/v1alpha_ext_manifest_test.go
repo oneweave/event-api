@@ -173,7 +173,7 @@ func TestExtPluginManifestValidation_FullyConfigured(t *testing.T) {
 		{
 			Key:         "DB_PASSWORD",
 			Secret:      "db-password-secret",
-			Version:     strPtr("latest"),
+			Version:     "latest",
 			Description: strPtr("Database password secret reference"),
 		},
 	}

@@ -132,9 +132,7 @@ func TestParseAndNormalizeManifest_WeaveInternal(t *testing.T) {
 	assert.Len(internal.Spec.Configuration.EnvironmentVariablesFromSecrets, 1)
 	assert.Equal("DB_PASSWORD", internal.Spec.Configuration.EnvironmentVariablesFromSecrets[0].Key)
 	assert.Equal("db-password-secret", internal.Spec.Configuration.EnvironmentVariablesFromSecrets[0].Secret)
-	if assert.NotNil(internal.Spec.Configuration.EnvironmentVariablesFromSecrets[0].Version) {
-		assert.Equal("latest", *internal.Spec.Configuration.EnvironmentVariablesFromSecrets[0].Version)
-	}
+		assert.Equal("latest", internal.Spec.Configuration.EnvironmentVariablesFromSecrets[0].Version)
 	if assert.NotNil(internal.Spec.Configuration.EnvironmentVariablesFromSecrets[0].Description) {
 		assert.Equal("Database password secret reference", *internal.Spec.Configuration.EnvironmentVariablesFromSecrets[0].Description)
 	}

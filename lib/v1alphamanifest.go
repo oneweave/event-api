@@ -92,12 +92,14 @@ func NewPluginManifestEnvironmentVariable() PluginManifestEnvironmentVariable {
 type PluginManifestEnvironmentVariableFromSecret struct {
 	Key         string  `json:"key" bson:"key" validate:"required"`
 	Secret      string  `json:"secret" bson:"secret" validate:"required"`
-	Version     *string `json:"version,omitempty" bson:"version,omitempty"`
+	Version     string  `json:"version,omitempty" bson:"version,omitempty"`
 	Description *string `json:"description,omitempty" bson:"description,omitempty"`
 }
 
 func NewPluginManifestEnvironmentVariableFromSecret() PluginManifestEnvironmentVariableFromSecret {
-	return PluginManifestEnvironmentVariableFromSecret{}
+	return PluginManifestEnvironmentVariableFromSecret{
+		Version: "latest",
+	}
 }
 
 type PluginManifestArtifactRegistry struct {
